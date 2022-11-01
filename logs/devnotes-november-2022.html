@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system based on the Linux Kernel">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/logs.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-live and secure by default</title>
+	</head>
+<body>
+<pre class="logs">
+Ragnarok Development Notes
+==========================
+
+[2022-11-01]
+
+These are the top priorities starting today.
+
+* All bash scripts in the build system will be converted to ksh. Luckily,
+this isn't complicated and for the most part it'll just be a matter of
+converting bash-style arrays into their ksh counterpart.
+
+The bash versions of these scripts will be kept around for a bit, in case
+they are needed, but ideally, it shouldn't be necessary to maintain two
+versions.
+
+* The OpenBSD core utilities (awk, grep, sed, cat, etc..) will be ported
+to Ragnarok. Logically, this has to be done before cross-compiling the
+toolchain in order to see which programs, if any, rely on options that
+are specific to the GNU coreutils at compile time. Most programs don't
+make usage of shell scripts at build time, but some do, and those that
+break without GNU-specific options in programs like sed/awk/grep will
+have to be dealt with first for obvious reasons.
+
+When this is done, it may break certain parts of the base Debian system
+used as the development environment, if there are any that rely on GNU-
+specific options (e.g. dpkg and the debhelper scripts, perhaps). Maybe
+it won't break but either way, this doesn't matter since it's not meant
+to be a functional Debian system.
+
+* After this, live-build will no longer work for building the development
+iso. Again, many things may break, least of which live-build's own scripts.
+This is not a problem because it can't be relied upon indefinitely, but it
+does speed up the need to finalize the "non-live-build"-based build scripts
+for the devel iso.
+
+This is also the perfect excuse to start making development snapshots which
+will be used not just for the iso but also to make the system installable,
+though still not procution ready.
+</pre>
+</body>
+</html>

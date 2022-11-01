@@ -1,0 +1,48 @@
+head {
+	padding: 0px;
+	line-height: 1.4;
+}
+
+body {
+	background: rgb(20, 20, 20) none repeat scroll 0% 0%;
+	margin-left: auto;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #eeeeee;
+	font-size: small;
+	text-align: justify;
+}
+
+pre.logs {
+	margin-left: 15px !important;
+	font-size: 12px;
+	text-align: left;
+	color: rgb(232, 235, 235);
+	font-weight: normal;
+	letter-spacing: 1px;
+	line-height: normal !important;
+}
+
+a {
+	text-decoration: none;
+	font-family: sans-serif;
+	font-weight: normal;
+	color: rgb(82, 148, 226) !important;
+}
+
+#shell {
+	margin-left: 45px;
+	margin-right: 45px;
+	border: 2px solid #727272;
+	background-color: #242424;
+	display: flex;
+	flex-direction: column;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+code {
+	background-color: rgb(12, 12, 12);
+	border-radius: 3px;
+	letter-spacing: 1px;
+	padding: 0 3px;
+}
