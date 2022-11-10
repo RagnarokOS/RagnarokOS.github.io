@@ -15,6 +15,52 @@
 Ragnarok Development Notes
 ==========================
 
+[2022-11-10]
+
+* Work on porting OpenBSD's core utilities continue. For the most part
+it's easy (cat was a breeze to port), but some (e.g. chmod) require more
+work. It's highly likely that Ragnarok's core utilities will be a mix of
+OpenBSD's, and suckless' sbase and ubase.
+
+* Porting OpenBSD's utilities and considering using sbase/ubase has led
+to the need to build Ragnarok's own libbsd-style library. The logic being
+that libbsd is missing certain functions and would have to be patched in
+order to include them. This is the perfect opportunity to build Ragnarok's
+own library instead. The advantage being full control over the library, as
+well as the fact it won't need libtool/automake/autoconf to build.
+
+* I have begun testing the integration of GrapheneOS' hardened_malloc into
+Ragnarok. So far it has worked rather well, with only two issues:
+
+	* A Vim crash with a "vim: caught deadly signal bus" message. This
+	could very well be a fluke, as I wasn't able to reproduce it, but
+	it's worth mentioning. It could also be hardened_malloc doing its
+	job well, or it could be completely unrelated and might not ever
+	happen again.
+
+	* System shutdown takes a lot longer with hardened_malloc enabled.
+	Long enough to be considered unacceptable. However, this was only
+	tested in a live environment and it's possible that a live-specific
+	service is the root cause. Or that this happens due to how it was
+	being tested (lots of recompiling, reinstalling, removing, messing
+	around with ld.so.preload and what not).
+
+Overall, if it wasn't for that second issue, hardened_malloc would be fully
+ready to be included in the source tree and enabled in the build script.
+Either way, Ragnarok <i>will</i> use a hardened malloc implementation, it
+only remains to be seen if it'll be GrapheneOS' or something else.
+
+* As always, it's important to note that even if the repositories don't
+get updated for a while, it doesn't mean no work is being done. In this
+case it's simply because none of the work that has been done in the last
+week can be considered ready to be included in the source tree, let alone
+ready to be tested in production. Hardened_malloc will be added real soon
+to the source tree, but not yet included in the automatic build script.
+
+[1] sbase: <a href="https://core.suckless.org/sbase/" target="_blank" rel="noopener noreferrer">https://core.suckless.org/sbase/</a>
+[2] ubase: <a href="https://core.suckless.org/ubase/" target="_blank" rel="noopener noreferrer">https://core.suckless.org/ubase/</a>
+[3] GrapheneOS' hardened_malloc: <a href="https://github.com/GrapheneOS/hardened_malloc" target="_blank" rel="noopener noreferrer">https://github.com/GrapheneOS/hardened_malloc</a>
+
 [2022-11-01]
 
 These are the top priorities starting today.
