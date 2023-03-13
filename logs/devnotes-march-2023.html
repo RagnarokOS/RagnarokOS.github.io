@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system based on the Linux Kernel">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/logs.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and secure by default</title>
+	</head>
+<body>
+<pre class="logs">
+Ragnarok Development Notes
+==========================
+
+[2023-03-13]
+
+* Lots of things happened since the last dev notes back in December. It was
+finally decided to base it off Debian, for many reasons. I don't feel the
+need to justify this decision so that's all there is to it.
+
+* The most significant change is the return to the original idea behind the
+Ragnarok project: the creation of a set of tools and an infrastructure to
+quickly build (and rebuild) heavily customized Debian installs and ISOs.
+Ragnarok, the distribution, serves as an example of the type of end product
+that can be achieved by using these tools.
+
+* All of Ragnarok's tools and custom packages will be made to be used either
+together or standalone. This is one of the top priority currently. Packages
+that are maintained by myself (oksh, hardened_malloc and OpenBSD's ed) will
+be moved from the src repo to my personal git so that they can be fetched or
+cloned in a way that is more convenient for everyone, myself included.
+
+* The src repository will be turned into a ports tree, used to build custom
+deb packages either fetched from Debian sources or from upstream. All packages
+specific to Ragnarok will be built using this ports system with mkpkg[1], and
+as per the project's policy, this ports system can be used standalone on any
+Debian system or Debian-based distribution.
+
+* The Ragnarok development version is still based on Debian Bullseye but the
+move to Bookworm is fast approaching. The goal is to make Ragnarok's first
+stable release as soon as Bookworm becomes stable.
+
+* As far as the future of Ragnarok's development branch goes, it's still un-
+certain whether it'll be based off of Debian testing or sid. Testing would
+make the most sense since it's literally the next Debian version, but its
+lack of a proper security team and delayed updates is definitely a problem.
+The current solution considered is to base the dev branch on Sid, and once
+testing gets to the freeze stage, create a "next-stable" branch based on it.
+
+[1] mkpkg: https://raw.githubusercontent.com/RagnarokOS/src/master/mkpkg
+[2] Debian Testing and security: https://www.debian.org/security/faq#testing
+</pre>
+</body>
+</html>
