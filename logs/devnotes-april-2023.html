@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system based on the Linux Kernel">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/logs.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and secure by default</title>
+	</head>
+<body>
+<pre class="logs">
+Ragnarok Development Notes
+==========================
+
+[2023-04-03]
+
+* The dummy packages built with equivs have been moved to the ports tree.
+There's no point in having it in a separate repository.
+
+* The ports system is being improved significantly. The "r-build" files
+will no longer be executable scripts and will only contain functions
+passed to mkpkg at build time. This is the right way of doing it.
+
+* The testing of openrc/openrc-init didn't last long since a system upgrade
+pretty much borked it. Either way, I really wanted to do a bsd-style sysv
+implementation so it was the perfect excuse to do just that.
+
+In fact, the bsd-style init scripts are finished, tested, and confirmed to
+work wonderfully (and boots slightly faster, if that matters) and what
+remains to be done is finish the control script to start/restart/stop/
+enable/disable init scripts.
+
+However, this init style will probably not be part of Ragnarok's first stable
+release, since it should be more thoroughly tested with multiple setups before
+including it.
+
+</pre>
+</body>
+</html>
