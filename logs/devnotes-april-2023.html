@@ -15,6 +15,47 @@
 Ragnarok Development Notes
 ==========================
 
+[2023-04-17]
+
+* The "bsd-like" rc scripts[1] for the init system is done, for now. The
+initial work is finished, but the implementation is not yet complete.
+The boot process has been, and continues to be, tested thoroughly,
+thanks to booting/rebooting VMs multiple times a day, and so far so
+good, no issue has popped up. It'll continue to be perfected over time.
+What requires more testing is the rcctl[2] utility.
+
+Rewriting the Debian-provided init scripts is being strongly considered,
+especially since some of them have faulty status report. Meaning that
+running the "/etc/init.d/<i>script-name</i> status" command will result
+and a wrong return value, often claiming that the service is running even
+if it's not (examples of such service scripts: opensmtpd and schroot).
+
+Rewriting all the scripts (with proper status return in mind) will not
+only fix that issue, but will also simplify rcctl's status check function[3]
+and remove the hard dependency on Debian's sysvinit implementation. This
+will allow Ragnarok's rc to be used with any other simple init systems,
+such as Suckless init[4].
+
+Of course, the utlimate goal is to write Ragnarok's own /sbin/init, but
+let's not get ahead of ourselves.
+
+* The base-files package has been moved to its own repository[5]. The
+way it was handled through ports, by fetching the source from Debian
+and applying a patch with Ragnarok modifications, was a pretty dumb
+idea that only made maintenance a pain in the ass.
+
+* Add oksh[6] and hardened_malloc[7] to the list of packages that now have
+their own repositories. That was always the plan since package source
+code should not be hosting in ports.
+
+[1] https://github.com/RagnarokOS/init
+[2] https://github.com/RagnarokOS/init/blob/master/usr/bin/rcctl
+[3] https://github.com/RagnarokOS/init/blob/master/usr/bin/rcctl#L112
+[4] https://core.suckless.org/sinit/
+[5] https://github.com/RagnarokOS/base-files
+[6] https://github.com/RagnarokOS/oksh
+[7] https://github.com/RagnarokOS/hardened-malloc
+
 [2023-04-03]
 
 * The dummy packages built with equivs have been moved to the ports tree.
