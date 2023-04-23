@@ -15,6 +15,45 @@
 Ragnarok Development Notes
 ==========================
 
+[2023-04-23]
+
+* Now that the packages from ports are being built to be used in real
+world situations, the mkpkg script has seen some improvements and bug
+fixes. These fixes are:
+
+	* the do_Patch() function was missing '-p1', which was an
+	omission due to distraction.
+
+	* get_builddeps() now points the mk-build-deps command to the
+	package's debian/control file. This makes it possible to use 
+	the command with packages that are not present in any deb
+	repositories (at least, repositories not present in a user's
+	apt/sources.list).
+	
+	* build_pkg() was also modified, with get_builddeps() now 
+	being executed after prepare().
+
+* Ragnarok's deb package repository is now online. This repo is hosted
+on github pages (with a gitlab page mirror coming soon), but this is a
+<u><strong>temporary</strong></u> solution only. A real server will be
+used eventually, but for now, considering that the repo isn't even a
+quarter of a megabyte in size, and Ragnarok's userbase is null (and 
+certainly won't be much bigger upon first release), the chances of
+reaching github/gitlab pages' monthly limits are next to none.
+
+* The goal now is to build and upload rootfs tarballs. Two separate
+rootfs tarballs will exist: A minbase version (same as Debian's own
+minbase variant, but with Ragnarok branding + the ksh/ragnarok-files/
+hardened-malloc packages), mostly used for development chroots. The
+other is a full Ragnarok base system (but without xorg and the programs
+that only run in X), and will be used by the installer to install the
+system (thus, alleviating the load on the current repo host).
+
+* There's been work done on the Ragnarok website, but none of it will
+be pushed until later. There's no point in having a full site for a 
+quasi-distro that's not even installable yet. Still, it deserves a 
+mention.
+
 [2023-04-17]
 
 * The "bsd-like" rc scripts[1] for the init system is done, for now. The
