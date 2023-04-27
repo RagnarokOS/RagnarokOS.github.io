@@ -15,6 +15,47 @@
 Ragnarok Development Notes
 ==========================
 
+[2023-04-27]
+
+* A Ragnarok minbase chroot/rootfs is now available[1]. As was previously
+said, this is the equivalent to Debian's minbase variant with a few extra
+packages (ksh, ragnarok-files, hardened-malloc and adduser). It can be 
+used to do chroot/debootstrap style installs (just replace the debootstrap
+command with the appropriate tar command), but the primary goal of the
+minbase is development (building packages, etc). The full Ragnarok base
+tarball is coming soon.
+
+* The creation of chroots/root filesystems for Ragnarok is handled with a
+script called mkchroot[2], which is a wrapper around mmdebstrap, and uses
+a config file[3] and hooks[4] for customization. Multiple alternate config
+files can exist and be used by passing them to mkchroot. Documentation on
+its usage will, of course, be made available in time.
+
+The mkchroot script and associated files will be provided as part of the
+ragnarok-devscripts package, built from the src[5] repo (as is the case
+for the ragnarok-files package).
+
+* Bash was added to the ports tree. There was no intention to rebuild this
+package but it was necessary to do so in order to remove the package's
+skel.profile file which conflicts with the one provided by ragnarok-files.
+In many cases, when two packages provide the same file, one of them will
+not be installable unless passing the '--force-overwrite' option to apt,
+which is not a good thing to do.
+
+Originally, the bash source was copied to a repo in Ragnarok's github org,
+but this led to some issue which is discussed in the commit message here[6],
+so the source is fetched from Debian and the modification is handled in
+bash.rbuild's prepare() function[7] instead. This makes more sense anyway,
+as there's no real point in maintaining bash's source for such a simple change.
+
+[1] https://github.com/RagnarokOS/src/releases/tag/01
+[2] https://github.com/RagnarokOS/src/blob/master/usr/bin/mkchroot
+[3] https://github.com/RagnarokOS/src/blob/master/etc/mkchroot/chroot.conf
+[4] https://github.com/RagnarokOS/src/tree/master/usr/share/mkchroot/hooks
+[5] https://github.com/RagnarokOS/src/
+[6] https://github.com/RagnarokOS/ports/commit/0ad226edae683ce8adf517f58bb0ef4c79367f29
+[7] https://github.com/RagnarokOS/ports/blob/master/bash/bash.rbuild
+
 [2023-04-23]
 
 * Now that the packages from ports are being built to be used in real
