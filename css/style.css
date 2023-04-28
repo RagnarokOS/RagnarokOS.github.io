@@ -34,6 +34,7 @@ h3 {
 
 p { 
 	margin-left: 3em;
+	margin-right: 3em;
 	color: #eeeeee;
 }
 
@@ -47,6 +48,12 @@ p.head {
        	margin-bottom: 0.5em;
 	padding-bottom: 0.2em;
 	border-bottom: 1px solid #dddddd; 
+}
+
+p.author, p.refs {
+	font-size: 90%;
+	margin-left: 0em;
+	margin-top: 0em;
 }
 
 span.head {
@@ -87,6 +94,13 @@ ul {
 li {
 	font-size: 16px;
 	color: #eeeeee;
+}
+
+blockquote {
+	background: #242424;
+	padding: 0.5em;	
+	margin-left: 6em;
+	margin-right: 6em;
 }
 
 table {
