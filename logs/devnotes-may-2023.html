@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system based on the Linux Kernel">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/logs.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and secure by default</title>
+	</head>
+<body>
+<pre class="logs">
+Ragnarok Development Notes
+==========================
+
+[2023-05-08]
+
+* Shell aliases for mandoc are now handled through a '~/.aliases' file
+instead of ~/.profile. The file is sourced via both ksh and bash's rc
+files. This is the best solution.
+
+* The ragnarok-files package now provides the /etc/logrotate.d/nftables
+config which will rotate nftable's log to avoid it getting too big.
+
+* New init script added: /etc/init.d/rm-machineid[3], which runs during
+the halt or reboot phases only. This script deletes /var/lib/dbus/machine-id
+and /etc/machine-id (if it exists) at shutdown time, prompting dbus to create
+a new one at boot. This offers many advantages. For context and more details,
+see the doc[4].
+
+* Suckless' st was properly forked and named rt[5] to avoid having duplicate
+binaries on a user's system (for those who wish to use their own st builds),
+and because it adds some patches, so this is not standard st. Ragnarok's rt
+is explicitly made to provide a minimal terminal for tmux, so it does not
+have many features. The only extra features compared to st are:
+
+	* The alpha patch is applied.
+	* Config can be done through .Xresources. A slightly modified st-xresources
+	patch was used for that. The modifications made are related to color values
+	which were wrong in the original patch (probably due to being made for a
+	prior version of st).
+
+* Speaking of forking st, its manual page was rewritten using the mdoc[6] format.
+Ragnarok's policy is that all manual page created or modified by the project
+should use this format, without exception.
+
+[1] https://raw.githubusercontent.com/RagnarokOS/src/master/etc/skel/.aliases
+[2] https://raw.githubusercontent.com/RagnarokOS/src/master/etc/logrotate.d/nftables
+[3] https://raw.githubusercontent.com/RagnarokOS/src/master/etc/init.d/rm-machineid
+[4] https://ragnarokos.github.io/docs/machine-id.html
+[5] https://github.com/RagnarokOS/rt
+[6] https://mandoc.bsd.lv/man/mdoc.7.html
+</pre>
+</body>
+</html>
