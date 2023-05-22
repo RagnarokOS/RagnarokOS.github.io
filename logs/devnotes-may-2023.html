@@ -15,6 +15,50 @@
 Ragnarok Development Notes
 ==========================
 
+[2023-05-22]
+
+* Work on the installer has begun. Ragnarok will have two installers: a
+plain-text version, which will be the default, and a TUI version using
+whiptail(1). It will also include standalone tools, mkconf[1] and mkdisk[2],
+which are called by the installers and can be used on their own.
+
+	* mkconf can be used to create an 'install.conf' file which will
+	allow automatic/non-interactive installs.
+
+	* mkdisk, with the -c option can create a 'disk.conf' file,
+	again for the purpose of automatic installs, whereas using
+	the -m option will partition the disk and mount the partitions
+	automatically, using Ragnarok's defaults. This will also be
+	useful for chroot installs (a.k.a. the classic Arch way, as
+	some would say). This will allow chroot installs to use the
+	default Ragnarok partitioning style and mount options without
+	the need to type everything by hand.
+
+* The install.conf and disk.conf files are also used by the installers
+to set everything up properly. Copying user responses to config files
+and using these files to fetch the right values is a surefire way of
+making absolutely sure that everything is properly set.
+
+* Now, the focus is on building the iso before finishing the installer,
+because there isn't much of a point in having an installer if there's
+no bootable Ragnarok image available. 
+
+Honestly, creating an iso building infrastructure from scratch to replace
+live-build may be worth the hassle. It doesn't seem like live-build supports
+using a pre-made rootfs/chroot rather than debootstrap to build an iso, and
+if it does, it's nowhere to be found in the docs. Considering Ragnarok
+already creates pre-built chroots, everything that has to be done in order
+to build an iso by using live-build could be simplified if starting from this
+chroot tarball was possible. This iso building infrastructure could also use
+mmdebstrap rather than debootstrap to create live images if starting without
+a pre-made chroot.
+
+Luckily, creating a live iso from scratch is pretty trivial. Ensuring it boots
+on as many hardware setup as a live-build created image, on the other hand,
+might not. So, tests will be made and we shall see how it goes. I will not
+hesitate just going back to using live-build if creating Ragnarok's own
+infrastructure proves too much of a hassle.
+
 [2023-05-08]
 
 * Shell aliases for mandoc are now handled through a '~/.aliases' file

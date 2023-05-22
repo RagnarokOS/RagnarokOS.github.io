@@ -103,6 +103,14 @@ blockquote {
 	margin-right: 6em;
 }
 
+p.shell {
+	display: block;
+	white-space: pre-wrap;
+	background: #242424;
+	border: 1px solid #969696;
+	margin-right: 6em;
+}
+
 table {
 	margin-left: 1em;
 	width: 50%;
