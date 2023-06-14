@@ -112,19 +112,24 @@ p.shell {
 }
 
 table {
-	margin-left: 1em;
+	margin-left: 3em;
 	width: 50%;
-	border-spacing: 25px 0px;
 }
 
 table,
 td {
+	border: 1px solid #969696;
+	background: #242424;
 	vertical-align: top;
 	white-space: nowrap
 }
 
 td {
-	padding: 1px 0.5em;
+	padding: 5px 5px;
+}
+
+td.center {
+	text-align: center;
 }
 
 @media screen and (min-width: 1500px) {

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and secure by default</title>
+	</head>
+
+<body>
+	<p class="head">
+	<strong><a href="index.html">Ragnarok</a></strong> &mdash; <i>Simple, Unix-like, and Secure by default.</i>
+	</p>
+
+	<h1>Download</h1>
+	<p>
+	The following images and tarballs are available. Note that Ragnarok currently only supports
+	the amd64 architecture (with plans to support i386 and arm64 in the future).<br>
+	New live images are built whenever there are security updates which require a reboot
+	(e.g. kernel updates).
+	</p>
+
+
+	<h2>Releases</h2>
+	<table>
+<!--		<tr>
+			<td>install01.iso</td>
+			<td>iso containing only the installer and related tools</td>
+			<td class="center"><a href="">download</a></td>
+			<td class="center"><a href="">signature</a></td>
+		</tr>
+-->
+		<tr>
+			<td>ragnarok01-live-amd64.iso</td>
+			<td>full live system setup with X11</td>
+			<td class="center">
+				<a href="https://github.com/RagnarokOS/iso/releases/download/01/ragnarok01-live-amd64.hybrid.iso" target="_blank" rel="noopener noreferrer" download>download</a>
+			</td>
+			<td class="center">
+				<a href="https://github.com/RagnarokOS/iso/releases/download/01/ragnarok01-live-amd64.hybrid.iso.sig" target="_blank" rel="noopener noreferrer" download>signature</a></td>
+		</tr>
+
+<!--		<tr>
+			<td>rootfs01.tgz</td>
+			<td>full root filesystem minus X11 and related tools.</td>
+			<td class="center"><a href="">download</a></td>
+			<td class="center"><a href="">signature</a></td>
+		</tr>
+-->
+		<tr>
+			<td>miniroot01.tgz</td>
+			<td>A minimal chroot suitable for development</td>
+			<td class="center">
+				<a href="https://github.com/RagnarokOS/iso/releases/download/01/miniroot.tgz" target="_blank" rel="noopener noreferrer" download>download</a>
+			</td>
+			<td class="center">
+				<a href="https://github.com/RagnarokOS/iso/releases/download/01/miniroot.tgz.sig" target="_blank" rel="noopener noreferrer" download>signature</a>
+			</td>
+		</tr>
+	</table>
+
+	<br>
+	<h2>Signature Verification</h2>
+
+	<p>
+	OpenBSD's <a href="https://man.openbsd.org/signify" target="_blank" rel="noopener noreferrer">signify(1)</a>
+	tool is used to sign the releases. This tool is already installed on Ragnarok and OpenBSD, and most,
+	if not all Linux distributions package it (some under the <i>signify-openbsd</i> name).
+	</p>
+
+	<p>
+	First, download the <a href="https://github.com/RagnarokOS/iso/releases/download/01/SHA256.sig" target="_blank" rel="noopener noreferrer">
+		SHA256.sig</a> file.
+	</p>
+
+	<p>Ragnarok already includes the public key, simply replace <code>ragnarok01.pub</code> with <code>/usr/share/ragnarok-keys/ragnarok01.pub</code>.
+	For other systems, <a href="https://raw.githubusercontent.com/RagnarokOS/src/master/usr/share/ragnarok-keys/ragnarok01.pub" target="_blank" rel="noopener noreferrer">download</a> the public key first.
+	<br>
+	Then, cd into the directory where the files and pubkey were downloaded and run the following command:
+	<br>
+	<br>
+	<code>signify -C -p ragnarok01.pub -x SHA256.sig <b>file-to-verify</b></code>
+	</p>
+
+	<p>
+	If you've downloaded more than one file, e.g. ragnarok01-live-amd64.hybrid.iso and miniroot.tgz, you can simply run:
+	<br><br>
+	<code>signify -C -p /path/to/ragnarok01.pub -x SHA256.sig</code>
+	<br><br>
+	Naturally, when verifying all files at once, missing files will fail to verify.
+	</p>
+
+	<p>
+	Note: on systems that package signify as signify-openbsd (e.g. Debian and derivatives), substitute the <i>signify</i> command
+	for <i>signify-openbsd</i>.
+	</p>
+
+	<h2>Creating an Installation Media</h2>
+
+	<p>
+	Bootable flash drives can be created on any Unix(-like) systems using the <i>dd</i> command:
+	<br><br>
+	<code>dd if=/path/to/iso of=/path/to/device bs=4096M</code>
+	</p>
+	<p>
+	Be sure to select the proper device label. All files on the device will be lost.
+	</p>
+
+	<h2>After Boot</h2>
+
+	<p>
+	Once the live iso is booted, you will be in a tty. You can login using the username <b>user</b>
+	and password <b>live</b> and start an X session with the <code>startx.1</code> command.
+	</p>
+
+	<p>
+	It is highly recommended to read the mail by using the <code>mail.1</code> command, and to read the
+	<code>ragnarok-live(1)</code> manual page for relevant information about the system.<br>
+	<i>Note: since Ragnarok is still under heavy development, this manual page isn't considered complete</i>.
+	</p>
+
+	<h2>Extracting Tarballs</h2>
+
+	<p>
+	When extracting tarballs, it is important to run the following command, as root, in order to ensure that the resulting
+	chroot will have proper permissions:
+	<br><br>
+	<code># tar xpvf /path/to/<i>archive.tgz</i> --xattrs --xattrs-include='*' -C $TARGET</code>
+	</p>
+
+	<p>
+	Subsitute <i>$TARGET</i> for a desired target directory.
+	</p>
+<!--
+	<h2>Installation Guides</h2>
+
+	<p>
+	For general guidance on using the default installer, see the <a href="https://ragnarokos.github.io/docs/install-faq.html">Installation FAQ</a>.
+	<br>
+	For a guide on how to create a bootable install using the tarballs, see the <a href="https://ragnarokos.github.io/docs/chroot-install.html">Chroot Install Guide</a>.
+	</p>
+-->
+	<p class="footer">
+	&copy; 2022-2023 Ragnarok / Ian LeCorbeau. View this site's source code at <a href="https://github.com/RagnarokOS/RagnarokOS.github.io">https://github.com/RagnarokOS/RagnarokOS.github.io</a>
+	<br>
+	This website's design was heavily inspired by that of the mandoc project at <a href="https://mandoc.bsd.lv/">https://mandoc.bsd.lv/</a>
+	</p>
+
+</body>
+</html>
