@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="../css/manpages.css" type="text/css" media="all"/>
+  <title>RAGNAROK-LIVE(8)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">RAGNAROK-LIVE(8)</td>
+    <td class="head-vol">System Manager's Manual</td>
+    <td class="head-rtitle">RAGNAROK-LIVE(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<div class="Nd"><code class="Nm">ragnarok-live</code> &#x2014; information related to the Ragnarok live system</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p>This document attempts to give as much information as possible about Ragnarok's
+  live environment. The idea is to give a quick rundown of the tools available
+  by default so that users can get familiar with the system in the most
+  straightforward fashion.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="X_SESSION"><a class="permalink" href="#X_SESSION">X
+  SESSION</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="Starting_an_Xsession"><a class="permalink" href="#Starting_an_Xsession">Starting
+  an Xsession</a></h2>
+<p>If not done already, you can start X11 by issuing the
+<a class="Xr">startx(1)</a> command. </p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Window_Manager"><a class="permalink" href="#Window_Manager">Window
+  Manager</a></h2>
+<p>Ragnarok includes two window managers: a fork of Suckless'
+  <a class="Xr">dwm(1)</a>, which is the default when logging into X, and
+  <a class="Xr">cwm(1)</a>, from the OpenBSD project. Using cwm is as simple as
+  changing the WM variable in <span class="Pa">~/.xinitrc</span> from
+  &quot;dwm&quot; to &quot;cwm&quot; and (re)starting X.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="dwm"><a class="permalink" href="#dwm">dwm</a></h2>
+<p>The version of <a class="Xr">dwm(1)</a> included has been patched to add the
+  bottomstack, leftstack and deck layouts. It also includes gaps in all layouts
+  (including monocle). Layouts can be set per tag and an option to
+  increase/decrease the height of the bar is also available.</p>
+<p class="Pp">This version of dwm does not support launching applications via
+    keybindings set in its config file (see the
+    <a class="Sx" href="#Keyboard_Shortcuts">Keyboard Shortcuts</a> section for
+    more details), only window and tag manipulations get handled by the window
+    manager's internal keyboard shortcuts. For a list of keybindings supported
+    by the window manager, see either the
+    <span class="Pa">/usr/src/dwm/config.h</span> file, or hit the alt+shift+?
+    keyboard shortcut to display the list in vim.</p>
+<p class="Pp">Basic system information (memory usage, cpu load, network
+    connection status, volume level and date/time) is displayed to the right
+    inside the status bar. This information is set by the
+    <span class="Pa">/usr/local/bin/statusbar.sh</span> script.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="cwm"><a class="permalink" href="#cwm">cwm</a></h2>
+<p>Calm Window Manager, from the OpenBSD project, is also available in the base
+  system. The live environment includes a custom
+  <span class="Pa">~/.cwmrc</span> config file, and a status bar is drawn at the
+  top of the screen, using a custom script (
+  <span class="Pa">/usr/local/bin/cwmbar</span> ) piped to
+  <a class="Xr">lemonbar(1)</a>.</p>
+<p class="Pp">Much like dwm, cwm's config file does not set keyboard shortcuts
+    to open applications, only for window and group manipulation. Available
+    keybindings for cwm can be viewed in .cwmrc or by hitting the alt+shift+?
+    keyboard shortcut.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Terminal_Emulator"><a class="permalink" href="#Terminal_Emulator">Terminal
+  Emulator</a></h2>
+<p>The default terminal in Ragnarok is <a class="Xr">rt(1)</a>, a lightly patched
+  fork of Suckless' st. Since it is meant to provide a minimal terminal for
+  <a class="Xr">tmux(1)</a>, rt does not come with much features, since tmux
+  already provides them. The two patches applied are for cosmetic purposes,
+  allowing a transparent background and configuration through the
+  <span class="Pa">~/.Xresources</span> file.</p>
+<p class="Pp"><a class="Xr">xterm(1)</a> is also provided, with it's own theming
+    in Xresources.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Keyboard_Shortcuts"><a class="permalink" href="#Keyboard_Shortcuts">Keyboard
+  Shortcuts</a></h2>
+<p>The <a class="Xr">sxhkd(1)</a> program is provided with a set of default
+  keybindings to open programs in
+  <span class="Pa">~/.config/sxhkd/sxhkdrc</span>. This means that all
+  program-related shortcuts will work regardless of the window manager being
+  used.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Extra_Software"><a class="permalink" href="#Extra_Software">Extra
+  Software</a></h2>
+<p>The live iso also provides all other programs included in Ragnarok's X11 package
+  set: <a class="Xr">xcompmgr(1)</a>, <a class="Xr">xclip(1)</a>,
+  <a class="Xr">xwallpaper(1)</a>, <a class="Xr">dunst(1)</a>.</p>
+<p class="Pp">Many programs not available in a standard Ragnarok base system are
+    also added for a more complete experience, among them:
+    <a class="Xr">firefox-esr(1)</a>, <a class="Xr">vifm(1)</a>,
+    <a class="Xr">mpv(1)</a>, <a class="Xr">nsxiv(1)</a>,
+    <a class="Xr">scrot(1)</a>.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYSTEM_ADMINISTRATION"><a class="permalink" href="#SYSTEM_ADMINISTRATION">SYSTEM
+  ADMINISTRATION</a></h1>
+<p>Since this is a live system, there isn't much in the way of system
+administration. However, a few things may be of interest.</p>
+<section class="Ss">
+<h2 class="Ss" id="Networking"><a class="permalink" href="#Networking">Networking</a></h2>
+<p>Wired network connections should be properly set at boot time, but wireless
+  networks will have to be configured manually. The Ragnarok live iso includes a
+  small script to quickly setup an interface file to use with
+  <a class="Xr">wpasupplicant(1)</a>, called <span class="Pa">addwifi</span>.
+  With root privileges, simply run the command:</p>
+<p class="Pp">
+<code class="Li">doas addwifi.sh</code></p>
+<p class="Pp">and answer the questions. After completion, the interface file
+    will be located in
+    <span class="Pa">/etc/network/interfaces.d/&lt;interface-name&gt;</span>.
+    For security reasons, the file can only be read with root privileges.
+    Afterwards, you can connect to the network using the ifup command:</p>
+<p class="Pp">
+<code class="Li">doas ifup
+		&lt;interface-name&gt;</code></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="security_updates"><a class="permalink" href="#security_updates">security
+  updates</a></h2>
+<p>The live iso is rebuilt whenever the kernel receives a security update. However,
+  other programs may have been updated since the iso's release and should still
+  be updated even if running a live system (particularly web browsers). It is
+  important to run apt update and apt upgrade as soon as an internet connection
+  is established.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="hardened_malloc"><a class="permalink" href="#hardened_malloc">hardened
+  malloc</a></h2>
+<p>Ragnarok uses GrapheneOS' hardened memory allocator for extra security and
+  provides three different variants: strong, medium (Ragnarok's default) and
+  light, each providing different levels of protection. By its nature,
+  hardened-malloc may cause performance loss under certain conditions. The
+  medium variant was specifically designed by the Ragnarok project to offer a
+  midle-ground between the strong and light variants provided by upstream, to
+  offer slightly more protection than the light variant, with less cpu usage
+  than the strong variant on older (pre-2010) hardware. On newer hardware, you
+  may wish to enable the strong variant, while on older hardware, you might need
+  to enable the light variant if the performance drop is too significant.
+<p class="Pp">Switching variant is as simple as changing its symlink:</p>
+<p class="Pp">
+<code class="Li"># ln -sf
+  /usr/lib/hardened_malloc/libhardened_malloc-&lt;variant&gt;.so
+  /usr/lib/libhardened_malloc.so</code></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Firewall"><a class="permalink" href="#Firewall">Firewall</a></h2>
+<p>The base system comes with nftables installed and enabled by default, using a
+  sane configuration file which blocks all incoming and forwarded connections by
+  default. If one wishes to modify the default configuration, then simply edit
+  the <span class="Pa">/etc/nftables.conf</span> file and restart the service
+  with the following command
+<p class="Pp">
+<code class="Li"># service nftables
+  restart</code></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="System_mail"><a class="permalink" href="#System_mail">System
+  mail</a></h2>
+<p>You can read system mail by entering the <a class="Xr">mail(1)</a> command.
+  Selecting the mail to read is done by typing it's number then Return. Quit
+  mail by typing q then Return. You can delete read messages by typing d then
+  Return before quitting.</p>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-os">Ragnarok</td>
+    <td class="foot-date">June 7, 2023</td>
+    <td class="foot-os">Ragnarok</td>
+  </tr>
+</table>
+</body>
+</html>
