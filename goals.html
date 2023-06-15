@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+		<title>Ragnarok | Project Goals</title>
+	</head>
+
+<body>
+	<p class="head">
+	<strong><a href="index.html">Ragnarok</a></strong> &mdash; <i>Simple, Unix-like, and Hardened by default.</i>
+	</p>
+
+	<h1>Project Goals</h1>
+
+	<p>
+	The project's explicitly stated goal is to provide a simple and hardened Debian-based system
+	that is suitable as a daily driver. This, however, is only the tip of the proverbial iceberg.
+	</p>
+
+	<p>
+	At its core, Ragnarok is merely a modified Debian and all modifications should, as much as possible,
+	be applicable on top of any Debian (or derivative) system without causing too much disruption, unless
+	desired by the user.
+	</p>
+
+	<h2>Guidelines</h2>
+
+	<p>To stay in line with its goals, Ragnarok abides by the following guidelines:</p>
+
+	<ul>
+		<li>Any changes made to the standard Debian system should be well documented.</li>
+		<li>Provide a deb package for any software created or maintained by the project.</li>
+		<li>It should be possible to enable Ragnarok's package repository on any Debian system
+			(and derivatives) without disrupting the user's installation.<br>
+		To do so, an apt_preferences(5) file should be provided in order to prevent
+		Ragnarok's repository from overriding the default Debian one if the user does not want it to.<br>
+		For more details, see the quick note
+		<a href="docs/duplicate-packages">on the subject of duplicate packages</a>.</li>
+		<li>All tools developed by the project should be usable either together, or on their own</li>
+	</ul>
+
+	<h2>Ragnarok's Infrastructure</h2>
+
+	<p>It's important to note that these tools and the automation process do not exist to provide a lower
+	level of entry, but as a means to relieve maintenance burden and provide easily reproducible builds.
+	This means that prior knowledge of Unix system administration, of the tools provided by Ragnarok and
+	the software that these tools make use of, is expected. In the absence of prior knowledge, a will to
+	learn is going to be mandatory.
+	</p>
+
+	<p>
+	It is the project's opinion that the best way to make "beginner friendly" software is to provide 
+	good/detailed documentation, rather than including too many layers of abstraction which usually
+	result in taking control away from the user.
+	</p>
+
+	<p>
+	
+	</p>
+
+	<p class="footer">
+	&copy; 2022-2023 Ragnarok / Ian LeCorbeau. View this site's source code at 
+	<a href="https://github.com/RagnarokOS/RagnarokOS.github.io">https://github.com/RagnarokOS/RagnarokOS.github.io</a>
+	<br>
+	This website's design was heavily inspired by that of the mandoc project at 
+	<a href="https://mandoc.bsd.lv/">https://mandoc.bsd.lv/</a>
+	</p>
+
+</body>
+</html>
