@@ -15,6 +15,24 @@
 Ragnarok Development Notes
 ==========================
 
+[2023-06-28]
+
+* The live iso now has a console boot menu entry. This should, in theory,
+make it work by default in OpenBSD's vmm/vmd[1][2], though it hasn't been
+tested yet. Anyone interested in testing it before I do are more than
+welcomed to report back on whether it works as intended or not.
+
+* The next live iso release should include Ragnarok's own rc init scripts
+by default. It probably won't make it to the first stable release since it
+needs more testing, but for the live iso there are much less concerns.
+
+* Next step will be to finally create the base tarball and all the sets,
+at which point a "chroot-style" installation method needs to be documented.
+Afterwards, the work on the installer will continue.
+
+[1] https://man.openbsd.org/vmd.8
+[2] https://www.openbsd.org/faq/faq16.html
+
 [2023-06-01]
 
 * Getting ready to release the live iso. The goal is to create Ragnarok's
