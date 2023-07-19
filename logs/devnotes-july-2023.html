@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system based on the Linux Kernel">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/logs.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
+	</head>
+<body>
+<pre class="logs">
+Ragnarok Development Notes
+==========================
+
+[2023-07-19]
+
+* The sysupdate[1] command is finished, which brings Ragnarok one step
+closer to having a clear separation between the base system and third
+party packages (those from the Debian repo). It will require further
+testing, but after testing and abusing it profusely over the last two
+days I have not encountered any issue.
+
+* How it actually works: sysupdate will first fetch a list of updates
+from the mirror, compare it to the list located in /var/db/updates,
+then download and install the missing updates if there are any, using
+the dpkg -i command.
+
+* Security model: all operations, minus dpkg, are performed as an
+unprivileged user (called _sysupdate) which has no home directory and
+no login shell. Furthermore, the update list and the updated packages
+themselves are signed and verified with signify[2]. If at any point
+the signature verification fails, sysupdate will exit with an error.
+One may argue that signing the update list itself is redundant, which
+could very well be the case, but this redundancy doesn't hurt.
+
+* Anyone who is using the current (2023-07-11) iso and who wishes to
+test the command can install it the following way:
+
+	# useradd --system --no-create-home --home /nonexistent \
+	#  --shell=/usr/sbin/nologin _sysupdate
+	# mkdir -p /var/db/updates
+	# chown _sysupdate:_sysupdate /var/db/updates
+	# mkdir -p /usr/src/ragnarok
+	# chown user:user /usr/src/ragnarok
+	$ cd /usr/src/ragnarok
+	$ git clone https://github.com/RagnarokOS/src.git
+	$ cd src/usr/bin/sysupdate
+	# make install
+	$ cd
+
+Then, run the sysupdate command:
+
+	$ doas sysupdate
+
+* The command will be present in the next iso, so naturally the install
+steps above will not be necessary.
+
+* Refer to the manual pages for sysupdate and sysupdate.conf either in
+the live system or online[3][4] for more information.
+
+[1] https://github.com/RagnarokOS/src/tree/master/usr/bin/sysupdate
+[2] https://man.openbsd.org/signify.1
+[3] https://ragnarokos.github.io/man/man8/sysupdate.8.html
+[4] https://ragnarokos.github.io/man/man8/sysupdate.conf.5.html
+
+</pre>
+</body>
+</html>
