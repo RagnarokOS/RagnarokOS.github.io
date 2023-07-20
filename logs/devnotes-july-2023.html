@@ -40,9 +40,7 @@ could very well be the case, but this redundancy doesn't hurt.
 test the command can install it the following way:
 
 	# useradd --system --no-create-home --home /nonexistent \
-	#  --shell=/usr/sbin/nologin _sysupdate
-	# mkdir -p /var/db/updates
-	# chown _sysupdate:_sysupdate /var/db/updates
+		--shell=/usr/sbin/nologin _sysupdate
 	# mkdir -p /usr/src/ragnarok
 	# chown user:user /usr/src/ragnarok
 	$ cd /usr/src/ragnarok
@@ -50,6 +48,7 @@ test the command can install it the following way:
 	$ cd src/usr/bin/sysupdate
 	# make install
 	$ cd
+	# chown _sysupdate:_sysupdate /var/db/updates
 
 Then, run the sysupdate command:
 
