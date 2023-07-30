@@ -15,6 +15,15 @@
 Known Bugs in Ragnarok 01
 =========================
 
+* Firefox-esr crashes on first launch. It will start fine the second time
+  however.
+
+  This is most probably caused by hardened_malloc, as the crash does not occur
+  when it is disabled. 
+
+  This bug only affects firefox-esr, while the latest firefox provided by
+  mozilla is not affected as it uses its own libraries.
+
 * In the July 24 2023 build of the live iso, on some hardware (probably only
   on old machines), ttyS0 is respawning too fast causing the following error
   message:
@@ -26,20 +35,17 @@ Known Bugs in Ragnarok 01
   out of an X session. Although PS1 will disappear, typing startx then return
   will log back into X.
 
-  This should be fixed in the next build by going from 115200 back to 9600.
+  Update on July 30th 2023: setting a lower speed only has the effect of making
+  the error appear much later, but does not fix the issue. This may need to be
+  investigated further, but considering that this only happens on old hardware
+  from before 2010 (and the flash drive the ISO is on is almost as old), this
+  is not a priority right now.
+
+The following bug was fixed in the July 30, 2023 build of the live iso:
 
 * Exec bits were not set on the rcctl utility. Another bug that will be fixed
   in the next iso build. The temporary fix is to add them with the 'chmod 755'
   command if service management is needed.
-
-* Firefox-esr crashes on first launch. It will start fine the second time
-  however.
-
-  This is most probably caused by hardened_malloc, as the crash does not occur
-  when it is disabled. 
-
-  This bug only affects firefox-esr, while the latest firefox provided by
-  mozilla is not affected as it uses its own libraries.
 
 </pre>
 </body>
