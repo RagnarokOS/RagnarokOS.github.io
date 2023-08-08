@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system based on the Linux Kernel">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/logs.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
+	</head>
+<body>
+<pre class="logs">
+Ragnarok Development Notes
+==========================
+
+[2023-08-08]
+
+* Ragnarok will soon move away from using deb packages for the base
+  system programs and will instead distribute updates via simple tgz
+  archives. Work is currently being done on the sysupdate[1] utility
+  to replace the usage of dpkg with the new method. Since the work is
+  almost complete, this change should, in theory, be available in the
+  next live iso.
+
+* The idea of making Ragnarok an independently built distro using Debian
+  sources was set aside for a while, but not abandoned. The above change
+  represents one more step in that direction. Just how independent the
+  distro will be remains to be seen. It's always possible that while the
+  base system will be fully independent, apt/dpkg would still be used to
+  install third party packages (from the Debian repo). This is the current
+  direction, with an option to eventually drop apt and the Debian repository
+  down the line.
+
+[1] https://ragnarokos.github.io/man/man8/sysupdate.8.html
+
+</pre>
+</body>
+</html>
