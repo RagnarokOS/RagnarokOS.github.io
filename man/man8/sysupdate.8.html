@@ -36,11 +36,9 @@
 <p class="Pp">When run without any options, <code class="Nm">sysupdate</code>
     will fetch the latest available updates for a base system program, then
     verify their signature with <a class="Xr" aria-label="signify, section
-    1">signify(1)</a> before installing with the <a class="Xr" aria-label="dpkg,
-    section 1">dpkg(1)</a> command.</p>
-<p class="Pp">All operations, minus the <a class="Xr" aria-label="dpkg, section
-    1">dpkg(1)</a> command, are performed as an unprivileged system user with no
-    login shell access.</p>
+    1">signify(1)</a> before extracting and installing the updated files.</p>
+<p class="Pp">All operations prior to the exraction and installation of files
+    are performed as an unprivileged system user with no login shell access.</p>
 </section>
 <section class="Sh">
 <h2 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h2>
@@ -84,7 +82,6 @@
 <h2 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
   ALSO</a></h2>
 <p class="Pp"><a class="Xr" aria-label="signify, section 1">signify(1)</a>,
-    <a class="Xr" aria-label="dpkg, section 1">dpkg(1)</a>,
     <a class="Xr" aria-label="sysupdate.conf, section
   5">sysupdate.conf(5)</a></p>
 </section>
@@ -102,7 +99,7 @@
 </section>
 </main>
 <div class="foot" role="doc-pagefooter" aria-label="Manual footer
-  line"><span class="foot-left"></span><span class="foot-date">July 17,
+  line"><span class="foot-left"></span><span class="foot-date">August 18,
   2023</span> <span class="foot-os">Ragnarok</span></div>
 </body>
 </html>
