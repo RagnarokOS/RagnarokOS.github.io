@@ -156,21 +156,24 @@
 <h3 class="Ss" id="hardened_malloc"><a class="permalink" href="#hardened_malloc">hardened
   malloc</a></h3>
 <p class="Pp">Ragnarok uses GrapheneOS' hardened memory allocator for extra
-    security and provides three different variants: strong, medium (Ragnarok's
-    default) and light, each providing different levels of protection. By its
-    nature, hardened-malloc may cause performance loss under certain conditions.
-    The medium variant was specifically designed by the Ragnarok project to
-    offer a midle-ground between the strong and light variants provided by
-    upstream, to offer slightly more protection than the light variant, with
-    less cpu usage than the strong variant on older (pre-2010) hardware. On
-    newer hardware, you may wish to enable the strong variant, while on older
-    hardware, you might need to enable the light variant if the performance drop
-    is too significant.</p>
-<p class="Pp">Switching variant is as simple as changing its symlink:</p>
+    security and provides three different variants: strong, medium and light,
+    each providing different levels of protection. By its nature,
+    hardened-malloc may cause performance loss under certain conditions, which
+    is why it is compiled at boot time using the -march=native flag, which helps
+    reducing its impact.</p>
+<p class="Pp">The live system uses the light variant by default, but can be
+    switched easily by first changing the variant in
+    <span class="Pa">/etc/default/hardened_malloc</span> and then running</p>
 <p class="Pp"></p>
-<div class="Bd Bd-indent"><code class="Li"># ln -sf
-  /usr/lib/hardened_malloc/libhardened_malloc-&lt;variant&gt;.so
-  /usr/lib/libhardened_malloc.so</code></div>
+<div class="Bd Bd-indent"><code class="Li"># rcctl stop
+  hardened_malloc</code></div>
+<div class="Bd Bd-indent"><code class="Li"># rcctl start
+  hardened_malloc</code></div>
+<p class="Pp">Note that compiling hardened_malloc at boot time only concerns the
+    live system. On installed systems, it would be compiled at system install
+    time, and whenever an update is available.</p>
+<p class="Pp">hardened_malloc's source code is available on the system at
+    <span class="Pa">/usr/lib/hardened_malloc</span>.</p>
 </section>
 <section class="Ss">
 <h3 class="Ss" id="Firewall"><a class="permalink" href="#Firewall">Firewall</a></h3>
@@ -192,6 +195,26 @@
     the mail to read is done by typing it's number then Return. Quit mail by
     typing q then Return. You can delete read messages by typing d then Return
     before quitting.</p>
+</section>
+</section>
+<section class="Sh">
+<h2 class="Sh" id="WEB_BROWSING"><a class="permalink" href="#WEB_BROWSING">WEB
+  BROWSING</a></h2>
+<p class="Pp">The live system includes Suckless' <a class="Xr" aria-label="surf,
+    section 1">surf(1)</a> browser along with a wrapper script called
+    <span class="Pa">bro.sh</span>. For details on bro.sh usage, simply enter
+    the following command:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">$ bro.sh -h</code></div>
+<p class="Pp">Note: basic ad blocking for surf is achieved by using Steven
+    Black's unified hosts file.</p>
+<section class="Ss">
+<h3 class="Ss" id="Other_browsers"><a class="permalink" href="#Other_browsers">Other
+  browsers</a></h3>
+<p class="Pp">Surf is only recommended as a web page viewer rather than as a
+    full fledged web browser. Any browser available in Debian can also be
+    installed via <a class="Xr" aria-label="apt-get, section
+  1">apt-get(1)</a>.</p>
 </section>
 </section>
 <section class="Sh">
