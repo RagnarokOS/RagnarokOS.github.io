@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system based on the Linux Kernel">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/logs.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
+	</head>
+<body>
+<pre class="logs">
+Changes in the 2023-08-25 build of the live iso
+===============================================
+
+* hardened_malloc is now built at boot time, using -march=native. This
+  is recommended by upstream to limit performance impacts. Compiling
+  during the init phase also does not significantly increase boot times,
+  even on old hardware.
+
+* New sysupdate(8) version: sysupdates are no longer distributed through
+  deb packages.
+
+* dwm is now installed to /usr/bin rather than /usr/local/bin. The fact
+  that this wasn't the default from the start was an omission.
+
+* Suckless' surf is now the default provided browser and firefox-esr was
+  removed (can still be installed via apt-get). The switch was done because
+
+  	a) surf is smaller, so it helps trimming down the iso's size a bit.
+  	b) a full fledged browser included by default in a simple live iso
+	isn't really needed, and in fact, it's better to let the user choose
+	which big browser they want to install if they really need one in a
+	live session. Not having firefox installed will also save space if
+	someone opts to install something else (and space *is* a concern on
+	a live iso, especially when used on a system low on RAM).
+	c) surf has a fully functional, and rather sane, apparmor profile
+	(which is enabled by default).
+
+* To complement surf, a wrapper script called bro.sh was added. For usage
+  details, simply type the 'bro.sh -h' command.
+
+* Steven Black's hosts file was added to provide some basic ad blocking for
+  surf.
+
+
+</pre>
+</body>
+</html>
