@@ -13,11 +13,26 @@
 <body>
 <pre class="logs">
 file: ragnarok01-live-amd64.hybrid.iso
-head: 1.4
-total revisions: 4
+head: 1.5
+total revisions: 5
 description: changelog for Ragnarok -current
 --------------------------------------------
-revision 1.4
+revision 1.5
+date: 2023/08/30
+
+* Latest security update for librsvg (from Debian).
+
+* Fixed: mandoc won't output "outdated mandoc.db lacks ..." anymore.
+  This occured because the db was updated before programs like dwm
+  were built.
+
+* ksh and (OpenBSD's) ed now built from source, rather than using debs.
+
+* Dummy man-db package added: packages that have it as a hard dependency
+  won't refuse to install anymore. Functions that uses man-db options
+  won't work unless the real package is installed, however. 
+--------------------------------------------
+revision: 1.4
 date: 2023/08/25
 
 * hardened_malloc is now built at boot time, using -march=native. This
