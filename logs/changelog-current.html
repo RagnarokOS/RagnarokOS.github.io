@@ -12,8 +12,13 @@
 	</head>
 <body>
 <pre class="logs">
-Changes in the 2023-08-25 build of the live iso
-===============================================
+file: ragnarok01-live-amd64.hybrid.iso
+head: 1.4
+total revisions: 4
+description: changelog for Ragnarok -current
+--------------------------------------------
+revision 1.4
+date: 2023/08/25
 
 * hardened_malloc is now built at boot time, using -march=native. This
   is recommended by upstream to limit performance impacts. Compiling
@@ -44,7 +49,35 @@ Changes in the 2023-08-25 build of the live iso
 
 * Steven Black's hosts file was added to provide some basic ad blocking for
   surf.
+--------------------------------------------
+revision: 1.3
+date: 2023/08/11
 
+* Updated kernel with latest security fix.
+* New packages: libarchive-tools, libbsd-dev.
+--------------------------------------------
+revision: 1.2
+date: 2023/07/30
+
+* Updated kernel with latest security fix from Debian.
+* Fixed: Proper exec bits are now set for rcctl.
+* Fixed isolinux boot menu still showing (dev) rather than (-current).
+* Changed deprecated '~' option to 'stop' in /etc/rsyslog.d/nftables-log.conf.
+* New package: RCS (Revision Control System).
+--------------------------------------------
+revision: 1.1
+date: 2023/07/24
+
+* The sysupdate(8) utility has been added.
+* Ragnarok's own rc init scripts and inittab are in use.
+* New mandoc build, with proper binary names. This means /etc/skel/.aliases
+  has been removed. It can still be used to create aliases for ksh.
+* /usr/lib/hardened_malloc.so now points to the light variant. This gives a
+  slight performance boost on old (eg. pre-2012) hardware while still being
+  more secure than no hardened memory allocator.
+* Fixed: manual page path in wmutils core was not properly set, causing them
+  to be installed in /usr/man rather than /usr/share/man.
+* The bsdextrautils package was added to base. It was absent due to an omission.
 
 </pre>
 </body>
