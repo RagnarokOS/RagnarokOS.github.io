@@ -17,7 +17,29 @@ head: 1.5
 total revisions: 5
 description: changelog for Ragnarok -current
 --------------------------------------------
-revision 1.5
+revision: 1.6
+date: 2023/09/02
+
+* Major fix: grub.cfg now points to vmlinuz/initrd.img *without* the version
+  number appended. This prevented the ISO from booting in EFI mode.
+
+* Programs built from source are now using LLVM/Clang. This means the llvm,
+  clang and lld packages were added and are used by default in Ragnarok when
+  compiling software.
+
+* usr/bin from Ragnarok's src repository was added to the buildsrc hook,
+  which means more programs built from source (no deb): doas(1), signify(1),
+  mandoc(1).
+
+* Along with the above programs, OpenBSD's apply(1) and banner(1) were
+  added. Although banner was added only for the fun of it (and it helped
+  testing the build infrastructure more), apply can be very useful (see
+  its manual page for details).
+
+* Added the 'hostsupdate' script, which allows updating Steven Black's
+  hosts file quickly for ad blocking in surf(1).
+--------------------------------------------
+revision: 1.5
 date: 2023/08/30
 
 * Latest security update for librsvg (from Debian).
