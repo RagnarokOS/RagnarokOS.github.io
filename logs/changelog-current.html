@@ -13,9 +13,22 @@
 <body>
 <pre class="logs">
 file: ragnarok01-live-amd64.hybrid.iso
-head: 1.6
-total revisions: 6
+head: 1.7
+total revisions: 7
 description: changelog for Ragnarok -current
+--------------------------------------------
+revision: 1.7
+date: 2023/09/09
+* LLVM/Clang is now installed via the LLVM project's repository in order
+  to get version 16 (the latest 'major release') which is not in the repo
+  for Debian Bookworm. This will allow building the kernel with Clang's
+  Control Flow Integrity, among the other benefits of having an up-to-date
+  toolchain.
+
+* New stuff installed from the src repository: sysupdate and the /usr/share
+  directory.
+
+* Steven Black's /etc/hosts file was updated to the September 08, 2023 version.
 --------------------------------------------
 revision: 1.6
 date: 2023/09/04
