@@ -8,100 +8,113 @@
 		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
 		<link rel="canonical" href="https://RagnarokOS.github.io/">
 		<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
-		<title>Ragnarok | Simple, Unix-like and hardened by default</title>
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
 	</head>
 
-<body>
-	<p class="head">
-	<strong><a href="">Ragnarok</a></strong> &mdash; <i>Simple, Unix-like, and Hardened by default.</i>
-	</p>
-	<h1>On regenerating the machine-id every boot</h1>
+	<body>
+		<div class="head">
+			<a href="../index.html" class="logo">Ragnarok</a>
+			<div class="head-right">
+				<a href="../index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../news/news.html">News</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../download.html">Download</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../contact.html">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://www.paypal.com/donate/?hosted_button_id=PLEE2F9FFNJM8" target="_blank" rel="noopener noreferrer">Donate</a>
+			</div>
+		</div>
+		<div class="content">
 
-	<p>
-	The <i>/etc/machine-id</i> and <i>/var/lib/dbus/machine-id</i> files can potentially be used
-	to fingerprint a system over the long term. Ragnarok provides a simple solution to that problem
-	by regenerating this ID every boot through a simple init script[1] that removes the file during
-	the shutdown process. Of course, mitigating the potential issues caused by the machine-id is not
-	unique to Ragnarok (Devuan, Whonix and Tails do it one way or another as well).
-	</p>
 
-	<h2>The Debate</h2>
-	<p>
-	As with many things in the Linux world (especially when it comes to projects such as systemd and
-	dbus), the existence of these two files have sparked a few heated arguments. Some may argue that
-	any concern over this unique machine-id is merely FUD, while others may believe that their mere
-	existence constitutes a deliberate violation of user privacy to the profit of malicious actors.
-	</p>
+			<h1>On regenerating the machine-id every boot</h1>
+			<hr>
 
-	<p>
-	As always, the truth probably lies in the middle. Indeed, there is no indication of anyone, or
-	anything, actively using these files for obviously malicious reasons. That said, the mere fact
-	that they are world-readable (by necessity) and that any program, at any point in time,
-	<u>could potentially</u> use them for such purpose does mean that taking steps to mitigate the
-	issue is not a bad idea. Furthermore, the idea that mitigating this potential problem is 
-	<i>"pointless since there are other things on a user's system that can be used for fingerprinting"</i>
-	is fallacious. If Ragnarok followed that train of thought, it would have no reason to exist. 
-	In fact, if most people agreed with this fallacy, there would be no point in ever securing or
-	making a system more private, since there will, obviously, always be ways that security and
-	privacy can be compromised.
-	</p>
+			<p>
+			The <i>/etc/machine-id</i> and <i>/var/lib/dbus/machine-id</i> files can potentially be used
+			to fingerprint a system over the long term. Ragnarok provides a simple solution to that problem
+			by regenerating this ID every boot through a simple init script[1] that removes the file during
+			the shutdown process. Of course, mitigating the potential issues caused by the machine-id is not
+			unique to Ragnarok (Devuan, Whonix and Tails do it one way or another as well).
+			</p>
 
-	<p>
-	In any case, Ragnarok exists in great part to implement, and experiment with, different security
-	and/or privacy features, even if they may be seen as partially or completely redundant.
-	</p>
+			<h2>The Debate</h2>
+			<hr>
+			<p>
+			As with many things in the Linux world (especially when it comes to projects such as systemd and
+			dbus), the existence of these two files have sparked a few heated arguments. Some may argue that
+			any concern over this unique machine-id is merely FUD, while others may believe that their mere
+			existence constitutes a deliberate violation of user privacy to the profit of malicious actors.
+			</p>
 
-	<h2>Potential Issues</h2>
+			<p>
+			As always, the truth probably lies in the middle. Indeed, there is no indication of anyone, or
+			anything, actively using these files for obviously malicious reasons. That said, the mere fact
+			that they are world-readable (by necessity) and that any program, at any point in time,
+			<u>could potentially</u> use them for such purpose does mean that taking steps to mitigate the
+			issue is not a bad idea. Furthermore, the idea that mitigating this potential problem is 
+			<i>"pointless since there are other things on a user's system that can be used for fingerprinting"</i>
+			is fallacious. If Ragnarok followed that train of thought, it would have no reason to exist. 
+			In fact, if most people agreed with this fallacy, there would be no point in ever securing or
+			making a system more private, since there will, obviously, always be ways that security and
+			privacy can be compromised.
+			</p>
 
-	<p>
-	The d-bus specification[2] states that:
-	<blockquote>
-		This UUID must be the same for all processes on a single system at least until that system
-		next reboots. It should be the same across reboots if possible, but this is not always 
-		possible to implement and is not guaranteed.
-	</blockquote>
-	</p>
+			<p>
+			In any case, Ragnarok exists in great part to implement, and experiment with, different security
+			and/or privacy features, even if they may be seen as partially or completely redundant.
+			</p>
 
-	<p>
-	Well-designed programs that uses the machine-id file should take dbus' specification into account, and
-	Ragnarok's (admittedly opinionated) position is that any program relying on having a machine-id that
-	remains the same across reboots is flawed. This position will not change, regardless of the
-	argument.
-	</p>
+			<h2>Potential Issues</h2>
+			<hr>
+			<p>
+			The d-bus specification[2] states that:
+			<blockquote>
+				This UUID must be the same for all processes on a single system at least until that system
+				next reboots. It should be the same across reboots if possible, but this is not always 
+				possible to implement and is not guaranteed.
+			</blockquote>
+			</p>
 
-	<p>
-	Of course, being part of the dbus specification does not mean all programs will take that into account.
-	One such program is systemd-journald, which relies on an unchanging machine-id to function properly.
-	</p>
+			<p>
+			Well-designed programs that uses the machine-id file should take dbus' specification into account, and
+			Ragnarok's (admittedly opinionated) position is that any program relying on having a machine-id that
+			remains the same across reboots is flawed. This position will not change, regardless of the
+			argument.
+			</p>
 
-	<p>
-	Although a default Ragnarok install uses sysvinit and does not make use of systemd-journald, it is possible
-	to use Ragnarok with systemd (or any other init system). Taking this into account, as well as taking into
-	account that Ragnarok users should have the freedom to decide how system parts behave, is why machine-id is
-	regenerated with an init script. This script can simply be disabled if the user wants, or needs, to keep
-	a constant machine-id file.
-	</p>
+			<p>
+			Of course, being part of the dbus specification does not mean all programs will take that into account.
+			One such program is systemd-journald, which relies on an unchanging machine-id to function properly.
+			</p>
 
-	<p>
-	Providing an easy way to disable machine-id regeneration is as far as Ragnarok will go on the matter. It is
-	advised to stay away from programs that don't behave properly if one does not want to disable this feature.
-	</p>
+			<p>
+			Although a default Ragnarok install uses sysvinit and does not make use of systemd-journald, it is possible
+			to use Ragnarok with systemd (or any other init system). Taking this into account, as well as taking into
+			account that Ragnarok users should have the freedom to decide how system parts behave, is why machine-id is
+			regenerated with an init script. This script can simply be disabled if the user wants, or needs, to keep
+			a constant machine-id file.
+			</p>
 
-	<p class="refs">
-	[1] <a href="https://github.com/RagnarokOS/src/tree/master/etc/init.d/rm-machineid" target="_blank" rel="noopener noreferrer">
-		https://github.com/RagnarokOS/src/tree/master/etc/init.d/rm-machineid
-	</a>
-	<br>
-	[2] <a href="https://dbus.freedesktop.org/doc/dbus-specification.html" target="_blank" rel="noopener noreferrer">
-		https://dbus.freedesktop.org/doc/dbus-specification.html
-	</a>
+			<p>
+			Providing an easy way to disable machine-id regeneration is as far as Ragnarok will go on the matter. It is
+			advised to stay away from programs that don't behave properly if one does not want to disable this feature.
+			</p>
 
-	<p class="author">Posted by Ian LeCorbeau on Fri, 28 Apr 2023 15:03:21 -0400</p>
+			<h2>Links</h2>
+			<hr>
+			[1] <a href="https://github.com/RagnarokOS/src/tree/master/etc/init.d/rm-machineid" target="_blank" rel="noopener noreferrer">
+				https://github.com/RagnarokOS/src/tree/master/etc/init.d/rm-machineid
+			</a>
+			<br>
+			[2] <a href="https://dbus.freedesktop.org/doc/dbus-specification.html" target="_blank" rel="noopener noreferrer">
+				https://dbus.freedesktop.org/doc/dbus-specification.html
+			</a>
 
-	<p class="footer">
-	&copy; 2022-2023 Ragnarok / Ian LeCorbeau. View this site's source code at <a href="https://github.com/RagnarokOS/RagnarokOS.github.io">https://github.com/RagnarokOS/RagnarokOS.github.io</a>
-	<br>
-	This website's design was heavily inspired by that of the mandoc project at <a href="https://mandoc.bsd.lv/">https://mandoc.bsd.lv/</a>
-	</p>
-</body>
+			<p class="author">Posted by Ian LeCorbeau on Fri, 28 Apr 2023 15:03:21 -0400</p>
+
+		</div>
+		<div class="footer">
+		&copy; 2022-2023 Ragnarok / Ian LeCorbeau. View this site's source code at <a href="https://github.com/RagnarokOS/RagnarokOS.github.io">https://github.com/RagnarokOS/RagnarokOS.github.io</a>
+		<br>
+		</div>
+	</body>
 </html>

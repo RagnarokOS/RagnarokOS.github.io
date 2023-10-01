@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
+	</head>
+
+	<body>
+		<div class="head">
+			<a href="../index.html" class="logo">Ragnarok</a>
+			<div class="head-right">
+				<a href="../index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="news.html">News</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../download.html">Download</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../contact.html">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://www.paypal.com/donate/?hosted_button_id=PLEE2F9FFNJM8" target="_blank" rel="noopener noreferrer">Donate</a>
+			</div>
+		</div>
+		<div class="post">
+			<h1>Release: New -current Live ISO with Ragnarok Kernel Included</h1>
+			<hr>
+
+			<p>Starting with the latest release, the live ISO for the -current branch
+			now includes Ragnarok's own build of the Linux kernel. This kernel is
+			built with the full LLVM/Clang toolchain and builds in many hardening
+			options, including Clang's Control Flow Integrity[1], which helps prevent
+			bugs from turning into exploits, as well as the ThinLTO feature.</p>
+
+			<p>It also builds in most hardening options recommended by the Kernel Self
+			Protection Project[2].</p>
+
+			<p>Aside from the extra features/hardening, this kernel flavour is the same
+			as Debian's default, and is built using their Linux-source[3] package.
+			Ragnarok's kernel config, as well as a diff showing the differences with
+			Debian's, can be accessed in the kernel-build[4] repository.</p>
+
+			<h2>Caveats</h2>
+			<hr>
+
+			<p>This kernel may be a bit less forgiving of faulty hardware and/or poorly
+			written modules, which could potentially result in a kernel panic. For
+			more details, see the "kernel" section in the bugs[5] page.</p>
+
+			<p>In any case, the standard Debian kernel is still present in the ISO and
+			one can boot from it by selecting the "Live System (x11) - Debian Kernel"
+			option at the grub menu, or typing 'live-x11-debkernel' then hitting 
+			'Return' at the boot prompt if booting with isolinux.</p>
+
+			<h2>Links</h2>
+			<hr>
+
+			<p>[1] Clang's CFI: <a href="https://clang.llvm.org/docs/ControlFlowIntegrity.html">https://clang.llvm.org/docs/ControlFlowIntegrity.html</a>
+			<br>
+			[2] Kernel Self Protection Project: <a href="https://kernsec.org/wiki/index.php/Kernel_Self_Protection_Project/Recommended_Settings">https://kernsec.org/wiki/index.php/Kernel_Self_Protection_Project/Recommended_Settings</a>
+			<br>
+			[3] Debian's linux-source package information: <a href="https://packages.debian.org/bookworm/linux-source">https://packages.debian.org/bookworm/linux-source</a>
+			<br>
+			[4] Ragnarok's kernel-build repo: <a href="https://github.com/RagnarokOS/kernel-build">https://github.com/RagnarokOS/kernel-build</a>
+			<br>
+			[5] Bugs: <a href="https://ragnarokos.github.io/logs/bugs.html">https://ragnarokos.github.io/logs/bugs.html</a></p>
+		</div>
+		<div class="footer">
+			&copy; 2023 Ragnarok
+			<p></p>
+		</div>
+	</body>
+</html>

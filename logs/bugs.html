@@ -15,11 +15,36 @@
 Known Bugs in Ragnarok 01
 =========================
 
+* Kernel
+
+  The Ragnarok flavour of the Linux kernel is a bit less forgiving of faulty
+  hardware and/or poorly written modules, which may cause a kernel panic on
+  some setups.
+
+  I don't know what causes it precisely, however. The only thing confirmed is
+  that I got a kernel panic on an old (2009), beaten down laptop, but not on
+  the other hardware it was tested on.
+
+  I can rule out Clang's CFI and ThinLTO as the cause, however, since the same
+  kernel built without these features also panicked. The extra hardening options
+  can also be pretty much ruled out since they never caused any issue on this
+  specific device before. Same applies for the toolchain used (LLVM/Clang).
+
+  In other words, it's currently a mystery why the kernel panics and the issue
+  is still going to be investigated, but I do know it happens while loading the
+  toshiba_acpi module (and may have to do with a faulty power button).
+
+  Either way, the live ISO still includes the default Debian kernel and booting
+  from it is as simple as selecting it in the grub menu, or if booting with
+  isolinux, typing 'live-x11-debkernel' then hitting 'Return' at the boot
+  prompt.
+
+  Anyone encountering a kernel panic can let me know via the issue tracker on
+  Github, or by sending an email to I-LeCorbeau(at)protonmail(dot)com. This
+  would be rather helpful.
+
 * Hardened_malloc causes Firefox-esr to crash on first launch. It will start
   fine the second time, however.
-
-  This bug only affects firefox-esr, while the latest firefox provided by
-  mozilla is not affected as it uses its own libraries.
 
 * In the July 24 2023 build of the live iso, on some hardware (probably only
   on old machines), ttyS0 is respawning too fast causing the following error
