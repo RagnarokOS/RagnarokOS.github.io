@@ -13,9 +13,32 @@
 <body>
 <pre class="logs">
 file: ragnarok01-live-amd64.hybrid.iso
-head: 1.7
-total revisions: 7
+head: 1.8
+total revisions: 8
 description: changelog for Ragnarok -current
+--------------------------------------------
+revision: 1.8
+date: 2023/10/02
+* Ragnarok's own flavour of the Linux kernel is now included in the ISO for
+  testing purposes. THe Debian kernel is still included and can be booted
+  from if something is wrong with Ragnarok's. More details at:
+
+  https://ragnarokos.github.io/news/new-live-iso-ragnarok-kernel.html
+  https://ragnarokos.github.io/logs/bugs.html
+
+* The iso now includes OpenBSD's version of yacc(1), which replaces bison.
+
+* A custom build of OpenBSD's RCS (Revision Control System) is also included.
+
+* dwm/rt/dmenu/wmutils sources were moved to their own repo (x11) and they are
+  now compiled from there when building the ISO.
+
+* base-files is now a dummy package, since Ragnarok won't be using it at all.
+
+* /etc/apt/sources.list.d/ragnarok.sources and Ragnarok's gpg signature were
+  removed since the repo is no longer in use.
+
+* The public signify keys for Ragnarok 01 (and 02) were moved to /etc/signify.
 --------------------------------------------
 revision: 1.7
 date: 2023/09/09
