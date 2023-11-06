@@ -13,9 +13,25 @@
 <body>
 <pre class="logs">
 file: ragnarok01-live-amd64.hybrid.iso
-head: 1.10
-total revisions: 10
+head: 1.11
+total revisions: 11
 description: changelog for Ragnarok -current
+--------------------------------------------
+revision: 1.11
+date: 2023/11/06
+* Has the latest security fixes from Debian.
+
+* More packages built from source: bsd-mailx, dma, surf.
+
+* Bug Fix: in the previous version, updating libwebkit would render surf
+  unusable. This was fixed in the bro.sh script by executing surf with the
+  WEBKIT_DISABLE_COMPOSITING_MODE=1 variable. This was the default behavior
+  with webkit prior to the latest security update, so it does not change
+  anything from a usability standpoint.
+
+* Added the hardening-check.pl script, lifted from the devscripts package.
+  This utility allows checking binaries to make sure the hardening flags
+  took effect during compilation time.
 --------------------------------------------
 revision: 1.10
 date: 2023/10/07
