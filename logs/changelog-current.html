@@ -13,9 +13,20 @@
 <body>
 <pre class="logs">
 file: ragnarok01-live-amd64.hybrid.iso
-head: 1.11
-total revisions: 11
+head: 1.12
+total revisions: 12
 description: changelog for Ragnarok -current
+--------------------------------------------
+revision: 1.12
+date: 2023/11/30
+* To many security updates to count.
+
+* Updated packages from apt.llvm.org
+
+* Change in the build process: the x11 set is no longer built from source
+  during the iso creation process. Instead, a pre-compiled tarball is
+  extracted. This saves a few seconds (but will save more once the same
+  process is used for base).
 --------------------------------------------
 revision: 1.11
 date: 2023/11/06
