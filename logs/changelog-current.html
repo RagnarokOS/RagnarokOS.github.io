@@ -13,9 +13,16 @@
 <body>
 <pre class="logs">
 file: ragnarok01-live-amd64.hybrid.iso
-head: 1.12
-total revisions: 12
+head: 1.13
+total revisions: 13
 description: changelog for Ragnarok -current
+--------------------------------------------
+revision: 1.13
+date: 2023/12/04
+* Security Update for nghttp2
+
+* Fix a broken rt. Its terminfo files weren't being generated so tmux,
+  vifm and all weren't working properly.
 --------------------------------------------
 revision: 1.12
 date: 2023/11/30
