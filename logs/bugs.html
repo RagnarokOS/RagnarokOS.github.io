@@ -17,6 +17,14 @@ Known Bugs in Ragnarok 01
 
 * Kernel
 
+  December 11, 2023: the below issue can be considered fixed. After some tests,
+  it turned out that it was enabling UBSAN and/or KASAN that caused the issue.
+  Although I'd rather keep them enabled, they've been disabled for now. Since
+  they're not enabled by default in the Debian kernel, keeping them off isn't
+  that big of an issue, though.
+
+  Original bug:
+
   The Ragnarok flavour of the Linux kernel is a bit less forgiving of faulty
   hardware and/or poorly written modules, which may cause a kernel panic on
   some setups.
