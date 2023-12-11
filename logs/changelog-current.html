@@ -13,9 +13,25 @@
 <body>
 <pre class="logs">
 file: ragnarok01-live-amd64.hybrid.iso
-head: 1.13
-total revisions: 13
+head: 1.14
+total revisions: 14
 description: changelog for Ragnarok -current
+--------------------------------------------
+revision: 1.14
+date: 2023/12/11
+* Contains the updates that came with the release of Debian 12.4.
+
+* Update to the Ragnarok kernel.
+
+* A whole lot of rebuilt packages now included: base-passwd, bash,
+  bsdextrautils, bsdutils, coreutils, dash, diffutils, dpkg, dselect,
+  eject, fdisk, libblkid1, libdpkg-perl, libfdisk1, libmount1, libproc2,
+  libsmartcols1, libuuid, mount, procps, rfkill, util-linux, util-linux-locales,
+  util-linux-extras, uuid-runtime.
+
+  These are built with LLVM/Clang, with extra hardening options. Many packages
+  are also compiled with ThinLTO, aside from those which did not compile with
+  it (notable ones are dpkg, util-linux and procps).
 --------------------------------------------
 revision: 1.13
 date: 2023/12/04
