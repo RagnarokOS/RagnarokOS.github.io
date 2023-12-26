@@ -26,11 +26,27 @@
 	<h1>About Ragnarok</h1>
 	<hr>
 	<p>
-	Ragnarok is a Debian derivative distribution currently under heavy development. The project's
-	primary goal is to create a simple, Unix-like, and "hardened by default" distribution suitable
-	as a daily driver.
-	Still very much in its infancy, Ragnarok's immediate focus is to build a base system entirely
-	from scratch, while remaining binary-compatible with the latest Debian stable release.
+	Ragnarok is a Debian derivative distribution currently under heavy development.
+	</p>
+
+	<h2>Project Goals</h2>
+	<hr>
+	<p></p>
+
+	<ul>
+		<li>Build a simple, hardened and Unix-like operating system suitable as a daily driver.</li>
+		<li>Rebuild all base system packages with LLVM/Clang (where applicable), using
+		ThinLTO[1] and enabling extra hardening flags (including Control Flow Integrity[2]).</li>
+		<li>Fix all security-related compilation warnings for base system packages.</li>
+		<li>Follow Debian's release cycle, but include new security features about every six
+		months (after being thoroughly tested). Two years is too long to wait before the stable
+		branch can benefit from such improvements.</li>
+	</ul>
+
+	<p>
+	[1] <a href="https://clang.llvm.org/docs/ThinLTO.html">https://clang.llvm.org/docs/ThinLTO.html</a>
+	<br>
+	[2] <a href="https://clang.llvm.org/docs/ControlFlowIntegrity.html">https://clang.llvm.org/docs/ControlFlowIntegrity.html</a>
 	</p>
 
 	<h2>Guidelines</h2>
@@ -38,7 +54,6 @@
 	<p>The project is developed while abiding to the following guidelines:</p>
 
 	<ul>
-		<li>Be as independent as (realistically) possible from Debian.</li>
 		<li>Ensure the creation of a robust infrastructure which does not rely on Debian
 		tools to build and distribute the base system.</li>
 		<li>Fetch sources from Debian whenever possible, but don't hesitate to fetch
