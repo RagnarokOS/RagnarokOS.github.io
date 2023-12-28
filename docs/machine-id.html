@@ -84,14 +84,7 @@
 			<p>
 			Of course, being part of the dbus specification does not mean all programs will take that into account.
 			One such program is systemd-journald, which relies on an unchanging machine-id to function properly.
-			</p>
-
-			<p>
-			Although a default Ragnarok install uses sysvinit and does not make use of systemd-journald, it is possible
-			to use Ragnarok with systemd (or any other init system). Taking this into account, as well as taking into
-			account that Ragnarok users should have the freedom to decide how system parts behave, is why machine-id is
-			regenerated with an init script. This script can simply be disabled if the user wants, or needs, to keep
-			a constant machine-id file.
+			However, Ragnarok does not use systemd at all, which means this is not an issue.
 			</p>
 
 			<p>
