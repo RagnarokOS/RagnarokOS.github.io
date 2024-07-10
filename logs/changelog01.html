@@ -12,10 +12,19 @@
 	</head>
 <body>
 <pre class="logs">
-file: live01-amd64.hybrid.iso
-head: 1.7
-total revisions: 7
+file: changelog01
+head: 1.8
+total revisions: 8
 description: changelog for Ragnarok 01
+--------------------------------------------
+revision: 1.8
+date: 2024-07-10
+
+* Updates to the ragnarok-base package:
+    * Cronjobs and kernupd now documented in the afterboot(8) manual.
+    * New weekly cronjob: security-check.
+* Security: /etc/sysctl.conf and the files in /etc/sysctl.d/ have
+  stricter permissions.
 --------------------------------------------
 revision: 1.7
 date: 2024-07-01
