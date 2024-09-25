@@ -147,7 +147,7 @@ code {
 }
 
 pre {
-	overflow: scroll;
+	overflow: auto;
 	margin-top: -1em;
 	white-space: pre-line;
 }
