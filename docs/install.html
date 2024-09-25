@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
+	</head>
+
+	<body>
+		<div class="head">
+			<a href="../index.html" class="logo">Ragnarok</a>
+			<div class="head-right">
+				<a href="../index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../news/news.html">News</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../download.html">Download</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../contact.html">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://www.paypal.com/donate/?hosted_button_id=PLEE2F9FFNJM8" target="_blank" rel="noopener noreferrer">Donate</a>
+			</div>
+		</div>
+		<div class="content">
+			<h1>Install Guide</h1>
+			<hr>
+
+			<p>This will guide you though a full Ragnarok install, using the official
+			installer, by showing the questions asked at install time and tips for
+			the answers.</p>
+
+			<p><em>Note: this guide assumes the reader is a complete beginner.</em></p>
+
+			<h2>Before the install</h2>
+			<hr>
+
+			<p>Boot from the latest <a href="https://ragnarokos.github.io/download.html">Ragnarok live ISO</a>.
+			Change to the root account and ensure that the repo is up to date.
+			(Tip: do it in tmux)</p>
+
+<div class="shell">
+<pre><code>
+$ tmux
+$ su
+# apt update &amp;&amp; apt upgrade</code></pre>
+</div>
+
+			<p><em>The password for root is 'root'</em></p>
+
+			<h2>Further preparation</h2>
+			<hr>
+
+			<p>Next, decide whether you will create custom partitions or use the default
+			Ragnarok partitioning scheme which consists of a 500M /boot partition (Fat32
+			for efi systems, ext4 for bios/legacy systems), and separate swap, root and
+			home partitions whose size you will be asked to choose at install time.</p>
+
+			<p>Custom partitions can be created with whatever tool you prefer. Ragnarok's
+			ISO include fdisk/sfdisk/cfdisk by default, while parted is available in
+			the repository.</p>
+
+			<p>If you choose to create custom partitions, <strong>ensure that they are mounted
+				to /mnt</strong>. Also note that in this scenario, you will be tasked with setting
+			up the bootloader yourself.</p>
+
+			<p>Once you've decided, launch the installer:</p>
+
+<div class="shell">
+<pre><code>
+# ragnarok-install</code></pre>
+</div>
+
+			<h2>Disk Partitioning</h2>
+			<hr
+
+			<p><i>Q: "Which disk should the system be installed on?"</i></p>
+
+			<p>Enter the device on which the system will be installed, e.g. /dev/sdX
+			(replace X with the proper letter).</p>
+
+			<p><i>Q: "The installer will create partitions on <i>/dev/sdX</i>. Warning all
+				data will be erased. Proceed (Y/n/s/?): "</i></p>
+
+			<p>'Y/y' will proceed with the rest of the disk configuration portion.
+			'N/n' will restart the process (e.g. if you entered the wrong device).
+			'S/s' will skip the rest of the disk configuration process. Choose this
+			option if you created a custom partitioning scheme.
+			'?' will show a help message.</p>
+
+			<p>If you chose 'S/s', you can move on to the next section.</p>
+
+			<p><i>Q: "Enter the boot mode for this system ('efi' or 'bios'): "</i></p>
+
+			<p>Self-explanatory. Note: Ragnarok uses grub for efi systems, and syslinux
+			(extlinux) for bios/legacy systems. This may help choosing if you can
+			actually decide the boot mode yourself (if your computer supports both,
+			or if installing the system in a virtual machine).</p>
+
+			<p><i>Q: "Choose the size of each partitions."</i></p>
+
+			<p>You will be asked to enter the size for the swap, root and home partitions
+			either in megabytes or gigabytes.</p>
+
+			<p>For size in megabytes, the format is <strong>\<number\>M</strong>, e.g. 500M.
+			For size in gigabytes, the format is <strong>\<number\>G</strong>, e.g. 30G.</p>
+
+			<p>If you want /home to use the rest of the available space, you can simply
+			press return without entering any size.</p>
+
+			<p>You will then be shown the partition table to be created and asked to proceed
+			or not. Answer 'Y' or 'y' to proceed, 'N' or 'n' to restart redo the device
+			partitioning part.</p>
+
+			<h2>Hostname / Timezone / Locale / Keyboard</h2>
+			<hr>
+
+			<p><i>Q: "Enter the hostname for this system: "</i></p>
+
+			<p>This cna be whatever you want. Spaces in the name are not allowed.</p>
+
+			<p>For the next three config settings, typing 'l' will open a list of available
+			options in <code>less</code>. </p>
+
+			<p><i>Q: "Enter the timezone for this system. e.g. America/New_York. "</i></p>
+
+			<p>Set your timezone</p>
+
+			<p><i>Q: "Enter the locale for this system. e.g. en_US.UTF-8 UTF-8: "</i></p>
+
+			<p>Set the system's locale. It is important to not miss the charmap (e.g. UTF-8).</p>
+
+			<p><i>Q: "Set the keyboard layout. e.g. 'us': "</i></p>
+
+			<p>Set the keymap for both the console and X11.</p>
+
+			<h2>Select the sets</h2>
+			<hr>
+
+			<p>You will then be asked to select which extra set to install. These are
+			metapackages containing extra software and are entirely optional. </p>
+
+			<p>The <code>devel</code> set contains git, build-essential and the full LLVM/Clang
+			toolchain from the project's own apt repo.</p>
+
+			<p>The <code>virt</code> set contains the bare minimum required to run virtual machines
+			directly with QEMU.</p>
+
+			<p>The <code>xserv</code> set contains a minimal xserver, xinit, xterm and alsa.</p>
+
+			<p>The <code>xfonts</code> set contains extra fronts for xorg (spleen, liberation, DejaVu).</p>
+
+			<p>The <code>xprogs</code> sets contain two window managers: OpenBSD's cwm, and Raven, a
+			fork of Suckless' dwm. It also contains rt (a fork of Suckless' st terminal),
+			dmenu, xcompmgr, xclip and hsetroot.</p>
+
+			<p>To install all the sets, simple leave empty and press Return. To install none
+			of the sets, type 'none' then Return. To pick and choose which set to install
+			simply type their name separated by a space.</p>
+
+			<p>If you chose to omit one or more set you can always install them later via
+			apt-get, e.g.</p>
+
+<div class="shell">
+<pre><code>
+apt-get install ragnarok-xserv ragnarok-xfonts</code></pre>
+</div>
+
+			<h2>Users and passwords</h2>
+			<hr>
+
+			<p><i>Q: "Password for the root account? "</i></p>
+
+			<p>This cannot be skipped. If you want to lock the root account, you can do it
+			after the install, though you should probably ensure to at least redirect
+			root's mail to the default user via /etc/aliases.</p>
+
+			<p><i>Q: "Setup a default user? [Y/n]: "</i></p>
+
+			<p>Choose if you want to create a default user. Typing 'n' will skip user
+			creation.</p>
+
+			<p>If you typed 'Y/y':</p>
+
+			<p><i>Q: "Name of the default user: "<br>
+				Q: "Password for <i>username</i> "</i></p>
+
+			<p>Self-explanatory. Enter username and password.</p>
+
+			<h2>System installation</h2>
+			<hr>
+
+			<p>Grab a cup of coffee or a beer and let the installer do its thing.</p>
+
+			<p>When the installation process is done, you will be prompted to either type
+			'e' to exit the installer or 'r' to reboot. If you need extra non-free firmware,
+			you may type 'e' and use the <code>arch-chroot</code> command to install them, e.g.</p>
+
+<div class="shell">
+<pre><code>
+# arch-chroot /mnt apt-get install firmware-iwlwifi</code></pre>
+</div>
+
+			<p>would install non-free firmware for intel wifi cards.</p>
+
+			<h2>Afterboot</h2>
+			<hr>
+
+			<p>Once booted into the new system, don't forget to read root's mail and
+			the afterboot(8) manual.</p>
+		</div>
+		<div class="footer">
+			&copy; 2022-2024 Ragnarok / Ian LeCorbeau. View this site's source code at <a href="https://github.com/RagnarokOS/RagnarokOS.github.io">https://github.com/RagnarokOS/RagnarokOS.github.io</a>
+			<br>
+		</div>
+	</body>
+</html>
