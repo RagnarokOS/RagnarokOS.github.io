@@ -149,7 +149,7 @@ code {
 pre {
 	overflow: auto;
 	margin-top: -1em;
-	white-space: pre-line;
+	/* white-space: pre-line; */
 }
 
 table {
