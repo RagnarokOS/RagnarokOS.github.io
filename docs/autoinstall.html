@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
+	</head>
+
+	<body>
+		<div class="head">
+			<a href="../index.html" class="logo">Ragnarok</a>
+			<div class="head-right">
+				<a href="../index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../news/news.html">News</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../download.html">Download</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../contact.html">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://www.paypal.com/donate/?hosted_button_id=PLEE2F9FFNJM8" target="_blank" rel="noopener noreferrer">Donate</a>
+			</div>
+		</div>
+		<div class="content">
+
+			<h1>Automatic Installs</h1>
+			<hr>
+
+			<p>It is possible to install Ragnarok automatically (that is, without user
+			input) using a pre-made <code>install.conf</code> file and passing the <code>-a</code> option
+			to the installer:</p>
+
+			<p>In order to do so, simply create a custom <code>install.conf</code> file and save
+			it for later use.</p>
+
+			<h2>Creating install.conf</h2>
+			<hr>
+
+			<p>You can either create the file manually, or if booted in a live Ragnarok
+			system (or if the ragnarok-installer package is installed) run the mkconf
+			utility and answer all questions.</p>
+
+			<p>If you choose to run mkconf, still refer to the <code>users and passwords</code>
+			section near the end of this guide.</p>
+
+			<h2>Manual creation</h2>
+			<hr>
+
+			<p>With your preferred text editor, open a new file (to be saved as <code>install.conf</code>)
+			and fill in all answers, making sure there are no typographic errors (pay close
+			attention to capital letters).</p>
+
+			<p>Example file:</p>
+
+<div class="shell">
+<pre><code>
+Device = /dev/sda
+Bootmode = bios
+Swap = 8G
+Root = 35G
+Home = 
+Hostname = ragnarok
+Timezone = America/Montreal
+Locale = en_CA.UTF-8 UTF-8
+KB_Layout = ca
+KB_Variant = French (Canada)
+Sets = devel virt xserv xfonts xprogs
+</code></pre>
+</div>
+
+			<p>Notes:</p>
+
+			<p><code>Bootmode</code>: this can be either <code>bios</code> or <code>efi</code>.</p>
+
+			<p><code>Swap</code>, <code>Root</code> and <code>Home</code>: these are the size of each partitions. <code>Home</code>
+			may be left empty if you wish to use the remaining space on the device.
+			Always take into account that the installer will create a 500M boot partition
+			at install time.</p>
+
+			<p><code>KB_Layout</code>: layout for the console and X11. A list of available layouts is
+			located at <code>/usr/share/ragnarok-installer/lists/xkblayout.list</code>. First column
+			lists the layout, the second lists its variant.</p>
+
+			<p><code>KB_Variant</code> can be determined by searching for your <code>KB_Layout</code> in the
+			xkblayout list using grep, e.g.</p>
+
+<div class="shell">
+<pre><code>
+$ grep "^ca" "/usr/share/ragnarok-installer/lists/xkblayout.list</code></pre>
+</div>
+
+			<p><code>Sets</code>: metapackages containing extra software. These are optional. The
+			example file shows all available sets. You can pick and choose between
+			them, or install none at all, in which case you would use 'none':</p>
+
+<div class="shell">
+<pre><code>
+Sets = none</code></pre>
+</div>
+
+			<p><code>Hostname</code>, <code>Timezone</code> and <code>Locale</code> are self-explanatory.</p>
+
+			<h2>Username and Passwords</h2>
+			<hr>
+
+			<p>The mkconf utility will not ask for username and passwords. At install
+			time, this is handled by the installer after its call to mkconf is done.</p>
+
+			<p>If you do not wish to be asked to set up passwords and username during an
+			automatic install, you may add them to install.conf. However, take note
+			that <strong>storing passwords in plain text is not secure</strong>. If you wish to
+			store your passwords in <code>install.conf</code>, you should only use temporary
+			passwords and change them as soon as you boot the system for the first
+time.</p>
+
+			<p>To add them to the config file:</p>
+
+<div class="shell">
+<pre><code>
+Rootpass = your.temporary.rootpass
+Username = your.username
+Userpass = your.temporary.user.pass</code></pre>
+</div>
+
+			<h2>Using install.conf</h2>
+			<hr>
+
+			<p>To install Ragnarok automatically using a pre-made <code>install.conf</code> file
+			using the live ISO, ensure the file is present in the <strong>same directory
+			you're running the installer from</strong>, e.g. either the home directory of
+			the live user, or of the root user. Then launch the installer with the
+			<code>-a</code> option:</p>
+
+<div class="shell">
+<pre><code>
+# ragnarok-install -a
+</code></pre>
+</div>
+
+		</div>
+		<div class="footer">
+			&copy; 2022-2024 Ragnarok / Ian LeCorbeau. View this site's source code at <a href="https://github.com/RagnarokOS/RagnarokOS.github.io">https://github.com/RagnarokOS/RagnarokOS.github.io</a>
+			<br>
+		</div>
+	</body>
+</html>
