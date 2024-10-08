@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
+	</head>
+
+	<body>
+		<div class="head">
+			<a href="../index.html" class="logo">Ragnarok</a>
+			<div class="head-right">
+				<a href="../index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../news/news.html">News</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../download.html">Download</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../contact.html">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://www.paypal.com/donate/?hosted_button_id=PLEE2F9FFNJM8" target="_blank" rel="noopener noreferrer">Donate</a>
+			</div>
+		</div>
+		<div class="content">
+
+<h1>Hardening Options Enabled in Ragnarok's Kernel Build</h1>
+<hr>
+
+<p>Ragnarok's build of the Linux kernel enables many hardening options, most
+of which are recommended by the Kernel Self Protection Project (KSPP)[1].</p>
+
+<h2>Ragnarok's build vs Debian's</h2>
+<hr>
+
+<p>Ragnarok's kernel is built using the same source as Debian[2] and simply
+modifies its configuration to enable options not present in Debian's build.</p>
+
+<p>At first glance, the most significant difference is that Ragnarok's kernel
+is built using the full LLVM/Clang toolchain, and uses <code>control flow integrity</code>[3]
+and <code>ThinLTO</code>[4].</p>
+
+<p>For the sake of transparency, a <code>diff</code> file showing the differences between
+Debian and Ragnarok's builds can be viewed here:</p>
+
+<p><a href="https://raw.githubusercontent.com/RagnarokOS/kernel-build/refs/heads/master/config.diff">https://raw.githubusercontent.com/RagnarokOS/kernel-build/refs/heads/master/config.diff</a></p>
+
+<h2>Hardening Options</h2>
+<hr>
+
+<p>The following options are enabled in Ragnarok's kernel. Some of these are
+also enabled in Debian's build, while others aren't.</p>
+
+<ul>
+<li><code>CONFIG_CFI_CLANG=y</code>: enable Control Flow Integrity</li>
+<li><code>CONFIG_BUG=y</code>: report BUG conditions and kill the offending process</li>
+<li><code>CONFIG_STRICT_KERNEL_RWX=y</code>: make sure kernel page tables have safe permissions</li>
+<li><code>CONFIG_DEBUG_RWX=y</code>: report any dangerous memory permissions</li>
+<li><code>CONFIG_STACKPROTECTOR=y</code>, <code>CONFIG_STACKPROTECTOR_STRONG=y</code>: use fstack-clash-protector-strong for best stack canary coverage
+<code>CONFIG_STRICT_DEVMEM=y</code>, <code>CONFIG_IO_STRICT_DEVMEM=y</code>: enable strict physical memory access</li>
+<li><code>CONFIG_SYN_COOKIES=y</code>: provide some protections against SYN flooding
+<code>CONFIG_DEBUG_CREDENTIALS=y</code>, <code>CONFIG_DEBUG_NOTIFIERS=y</code>, <code>CONFIG_DEBUG_LIST=y</code>, <code>CONFIG_DEBUG_SG=y</code>, <code>CONFIG_DEBUG_VIRTUAL=y</code>, <code>CONFIG_BUG_ON_DATA_CORRUPTION=y</code>, <code>CONFIG_SCHED_STACK_END_CHECK=y</code>: perform additional validation of various commonly targeted structures</li>
+<li><code>CONFIG_SECCOMP=y</code>, <code>CONFIG_SECCOMP_FILTER=y</code>: reduce syscall attack surface with seccomp BPF API</li>
+<li><code># CONFIG_LDISC_AUTOLOAD is not set</code>: make sure line disciplines can't be autoloaded</li>
+<li><code>CONFIG_SECURITY=y</code> <code>CONFIG_SECURITY_YAMA=y</code>: Provide userspace with ptrace ancestry protections</li>
+<li><code>CONFIG_SECURITY_LANDLOCK</code>: provide userspace with Landlock MAC interface</li>
+<li><code>CONFIG_SECURITY_LOCKDOWN_LSM=y</code>, <code>CONFIG_SECURITY_LOCKDOWN_LSM_EARLY=y</code>, <code>CONFIG_LOCK_DOWN_KERNEL_FORCE_CONFIDENTIALITY=y</code>: enable "lockdown" LSM for bright line between the root user and kernel memory</li>
+<li><code>CONFIG_HARDENED_USERCOPY=y</code>: perform usercopy bounds checking</li>
+<li><code>CONFIG_SLAB_FREELIST_RANDOM=y</code>, <code>CONFIG_SLAB_FREELIST_HARDENED=y</code>: randomize allocator freelists</li>
+<li><code>CONFIG_SHUFFLE_PAGE_ALLOCATOR=y</code>: allow for randomization of high-order page allocation freelist</li>
+<li><code>CONFIG_SLUB_DEBUG=y</code>: allow allocator validation checking to be enabled</li>
+<li><code>CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y</code>, <code>CONFIG_INIT_ON_FREE_DEFAULT_ON=y</code> : wipe slab and page allocations</li>
+<li><code>CONFIG_INIT_STACK_ALL_ZERO=y</code>: initialize all stack variables on function entry</li>
+<li><code>CONFIG_VMAP_STACK=y</code>: adds guard pages to kernel stacks</li>
+<li><code>CONFIG_FORTIFY_SOURCE=y</code>: check for memory copoes that might overflow a structure in str*() and mem*() functions both at build-time and run-time</li>
+<li><code>CONFIG_SECURITY_DMESG_RESTRICT=y</code>: avoid kernel memory address exposures via dmesg</li>
+<li><code>CONFIG_RANDOMIZE_KSTACK_OFFSET=y</code>, <code>CONFIG_RANDOMIZE_KSTACK_OFFSET_DEFAULT=y</code>: randomize kernel stack offset on syscall entry</li>
+<li><code>CONFIG_IOMMU_SUPPORT=y</code>, <code>CONFIG_IOMMU_DEFAULT_DMA_STRICT=y</code>, <code># CONFIG_IOMMU_DEFAULT_PASSTHROUGH is not set</code>: force IOMMU TLB invalidation so devices will never be able to access stale data contents</li>
+<li><code>CONFIG_RANDOM_TRUST_BOOTLOADER=y</code>, <code>CONFIG_RANDOM_TRUST_CPU=y</code>: get as much entropy as possible from external sources</li>
+<li><code>CONFIG_RANDSTRUCT_FULL=y</code>: randomize the layout of system structures</li>
+<li><code>CONFIG_SCHED_CORE=y</code>: make scheduler aware of SMT codes</li>
+<li><code>CONFIG_ZERO_CALL_USED_REGS=y</code>: wipe all caller-used registers on exit</li>
+<li><code>CONFIG_RESET_ATTACK_MITIGATION=y</code>: wipe RAM at reboot via EFI</li>
+<li><code># CONFIG_ACPI_CUSTOM_METHOD is not set</code>: enabling this allows direct physical memory writing</li>
+<li><code># CONFIG_COMPAT_BRK is not set</code>: enabling this would disable brk ASLR</li>
+<li><code># CONFIG_HIBERNATION is not set</code>: enabling this would allow replacement of running kernel</li>
+<li><code># CONFIG_LEGACY_PTYS is not set</code>: use modern PTY interface only</li>
+<li><code>CONFIG_PANIC_ON_OOPS=y</code>: panic if the kernel experiences an Oops</li>
+<li><code>CONFIG_PANIC_TIMEOUT=0</code>: allow user to reboot after a kernel panic (useful to read panic message)
+<li><code>CONFIG_DEBUG_SET_MODULE_RONX=y</code>,
+<code>CONFIG_STRICT_MODULE_RWX=y</code>, <code>CONFIG_MODULE_SIG=y</code>, <code>CONFIG_MODULE_SIG_FORCE=y</code>, <code>CONFIG_MODULE_SIG_ALL=y</code>, <code>CONFIG_MODULE_SIG_SHA512=y</code>, <code>CONFIG_MODULE_SIG_HASH="sha512"</code>, <code>CONFIG_MODULE_SIG_KEY="certs/signing_key.pem"</code>: modules must be signed with a per-build key to load</li>
+<li><code>CONFIG_DEFAULT_MMAP_MIN_ADDR=65536</code>: disallow allocating the first 64k of memory</li>
+<li><code>CONFIG_RANDOMIZE_BASE=y</code>, <code>CONFIG_RANDOMIZE_MEMORY=y</code>: randomize position of kernel and memory</li>
+<li><code>CONFIG_LEGACY_VSYSCALL_NONE=y</code>: remove unneeded fixed-position mapping in userspace</li>
+<li><code>CONFIG_PAGE_TABLE_ISOLATION=y</code>: enable Kernel Page Table Isolation to remove entire class of chache timing side-channels</li>
+<li><code>CONFIG_INTEL_IOMMU=y
+CONFIG_INTEL_IOMMU_DEFAULT_ON=y</code>, <code>CONFIG_INTEL_IOMMU_SVM=y</code>, <code>CONFIG_AMD_IOMMU=y</code>, <code>CONFIG_AMD_IOMMU_V2=y</code>: enable chip-specific IOMMU support</li>
+</ul>
+
+<h2>Trade-off</h2>
+<hr>
+
+<p>Unlike Debian's kernel, Ragnarok's build does not support secure boot.
+Users who prefer using secure boot can use Debian's default kernel instead,
+and will still benefit from <strong>some</strong> of the above hardening options via
+pre set sysctl values and bootloader parameters shipped with the <code>ragnarok-base</code>
+package.</p>
+
+<h3>Links</h3>
+<hr>
+
+<p>[1]  <a href="https://kspp.github.io/Recommended_Settings">https://kspp.github.io/Recommended_Settings</a> <br>
+[2]  <a href="https://packages.debian.org/bookworm/linux-source">https://packages.debian.org/bookworm/linux-source</a> <br>
+[3]  <a href="https://clang.llvm.org/docs/ControlFlowIntegrity.html">https://clang.llvm.org/docs/ControlFlowIntegrity.html</a> <br>
+[4]  <a href="https://clang.llvm.org/docs/ThinLTO.html">https://clang.llvm.org/docs/ThinLTO.html</a></p>
+
+		</div>
+		<div class="footer">
+		&copy; 2022-2023 Ragnarok / Ian LeCorbeau. View this site's source code at <a href="https://github.com/RagnarokOS/RagnarokOS.github.io">https://github.com/RagnarokOS/RagnarokOS.github.io</a>
+		<br>
+		</div>
+	</body>
+</html>
