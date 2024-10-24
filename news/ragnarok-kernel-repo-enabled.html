@@ -22,20 +22,39 @@
 				<a href="https://www.paypal.com/donate/?hosted_button_id=PLEE2F9FFNJM8" target="_blank" rel="noopener noreferrer">Donate</a>
 			</div>
 		</div>
-		<div class="content">
-			<h1>News</h1>
+		<div class="post">
+
+			<h1>Ragnarok's Kernel Repository Enabled</h1>
 			<hr>
-			<p>
-			<strong>2024-10-23</strong>&nbsp;&nbsp;&nbsp;&nbsp; 
-			<a href="ragnarok-kernel-repo-enabled.html">Ragnarok's Kernel Repository Enabled</a><br>
-			<strong>2024-09-24</strong>&nbsp;&nbsp;&nbsp;&nbsp; 
-			<a href="testing-ragnarok-installer.html">The Ragnarok Installer Now Available for Testing</a><br>
-			<strong>2023-09-30</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="new-live-iso-ragnarok-kernel.html">Release: New -current Live ISO with Ragnarok kernel included</a>
-			</p>
+
+			<p>Ragnarok's kernel repository has been enabled, which means it can now be
+			installed and updated through apt, thus rendering the <code>kernupd</code> utility
+			obsolete.</p>
+
+			<p>Users should add the following lines to <code>/etc/apt/sources.list.d/ragnarok.sources</code>:</p>
+
+<div class="shell">			
+<pre><code>
+Types: deb
+URIs: https://ragnarokos.github.io/kernel/deb/
+Suites: 01
+Components: main
+Signed-by: /etc/apt/trusted.gpg.d/ragnarok01.asc</code></pre>
+</div>
+
+			<p>Afterwards, run apt update and install the ragnarok-kernel metapackage:</p>
+
+<div class="shell">
+<pre><code>
+apt update &amp;&amp; apt install ragnarok-kernel</code></pre>
+</div>
+
+			<p>If the running kernel is up-to-date, then no upgrade will occur.</p>
+
 		</div>
 		<div class="footer">
-			&copy; 2023 Ragnarok
+			&copy; 2023-2024 Ragnarok
+			<p></p>
 		</div>
 	</body>
 </html>
