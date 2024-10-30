@@ -227,36 +227,39 @@ following sed command (subsituting <em>myhostname</em>):</p>
 <h2>Install the kernel</h2>
 <hr>
 
-<p>Ragnarok has its own experimental kernel built with LLVM/Clang, which takes advantage
-of Clang's ThinLTO feature and bakes in many security options. Although no bugs were
-found, it has not been tested on enough hardware to guarantee that none will ever be
-found.</p>
+<p>Ragnarok has its own kernel built with LLVM/Clang, which takes advantage of Clang's
+ThinLTO feature and bakes in many security options[1]. Although no bugs were found,
+it has not been tested on enough hardware to guarantee that none will ever be found,
+so users may install Debian's standard kernel as a backup if they wish.</p>
 
-<p>It is recommended to install Ragnarok's kernel as well as Debian's as a backup. Do note,
-however, that Ragnarok's kernel build does not support secure boot, so if secure boot is
-needed, only install Debian's.</p>
+<p><em>Note: Ragnarok's kernel does not support secure-boot out of the box. Furthermore,
+hibernation is disabled as a security measure (however, suspend works as intended).</em></p>
 
-<p>Use the kernupd(8) utility to install Ragnarok's kernel flavour (this utility will have to
-be used to update the kernel, for as long as it remains experimental).</p>
-
-<p>Install Debian's kernel first:</p>
+<p>Installing both kernels:</p>
 
 <div class="shell">
 <pre><code>
-# apt-get install linux-image-amd64 -y</code></pre>
+# apt-get install linux-image-amd64 -y
+# apt-get install linux-image-ragnarok-amd64 -y</code></pre>
 </div>
 
-<p>Then, download and install Ragnarok's kernel build:</p>
+<p>Installing only the Ragnarok kernel:</p>
 
 <div class="shell">
 <pre><code>
-# kernupd -d
-# kernupd -i</code></pre>
+# apt-get install ragnarok-kernel -y</code></pre>
 </div>
 
-<p><em>The download and install need to be done separately here, but under normal circumstances
-kernupd with no arguments would do both simultaneously if the kernel is out-of-date or
-not yet installed.</em></p>
+<p>Differences between <code>linux-image-ragnarok-amd64</code> and <code>ragnarok-kernel</code>:</p>
+
+<ul>
+<li><p><code>linux-image-ragnarok-amd64</code> only provides the kernel, its headers and libc-dev
+packages.</p></li>
+<li><p><code>ragnarok-kernel</code> installs <code>linux-image-ragnarok-amd64</code> plus all kernel dependencies
+as well as all <code>dpkg</code> scripts normally provided by Debian's standard kernel (which are
+not provided by other kernel packages but necessary to perform the preinst, postinst,
+prerm and postrm tasks).</p></li>
+</ul>
 
 <h2>Install extra sets (optional)</h2>
 <hr>
@@ -425,6 +428,11 @@ to check the copied files' permissions).</p>
 </div>
 
 <p>You can now reboot to the newly installed system.</p>
+
+<h3>Links</h3>
+<hr>
+
+<p>[1] <a href="https://ragnarokos.github.io/docs/kernel-security.html">https://ragnarokos.github.io/docs/kernel-security.html</a></p>
 
 		</div>
 		<div class="footer">
