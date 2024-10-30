@@ -42,14 +42,26 @@ Components: main
 Signed-by: /etc/apt/trusted.gpg.d/ragnarok01.asc</code></pre>
 </div>
 
-			<p>Afterwards, run apt update and install the ragnarok-kernel metapackage:</p>
+			<p>Afterwards, apt should be used to install the appropriate kernel package.</p>
 
+			<p>If both Debian and Ragnarok kernels are installed:</p>
 <div class="shell">
 <pre><code>
-apt update &amp;&amp; apt install ragnarok-kernel</code></pre>
+# apt update &amp;&amp; apt install linux-image-ragnarok-amd64</code></pre>
+</div>
+
+			<p>If only Ragnarok's build of the kernel is installed:</p>
+<div class="shell">
+<pre><code>
+# apt update &amp;&amp; apt install ragnarok-kernel</code></pre>
 </div>
 
 			<p>If the running kernel is up-to-date, then no upgrade will occur.</p>
+
+			<p><i>Note: <code>ragnarok-kernel</code> is a metapackage which fetches
+			<code>linux-image-ragnarok-amd64</code> plus all required dependencies,
+			as well as the scripts normally provided by the standard Debian kernel.
+			It is only needed if Debian's kernel is not installed.</i></p>
 
 		</div>
 		<div class="footer">
