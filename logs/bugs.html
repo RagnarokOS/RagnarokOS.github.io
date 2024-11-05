@@ -17,9 +17,13 @@ Known Bugs in Ragnarok 01
 
 * Kernel
 
+  November 05, 2024 update: Whatever was causing the below kernel issue has been
+  resolved. After months of testing, no kernel panic occured.
+
   December 15, 2023 update: The below kernel issue has revealed to be intermittent.
   From now on, a status for each kernel update will be provided.
 
+  - All versions post-6.1.69: unaffected
   - 6.1.69: unaffected
   - 6.1.67: unaffected
   - 6.1.66: affected
@@ -54,9 +58,6 @@ Known Bugs in Ragnarok 01
   Github, or by sending an email to I-LeCorbeau(at)protonmail(dot)com. This
   would be rather helpful.
 
-* Hardened_malloc causes Firefox-esr to crash on first launch. It will start
-  fine the second time, however.
-
 * In the July 24 2023 build of the live iso, on some hardware (probably only
   on old machines), ttyS0 is respawning too fast causing the following error
   message:
@@ -73,28 +74,6 @@ Known Bugs in Ragnarok 01
   investigated further, but considering that this only happens on old hardware
   from before 2010 (and the flash drive the ISO is on is almost as old), this
   is not a priority right now.
-
-* Not a real bug, but should be mentioned here regardless: support for man-db
-  has been removed. The reason: Ragnarok uses mandoc to provide /usr/bin/man,
-  and there will be no compromise there. This, of course, clashes with Debian
-  systems' expectation that man-db is the default.
-
-  In order to not prevent packages that have a hard dependency on it to install,
-  starting with the next iso a dummy man-db package will be provided to trick
-  apt into thinking it's installed.
-
-  Caveat: programs which need man-db to function (e.g. debhelper's dh_install)
-  won't function properly. Luckily, such programs are pretty rare, and if you
-  encounter a problem with a package that expects man-db, simply open an issue
-  in the src[1] repository. 
-
-  Note that Ragnarok's policy is to build deb packages inside a minimal chroot
-  (which doesn't include a default 'man' implementation), so do not report issues
-  with the devscripts and debhelper packages.
-
-  If man-db is really needed, 'apt-get remove man-db && apt-get install man-db'
-  will install the real package. This, however, will break mandoc, and you're on
-  your own.
 
 [1] https://github.com/RagnarokOS/src/issues
 
