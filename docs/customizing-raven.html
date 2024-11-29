@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="Ragnarok">
+		<meta name="description" content="A Unix-like operating system">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+		<link rel="canonical" href="https://RagnarokOS.github.io/">
+		<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+		<title>Ragnarok | Simple, Unix-like and Hardened by default</title>
+	</head>
+
+	<body>
+		<div class="head">
+			<a href="../index.html" class="logo">Ragnarok</a>
+			<div class="head-right">
+				<a href="../index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../news/news.html">News</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../download.html">Download</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="../contact.html">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://www.paypal.com/donate/?hosted_button_id=PLEE2F9FFNJM8" target="_blank" rel="noopener noreferrer">Donate</a>
+			</div>
+		</div>
+		<div class="content">
+
+<h1>Customizing the Raven Window Manager</h1>
+<hr>
+
+<p>Raven is a dynamic tiling window manager forked from Suckless' dwm[1],
+therefore it is customized in the same way: by editing config.h and
+recompiling the software.</p>
+
+<p>While this may change in the future, it is currently the only way. The
+process is very simple, however, and takes about as much time as customizing
+any other window manager. This guide will simply outline the basic steps
+to configure Raven to suit your needs.</p>
+
+<h2>Prerequisite</h2>
+<hr>
+
+<p>Ragnarok uses clang as the default compiler, with extra hardening flags,
+so first ensure that the <code>ragnarok-devel</code> metapackage is installed. If
+not:</p>
+
+<div class="shell">
+<pre><code>
+# apt-get install -y ragnarok-devel</code></pre>
+</div>
+
+<h2>Untar the source</h2>
+<hr>
+
+<p>The <code>raven</code> package provides the source code as a tarball located in
+<code>/usr/src</code>. Create a working directory readable/writable by your user,
+untar the source, then cd into it.</p>
+
+<div class="shell">
+<pre><code>
+$ mkdir -p .local/src
+$ tar xzvf /usr/src/raven-${VERSION}.tgz -C ~/.local/src/
+$ cd ~/.local/src/raven-${VERSION}</code></pre>
+</div>
+
+<p>Replace <code>${VERSION}</code> with the current version.</p>
+
+<h2>Configure</h2>
+<hr>
+
+<p>First, run make</p>
+
+<div class="shell">
+<pre><code>
+$ make</code></pre>
+</div>
+
+<p>Afterwards, you can edit <code>config.h</code> to your liking.</p>
+
+<p>The developer's own customized <code>config.h</code> is provided as <code>config.devel.h</code>[2].
+This version sets Monocle as the default layout, changes the tags keys
+from <code>Super+1-9</code> to <code>Alt+1-9</code> and uses a unicode font for tag names. If
+you wish to use this config file as a base, copy it to config.h:</p>
+
+<div class="shell">
+<pre><code>
+$ cp config.devel.h config.h</code></pre>
+</div>
+
+<p>In order to use the unicode font for tag names, you will have to download
+Font Awesome 6 or above (which is not available in Debian/Ragnarok) from
+their official website[3] and unzip it to <code>~/.local/share/fonts/</code>.</p>
+
+<p>In order to ensure that your custom version does not conflict with the
+default, you should edit <code>config.mk</code> to change the <code>PREFIX</code> variable from
+<code>/usr</code> to <code>/usr/local</code>.</p>
+
+<p>After you are satisfied with your modifications, decide whether you simply
+want to install it directly, or build a custom <code>.deb</code> package.</p>
+
+<p>Install directly:</p>
+
+<div class="shell">
+<pre><code>
+$ make clean
+$ doas make install</code></pre>
+</div>
+
+<p>To build a custom package, first edit <code>config.mk</code> to set a custom name
+for your package. For example:</p>
+
+<div class="shell">
+<pre><code>
+PKG     = raven-custom_${VERSION}_amd64</code></pre>
+</div>
+
+<p>Then create the package:</p>
+
+<div class="shell">
+<pre><code>
+$ make deb</code></pre>
+</div>
+
+<p>Afterwards, you can install it with apt:</p>
+
+<div class="shell">
+<pre><code>
+$ doas apt-get install ./raven-custom_${VERSION}_amd64.deb</code></pre>
+</div>
+
+<h2>Statusbar</h2>
+<hr>
+
+<p>Being a fork of dwm, raven can use either slstatus or dwmblocks, or custom
+scripts using xsetroot. </p>
+
+<p>A custom status bar script is available in /usr/share/doc/raven/examples/.
+Much like <code>config.devel.h</code>, this script uses FontAwesome 6, so you will
+need to install the font if you wish to use it unmodified.</p>
+
+<h3>External Links</h3>
+<hr>
+
+<p>[1] Suckless' dwm &mdash; <a href="https://dwm.suckless.org">https://dwm.suckless.org</a><br>
+[2] config.devel.h &mdash; <a href="https://raw.githubusercontent.com/RagnarokOS/raven/refs/heads/master/config.devel.h">https://raw.githubusercontent.com/RagnarokOS/raven/refs/heads/master/config.devel.h</a><br>
+[3] FontAwesome &mdash; <a href="https://fontawesome.com/">https://fontawesome.com/</a></p>
+
+		</div>
+		<div class="footer">
+		&copy; 2022-2024 Ragnarok / Ian LeCorbeau. View this site's source code at <a href="https://github.com/RagnarokOS/RagnarokOS.github.io">https://github.com/RagnarokOS/RagnarokOS.github.io</a>
+		<br>
+		</div>
+	</body>
+</html>
