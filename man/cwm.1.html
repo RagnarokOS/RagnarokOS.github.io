@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+  	$OpenBSD$
+  
+   Copyright (c) 2004,2005 Marius Aamodt Eriksen <marius@monkey.org>
+  
+   Permission to use, copy, modify, and distribute this software for any
+   purpose with or without fee is hereby granted, provided that the above
+   copyright notice and this permission notice appear in all copies.
+  
+   THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+   WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+   MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+   ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>CWM(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">CWM(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">CWM(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">cwm</code> &#x2014; <span class="Nd">a
+    lightweight and efficient window manager for X11</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">cwm</code></td>
+    <td>[<code class="Fl">-nv</code>] [<code class="Fl">-c</code>
+      <var class="Ar">file</var>] [<code class="Fl">-d</code>
+      <var class="Ar">display</var>]</td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><code class="Nm">cwm</code> is a window manager for X11 which
+    contains many features that concentrate on the efficiency and transparency
+    of window management, while maintaining the simplest and most pleasant
+    aesthetic.</p>
+<p class="Pp">The options are as follows:</p>
+<dl class="Bl-tag">
+  <dt id="c"><a class="permalink" href="#c"><code class="Fl">-c</code></a>
+    <var class="Ar">file</var></dt>
+  <dd>Specify an alternative configuration file. By default,
+      <code class="Nm">cwm</code> loads <span class="Pa">~/.cwmrc</span>, if
+      present. Any error messages from lines in the configuration file will be
+      sent to
+      <a class="permalink" href="#stderr"><i class="Em" id="stderr">stderr</i></a>;
+      however, <code class="Nm">cwm</code> will continue to process the rest of
+      the configuration file.</dd>
+  <dt id="d"><a class="permalink" href="#d"><code class="Fl">-d</code></a>
+    <var class="Ar">display</var></dt>
+  <dd>Specify the display to use.</dd>
+  <dt id="n"><a class="permalink" href="#n"><code class="Fl">-n</code></a></dt>
+  <dd>Configtest mode. Only check the configuration file for validity.</dd>
+  <dt id="v"><a class="permalink" href="#v"><code class="Fl">-v</code></a></dt>
+  <dd>Verbose mode. Multiple <code class="Fl">-v</code> options increase the
+      verbosity.</dd>
+</dl>
+<p class="Pp"><code class="Nm">cwm</code> actions are initiated either via key
+    or mouse bindings. The following notations are used throughout this
+  page:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">
+<dl class="Bl-tag Bl-compact">
+  <dt id="C"><a class="permalink" href="#C"><code class="Ic">C</code></a></dt>
+  <dd>Control key.</dd>
+  <dt id="M"><a class="permalink" href="#M"><code class="Ic">M</code></a></dt>
+  <dd>Meta key.</dd>
+  <dt id="S"><a class="permalink" href="#S"><code class="Ic">S</code></a></dt>
+  <dd>Shift key.</dd>
+  <dt id="4"><a class="permalink" href="#4"><code class="Ic">4</code></a></dt>
+  <dd>Mod4 (windows) key.</dd>
+  <dt id="M1"><a class="permalink" href="#M1"><code class="Ic">M1</code></a></dt>
+  <dd>Left mouse button.</dd>
+  <dt id="M2"><a class="permalink" href="#M2"><code class="Ic">M2</code></a></dt>
+  <dd>Middle mouse button.</dd>
+  <dt id="M3"><a class="permalink" href="#M3"><code class="Ic">M3</code></a></dt>
+  <dd>Right mouse button.</dd>
+</dl>
+</div>
+<p class="Pp">The default key bindings are:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">
+<dl class="Bl-tag Bl-compact">
+  <dt id="CM-Return"><a class="permalink" href="#CM-Return"><code class="Ic">CM-Return</code></a></dt>
+  <dd>Spawn a new terminal.</dd>
+  <dt id="CM-Delete"><a class="permalink" href="#CM-Delete"><code class="Ic">CM-Delete</code></a></dt>
+  <dd>Lock the screen.</dd>
+  <dt id="M-Return"><a class="permalink" href="#M-Return"><code class="Ic">M-Return</code></a></dt>
+  <dd>Hide current window.</dd>
+  <dt id="M-Down"><a class="permalink" href="#M-Down"><code class="Ic">M-Down</code></a></dt>
+  <dd>Lower current window.</dd>
+  <dt id="M-Up"><a class="permalink" href="#M-Up"><code class="Ic">M-Up</code></a></dt>
+  <dd>Raise current window.</dd>
+  <dt id="M-slash"><a class="permalink" href="#M-slash"><code class="Ic">M-slash</code></a></dt>
+  <dd>Search for windows.</dd>
+  <dt id="C-slash"><a class="permalink" href="#C-slash"><code class="Ic">C-slash</code></a></dt>
+  <dd>Search for applications.</dd>
+  <dt id="CM-n"><a class="permalink" href="#CM-n"><code class="Ic">CM-n</code></a></dt>
+  <dd>Label current window.</dd>
+  <dt id="M-Tab"><a class="permalink" href="#M-Tab"><code class="Ic">M-Tab</code></a></dt>
+  <dd>Cycle through currently visible windows.</dd>
+  <dt id="MS-Tab"><a class="permalink" href="#MS-Tab"><code class="Ic">MS-Tab</code></a></dt>
+  <dd>Reverse cycle through currently visible windows.</dd>
+  <dt id="M-grave"><a class="permalink" href="#M-grave"><code class="Ic">M-grave</code></a></dt>
+  <dd>Cycle through currently visible windows of the same window class.</dd>
+  <dt id="MS-grave"><a class="permalink" href="#MS-grave"><code class="Ic">MS-grave</code></a></dt>
+  <dd>Reverse cycle through currently visible windows of the same window
+    class.</dd>
+  <dt id="CM-x"><a class="permalink" href="#CM-x"><code class="Ic">CM-x</code></a></dt>
+  <dd>Close current window.</dd>
+  <dt id="CM-_n_"><a class="permalink" href="#CM-_n_"><code class="Ic">CM-[n]</code></a></dt>
+  <dd>Toggle visibility of group n, where n is 1-9.</dd>
+  <dt id="CM-a"><a class="permalink" href="#CM-a"><code class="Ic">CM-a</code></a></dt>
+  <dd>Toggle visibility of all groups.</dd>
+  <dt id="CM-g"><a class="permalink" href="#CM-g"><code class="Ic">CM-g</code></a></dt>
+  <dd>Toggle group membership of current window.</dd>
+  <dt id="M-Right"><a class="permalink" href="#M-Right"><code class="Ic">M-Right</code></a></dt>
+  <dd>Cycle through active groups.</dd>
+  <dt id="M-Left"><a class="permalink" href="#M-Left"><code class="Ic">M-Left</code></a></dt>
+  <dd>Reverse cycle through active groups.</dd>
+  <dt id="CMS-f"><a class="permalink" href="#CMS-f"><code class="Ic">CMS-f</code></a></dt>
+  <dd>Toggle freezing geometry of current window.</dd>
+  <dt id="CM-s"><a class="permalink" href="#CM-s"><code class="Ic">CM-s</code></a></dt>
+  <dd>Toggle stickiness of current window.</dd>
+  <dt id="CM-f"><a class="permalink" href="#CM-f"><code class="Ic">CM-f</code></a></dt>
+  <dd>Toggle full-screen mode of current window.</dd>
+  <dt id="CM-m"><a class="permalink" href="#CM-m"><code class="Ic">CM-m</code></a></dt>
+  <dd>Toggle maximization of current window.</dd>
+  <dt id="CM-equal"><a class="permalink" href="#CM-equal"><code class="Ic">CM-equal</code></a></dt>
+  <dd>Toggle vertical maximization of current window.</dd>
+  <dt id="CMS-equal"><a class="permalink" href="#CMS-equal"><code class="Ic">CMS-equal</code></a></dt>
+  <dd>Toggle horizontal maximization of current window.</dd>
+  <dt id="M-_hjkl_"><a class="permalink" href="#M-_hjkl_"><code class="Ic">M-[hjkl]</code></a></dt>
+  <dd>Move window by a small amount.</dd>
+  <dt id="MS-_hjkl_"><a class="permalink" href="#MS-_hjkl_"><code class="Ic">MS-[hjkl]</code></a></dt>
+  <dd>Move window by a large amount; see <a class="Xr">cwmrc(5)</a>.</dd>
+  <dt id="CM-_hjkl_"><a class="permalink" href="#CM-_hjkl_"><code class="Ic">CM-[hjkl]</code></a></dt>
+  <dd>Resize window by a small amount.</dd>
+  <dt id="CMS-_hjkl_"><a class="permalink" href="#CMS-_hjkl_"><code class="Ic">CMS-[hjkl]</code></a></dt>
+  <dd>Resize window by a large amount; see <a class="Xr">cwmrc(5)</a>.</dd>
+  <dt id="M-question"><a class="permalink" href="#M-question"><code class="Ic">M-question</code></a></dt>
+  <dd>Spawn &#x201C;exec program&#x201D; dialog.</dd>
+  <dt id="M-period"><a class="permalink" href="#M-period"><code class="Ic">M-period</code></a></dt>
+  <dd>Spawn &#x201C;ssh to&#x201D; dialog. This parses
+      <span class="Pa">$HOME/.ssh/known_hosts</span> to provide host
+      auto-completion. <a class="Xr">ssh(1)</a> will be executed via the
+      configured terminal emulator.</dd>
+  <dt id="CM-w"><a class="permalink" href="#CM-w"><code class="Ic">CM-w</code></a></dt>
+  <dd>Spawn &#x201C;exec WindowManager&#x201D; menu, allowing a switch to
+      another window manager.</dd>
+  <dt id="CMS-r"><a class="permalink" href="#CMS-r"><code class="Ic">CMS-r</code></a></dt>
+  <dd>Restart.</dd>
+  <dt id="CMS-q"><a class="permalink" href="#CMS-q"><code class="Ic">CMS-q</code></a></dt>
+  <dd>Quit.</dd>
+</dl>
+</div>
+<p class="Pp">The default mouse bindings are:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">
+<dl class="Bl-tag Bl-compact">
+  <dt id="M-M1"><a class="permalink" href="#M-M1"><code class="Ic">M-M1</code></a></dt>
+  <dd>Move current window.</dd>
+  <dt id="CM-M1"><a class="permalink" href="#CM-M1"><code class="Ic">CM-M1</code></a></dt>
+  <dd>Toggle group membership of current window.</dd>
+  <dt id="M-M2"><a class="permalink" href="#M-M2"><code class="Ic">M-M2</code></a></dt>
+  <dd>Resize current window</dd>
+  <dt id="M-M3"><a class="permalink" href="#M-M3"><code class="Ic">M-M3</code></a></dt>
+  <dd>Lower current window.</dd>
+  <dt id="CMS-M3"><a class="permalink" href="#CMS-M3"><code class="Ic">CMS-M3</code></a></dt>
+  <dd>Hide current window.</dd>
+</dl>
+</div>
+<p class="Pp">The following key bindings may be used to navigate search and exec
+    dialogs:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">
+<dl class="Bl-tag Bl-compact">
+  <dt id="_Return_"><a class="permalink" href="#_Return_"><code class="Ic">[Return]</code></a></dt>
+  <dd>Select item.</dd>
+  <dt id="_Down_,"><a class="permalink" href="#_Down_,"><code class="Ic">[Down],
+    C-s</code></a> <span class="No">or</span> <code class="Ic">M-j</code></dt>
+  <dd>Next item.</dd>
+  <dt id="_Up_,"><a class="permalink" href="#_Up_,"><code class="Ic">[Up],
+    C-r</code></a> <span class="No">or</span> <code class="Ic">M-k</code></dt>
+  <dd>Previous item.</dd>
+  <dt id="_Backspace_"><a class="permalink" href="#_Backspace_"><code class="Ic">[Backspace]</code></a>
+    <span class="No">or</span> <code class="Ic">C-h</code></dt>
+  <dd>Backspace.</dd>
+  <dt id="C-u"><a class="permalink" href="#C-u"><code class="Ic">C-u</code></a></dt>
+  <dd>Clear input.</dd>
+  <dt id="C-a"><a class="permalink" href="#C-a"><code class="Ic">C-a</code></a></dt>
+  <dd>List all available items.</dd>
+  <dt id="_Esc_"><a class="permalink" href="#_Esc_"><code class="Ic">[Esc]</code></a></dt>
+  <dd>Cancel.</dd>
+</dl>
+</div>
+<p class="Pp"><code class="Nm">cwm</code> rereads its configuration file when it
+    receives a hangup signal, <code class="Dv">SIGHUP</code>, by executing
+    itself with the name and arguments with which it was started. This is
+    equivalent to the <var class="Ar">restart</var> function.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEARCH"><a class="permalink" href="#SEARCH">SEARCH</a></h1>
+<p class="Pp"><code class="Nm">cwm</code> features the ability to search for
+    windows by their current title, old titles, and by their label. The priority
+    for the search results are: label, current title, old titles in reverse
+    order, and finally window class name. <code class="Nm">cwm</code> keeps a
+    history of the 5 previous titles of a window.</p>
+<p class="Pp">When searching, the leftmost character of the result list may show
+    a flag:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">
+<dl class="Bl-tag Bl-compact">
+  <dt>!</dt>
+  <dd>Window is currently focused.</dd>
+  <dt>&amp;</dt>
+  <dd>Window is hidden.</dd>
+</dl>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="APPLICATIONS"><a class="permalink" href="#APPLICATIONS">APPLICATIONS</a></h1>
+<p class="Pp"><code class="Nm">cwm</code> manages a list of applications defined
+    with the <code class="Cm">command</code> configuration option.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="GROUPS"><a class="permalink" href="#GROUPS">GROUPS</a></h1>
+<p class="Pp"><code class="Nm">cwm</code> has the ability to group windows
+    together, and use the groups to perform operations on the entire group
+    instead of just one window. Together with the <span class="Pa">sticky</span>
+    option, this can be used to emulate virtual desktops.</p>
+<p class="Pp">To edit groups, use the group selection commands to toggle
+    membership of a group. A blue border will be shown briefly on windows added
+    to the current group, and a red border will be shown on those just
+  removed.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="MENUS"><a class="permalink" href="#MENUS">MENUS</a></h1>
+<p class="Pp">Menus are recalled by clicking the mouse on the root window:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">
+<dl class="Bl-tag Bl-compact">
+  <dt id="M1~2"><a class="permalink" href="#M1~2"><code class="Ic">M1</code></a></dt>
+  <dd>Show list of currently defined windows. Selecting an item will warp to
+      that window, unhiding it if necessary.</dd>
+  <dt id="M2~2"><a class="permalink" href="#M2~2"><code class="Ic">M2</code></a></dt>
+  <dd>Show list of currently defined groups. Selecting an item will hide/unhide
+      that group.</dd>
+  <dt id="M3~2"><a class="permalink" href="#M3~2"><code class="Ic">M3</code></a></dt>
+  <dd>Show list of applications as defined in the configuration file. Selecting
+      an item will spawn that application.</dd>
+</dl>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+<dl class="Bl-tag Bl-compact">
+  <dt>DISPLAY</dt>
+  <dd><code class="Nm">cwm</code> starts on this display unless the
+      <code class="Fl">-d</code> option is given.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag Bl-compact">
+  <dt><span class="Pa">~/.cwmrc</span></dt>
+  <dd>Default <code class="Nm">cwm</code> configuration file.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr">cwmrc(5)</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+<p class="Pp"><code class="Nm">cwm</code> was originally inspired by evilwm, but
+    was rewritten from scratch due to limitations in the evilwm codebase. The
+    from-scratch rewrite borrowed some code from 9wm, however that code has
+    since been removed or rewritten.</p>
+<p class="Pp"><code class="Nm">cwm</code> first appeared in
+    <span class="Ux">OpenBSD 4.2</span>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+<p class="Pp"><code class="Nm">cwm</code> was developed by
+    <span class="An">Marius Aamodt Eriksen</span>
+    &#x27E8;marius@monkey.org&#x27E9; with contributions from
+    <span class="An">Andy Adamson</span> &#x27E8;dros@monkey.org&#x27E9;,
+    <span class="An">Niels Provos</span> &#x27E8;provos@monkey.org&#x27E9;, and
+    <span class="An">Antti Nyk&#x00E4;nen</span> &#x27E8;aon@iki.fi&#x27E9;.
+    Ideas, discussion with many others.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">January 7, 2025</td>
+    <td class="foot-os">Ragnarok</td>
+  </tr>
+</table>
+</body>
+</html>

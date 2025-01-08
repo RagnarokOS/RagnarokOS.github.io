@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>RAVEN(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">RAVEN(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">RAVEN(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">raven</code> &#x2014; <span class="Nd">A dynamic
+    window manager</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">raven</code></td>
+    <td>[<code class="Fl">-v</code>]</td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">raven is a dynamic window manager for X. It manages windows in
+    tiled, monocle and floating layouts. Layouts can be applied dynamically,
+    optimising the environment for the application in use and the task
+    performed.</p>
+<p class="Pp">In tiled layouts windows are managed in a master and stacking
+    area. The default tiled layout places the master area on the left by
+    default, while the rmaster and bottomstack layouts places the master area on
+    the right and top, respectively. The stacking area contains all other
+    windows. The number of master area windows can be adjusted from zero to an
+    arbitrary number. In monocle layout all windows are maximised to the screen
+    size, minus the status bar and gaps. The Deck layout places the master area
+    to the left, and turns the stack area in a Monocle, where all windows cover
+    one another. The grid layout organinizes the windows in a grid when more
+    than three windows are opened on the same tag. In floating mode, windows can
+    be resized and moved freely. Dialog windows are always managed floating,
+    regardless of the layout applied.</p>
+<p class="Pp">Windows are grouped by tags. Each window can be tagged with one or
+    multiple tags. Selecting certain tags displays all windows with these
+  tags.</p>
+<p class="Pp">Each screen contains a small status bar which displays all
+    available tags, the layout, the title of the focused window, and the text
+    read from the root window name property, if the screen is focused. A
+    floating window is indicated with an empty square and a maximised floating
+    window is indicated with a filled square before the windows title. The
+    selected tags are indicated with a different color. The tags of the focused
+    window are indicated with a filled square in the top left corner. The tags
+    which are applied to one or more windows are indicated with an empty square
+    in the top left corner.</p>
+<p class="Pp">Raven draws a small border around windows to indicate the focus
+    state.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="v"><a class="permalink" href="#v"><code class="Fl">-v</code></a></dt>
+  <dd>prints version information to standard output, then exits.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="USAGE"><a class="permalink" href="#USAGE">USAGE</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="Status_bar"><a class="permalink" href="#Status_bar">Status
+  bar</a></h2>
+<dl class="Bl-tag">
+  <dt id="X"><a class="permalink" href="#X"><b class="Sy">X root window
+    name</b></a></dt>
+  <dd>is read and displayed in the status text area. It can be set with the
+      <a class="Xr">xsetroot(1)</a> command.</dd>
+  <dt id="Button1"><a class="permalink" href="#Button1"><b class="Sy">Button1</b></a></dt>
+  <dd>click on a tag label to display all windows with that tag, click on the
+      layout label toggles between tiled and floating layout.</dd>
+  <dt id="Button3"><a class="permalink" href="#Button3"><b class="Sy">Button3</b></a></dt>
+  <dd>click on a tag label adds/removes all windows with that tag to/from the
+      view.</dd>
+  <dt id="MOD"><a class="permalink" href="#MOD"><b class="Sy">MOD-Button1</b></a></dt>
+  <dd>click on a tag label applies that tag to the focused window.</dd>
+  <dt id="MOD~2"><a class="permalink" href="#MOD~2"><b class="Sy">MOD-Button3</b></a></dt>
+  <dd>click on a tag label adds/removes that tag to/from the focused
+    window.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Keyboard_Shortcuts"><a class="permalink" href="#Keyboard_Shortcuts">Keyboard
+  Shortcuts</a></h2>
+<p class="Pp">The default <b class="Sy">MOD</b> key is
+    <a class="permalink" href="#Mod4"><b class="Sy" id="Mod4">Mod4</b></a>,
+    a.k.a the
+    <a class="permalink" href="#Super"><b class="Sy" id="Super">Super</b></a>
+    key.</p>
+<dl class="Bl-tag">
+  <dt id="Alt"><a class="permalink" href="#Alt"><b class="Sy">Alt-Return</b></a></dt>
+  <dd>Launch the <a class="Xr">rt(1)</a> terminal.</dd>
+  <dt id="Alt~2"><a class="permalink" href="#Alt~2"><b class="Sy">Alt-p</b></a></dt>
+  <dd>Lauch <a class="Xr">dmenu(1)</a>.</dd>
+  <dt id="MOD~3"><a class="permalink" href="#MOD~3"><b class="Sy">MOD-,</b></a></dt>
+  <dd>Focus previous screen, if any.</dd>
+  <dt id="MOD~4"><a class="permalink" href="#MOD~4"><b class="Sy">MOD-.</b></a></dt>
+  <dd>Focus next screen, if any.</dd>
+  <dt id="MOD~5"><a class="permalink" href="#MOD~5"><b class="Sy">MOD-Shift-,</b></a></dt>
+  <dd>Send focused window to previous screen, if any.</dd>
+  <dt id="MOD~6"><a class="permalink" href="#MOD~6"><b class="Sy">MOD-Shift-.</b></a></dt>
+  <dd>Send focused window to next screen, if any.</dd>
+  <dt id="MOD~7"><a class="permalink" href="#MOD~7"><b class="Sy">MOD-p</b></a></dt>
+  <dd>Toggles bar on and off.</dd>
+  <dt id="MOD~8"><a class="permalink" href="#MOD~8"><b class="Sy">MOD-t</b></a></dt>
+  <dd>Sets tiled layout.</dd>
+  <dt id="MOD~9"><a class="permalink" href="#MOD~9"><b class="Sy">MOD-s</b></a></dt>
+  <dd>Sets floating layout.</dd>
+  <dt id="MOD~10"><a class="permalink" href="#MOD~10"><b class="Sy">MOD-m</b></a></dt>
+  <dd>Sets monocle layout.</dd>
+  <dt id="MOD~11"><a class="permalink" href="#MOD~11"><b class="Sy">MOD-b</b></a></dt>
+  <dd>Toggles the bottomstack layout</dd>
+  <dt id="MOD~12"><a class="permalink" href="#MOD~12"><b class="Sy">MOD-r</b></a></dt>
+  <dd>Toggles the rightmaster layout</dd>
+  <dt id="MOD~13"><a class="permalink" href="#MOD~13"><b class="Sy">MOD-d</b></a></dt>
+  <dd>Toggles the Deck layout.</dd>
+  <dt id="MOD~14"><a class="permalink" href="#MOD~14"><b class="Sy">MOD-g</b></a></dt>
+  <dd>Toggles the Grid layout.</dd>
+  <dt id="MOD~15"><a class="permalink" href="#MOD~15"><b class="Sy">MOD-space</b></a></dt>
+  <dd>Toggles between current and previous layout.</dd>
+  <dt id="MOD~16"><a class="permalink" href="#MOD~16"><b class="Sy">MOD-j</b></a></dt>
+  <dd>Focus next window.</dd>
+  <dt id="MOD~17"><a class="permalink" href="#MOD~17"><b class="Sy">MOD-k</b></a></dt>
+  <dd>Focus previous window.</dd>
+  <dt id="MOD~18"><a class="permalink" href="#MOD~18"><b class="Sy">MOD-i</b></a></dt>
+  <dd>Increase number of windows in master area.</dd>
+  <dt id="MOD~19"><a class="permalink" href="#MOD~19"><b class="Sy">MOD-d</b></a></dt>
+  <dd>Decrease number of windows in master area.</dd>
+  <dt id="MOD~20"><a class="permalink" href="#MOD~20"><b class="Sy">MOD-l</b></a></dt>
+  <dd>Increase master area size.</dd>
+  <dt id="MOD~21"><a class="permalink" href="#MOD~21"><b class="Sy">MOD-h</b></a></dt>
+  <dd>Decrease master area size.</dd>
+  <dt id="MOD~22"><a class="permalink" href="#MOD~22"><b class="Sy">MOD-Return</b></a></dt>
+  <dd>Zooms/cycles focused window to/from master area (tiled layouts only).</dd>
+  <dt id="MOD~23"><a class="permalink" href="#MOD~23"><b class="Sy">MOD-Shift-c</b></a></dt>
+  <dd>Close focused window.</dd>
+  <dt id="MOD~24"><a class="permalink" href="#MOD~24"><b class="Sy">MOD-Shift-space</b></a></dt>
+  <dd>Toggle focused window between tiled and floating state.</dd>
+  <dt id="MOD~25"><a class="permalink" href="#MOD~25"><b class="Sy">MOD-f</b></a></dt>
+  <dd>Toggle fullscreen mode for window.</dd>
+  <dt id="MOD~26"><a class="permalink" href="#MOD~26"><b class="Sy">MOD-Tab</b></a></dt>
+  <dd>Toggles to the previously selected tags.</dd>
+  <dt id="MOD~27"><a class="permalink" href="#MOD~27"><b class="Sy">MOD-Shift-[1..n]</b></a></dt>
+  <dd>Apply nth tag to focused window.</dd>
+  <dt id="MOD~28"><a class="permalink" href="#MOD~28"><b class="Sy">MOD-Shift-0</b></a></dt>
+  <dd>Apply all tags to focused window.</dd>
+  <dt id="MOD~29"><a class="permalink" href="#MOD~29"><b class="Sy">MOD-Control-Shift-[1..n]</b></a></dt>
+  <dd>Add/remove nth tag to/from focused window.</dd>
+  <dt id="MOD~30"><a class="permalink" href="#MOD~30"><b class="Sy">MOD-[1..n]</b></a></dt>
+  <dd>View all windows with nth tag.</dd>
+  <dt id="MOD~31"><a class="permalink" href="#MOD~31"><b class="Sy">MOD-0</b></a></dt>
+  <dd>View all windows with any tag.</dd>
+  <dt id="MOD~32"><a class="permalink" href="#MOD~32"><b class="Sy">MOD-Control-[1..n]</b></a></dt>
+  <dd>Add/remove all windows with nth tag to/from the view.</dd>
+  <dt id="MOD~33"><a class="permalink" href="#MOD~33"><b class="Sy">MOD-Shift-q</b></a></dt>
+  <dd>Quit raven.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Mouse_commands"><a class="permalink" href="#Mouse_commands">Mouse
+  commands</a></h2>
+<dl class="Bl-tag">
+  <dt id="MOD~34"><a class="permalink" href="#MOD~34"><b class="Sy">MOD-Button1</b></a></dt>
+  <dd>Move focused window while dragging. Tiled windows will be toggled to the
+      floating state.</dd>
+  <dt id="MOD~35"><a class="permalink" href="#MOD~35"><b class="Sy">MOD-Button2</b></a></dt>
+  <dd>Toggles focused window between floating and tiled state.</dd>
+  <dt id="MOD~36"><a class="permalink" href="#MOD~36"><b class="Sy">MOD-Button3</b></a></dt>
+  <dd>Resize focused window while dragging. Tiled windows will be toggled to the
+      floating state.</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CUSTOMIZATION"><a class="permalink" href="#CUSTOMIZATION">CUSTOMIZATION</a></h1>
+<p class="Pp">Raven is customized by creating a custom config.h and
+    (re)compiling the source code. This keeps it fast, secure and simple.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr">dmenu(1)</a>, <a class="Xr">st(1)</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ISSUES"><a class="permalink" href="#ISSUES">ISSUES</a></h1>
+<p class="Pp">Java applications which use the XToolkit/XAWT backend may draw
+    grey windows only. The XToolkit/XAWT backend breaks ICCCM-compliance in
+    recent JDK 1.5 and early JDK 1.6 versions, because it assumes a reparenting
+    window manager. Possible workarounds are using JDK 1.4 (which doesn't
+    contain the XToolkit/XAWT backend) or setting the environment variable
+    <a class="permalink" href="#AWT_TOOLKIT=MToolkit"><b class="Sy" id="AWT_TOOLKIT=MToolkit">AWT_TOOLKIT=MToolkit</b></a>
+    (to use the older Motif backend instead) or running
+    <a class="permalink" href="#xprop"><b class="Sy" id="xprop">xprop -root -f
+    _NET_WM_NAME 32a -set _NET_WM_NAME LG3D</b></a> or
+    <a class="permalink" href="#wmname"><b class="Sy" id="wmname">wmname
+    LG3D</b></a> (to pretend that a non-reparenting window manager is running
+    that the XToolkit/XAWT backend can recognize) or when using OpenJDK setting
+    the environment variable
+    <a class="permalink" href="#_JAVA_AWT_WM_NONREPARENTING=1"><b class="Sy" id="_JAVA_AWT_WM_NONREPARENTING=1">_JAVA_AWT_WM_NONREPARENTING=1</b></a>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+<p class="Pp">Bug reports can be made at
+    https://github.com/RagnarokOS/raven/issues.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 24, 2024</td>
+    <td class="foot-os">Ragnarok</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>DMENU(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">DMENU(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">DMENU(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">dmenu - dynamic menu</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>dmenu</b> [<b>-bfiv</b>] [<b>-l</b> <i>lines</i>] [<b>-m</b>
+    <i>monitor</i>] [<b>-p</b> <i>prompt</i>] [<b>-fn</b> <i>font</i>]
+    [<b>-nb</b> <i>color</i>] [<b>-nf</b> <i>color</i>] [<b>-sb</b>
+    <i>color</i>] [<b>-sf</b> <i>color</i>] [<b>-w</b> <i>windowid</i>]</p>
+<p class="Pp"><b>dmenu_run</b> ...</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><b>dmenu</b> is a dynamic menu for X, which reads a list of
+    newline-separated items from stdin. When the user selects an item and
+    presses Return, their choice is printed to stdout and dmenu terminates.
+    Entering text will narrow the items to those matching the tokens in the
+    input.</p>
+<p class="Pp"><b>dmenu_run</b> is a script used by <i>dwm</i>(1) which lists
+    programs in the user's $PATH and runs the result in their $SHELL.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="b"><a class="permalink" href="#b"><b>-b</b></a></dt>
+  <dd>dmenu appears at the bottom of the screen.</dd>
+  <dt id="f"><a class="permalink" href="#f"><b>-f</b></a></dt>
+  <dd>dmenu grabs the keyboard before reading stdin if not reading from a tty.
+      This is faster, but will lock up X until stdin reaches end-of-file.</dd>
+  <dt id="h"><a class="permalink" href="#h"><b>-h</b><i> lineheight</i></a></dt>
+  <dd>Sets the height of dmenu, in pixels.</dd>
+  <dt id="i"><a class="permalink" href="#i"><b>-i</b></a></dt>
+  <dd>dmenu matches menu items case insensitively.</dd>
+  <dt id="l"><a class="permalink" href="#l"><b>-l</b><i> lines</i></a></dt>
+  <dd>dmenu lists items vertically, with the given number of lines.</dd>
+  <dt id="m"><a class="permalink" href="#m"><b>-m</b><i> monitor</i></a></dt>
+  <dd>dmenu is displayed on the monitor number supplied. Monitor numbers are
+      starting from 0.</dd>
+  <dt id="p"><a class="permalink" href="#p"><b>-p</b><i> prompt</i></a></dt>
+  <dd>defines the prompt to be displayed to the left of the input field.</dd>
+  <dt id="fn"><a class="permalink" href="#fn"><b>-fn</b><i> font</i></a></dt>
+  <dd>defines the font or font set used.</dd>
+  <dt id="nb"><a class="permalink" href="#nb"><b>-nb</b><i> color</i></a></dt>
+  <dd>defines the normal background color. <i>#RGB</i>, <i>#RRGGBB</i>, and X
+      color names are supported.</dd>
+  <dt id="nf"><a class="permalink" href="#nf"><b>-nf</b><i> color</i></a></dt>
+  <dd>defines the normal foreground color.</dd>
+  <dt id="sb"><a class="permalink" href="#sb"><b>-sb</b><i> color</i></a></dt>
+  <dd>defines the selected background color.</dd>
+  <dt id="sf"><a class="permalink" href="#sf"><b>-sf</b><i> color</i></a></dt>
+  <dd>defines the selected foreground color.</dd>
+  <dt id="v"><a class="permalink" href="#v"><b>-v</b></a></dt>
+  <dd>prints version information to stdout, then exits.</dd>
+  <dt id="w"><a class="permalink" href="#w"><b>-w</b><i> windowid</i></a></dt>
+  <dd>embed into windowid.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="USAGE"><a class="permalink" href="#USAGE">USAGE</a></h1>
+<p class="Pp">dmenu is completely controlled by the keyboard. Items are selected
+    using the arrow keys, page up, page down, home, and end.</p>
+<dl class="Bl-tag">
+  <dt id="Tab"><a class="permalink" href="#Tab"><b>Tab</b></a></dt>
+  <dd>Copy the selected item to the input field.</dd>
+  <dt id="Return"><a class="permalink" href="#Return"><b>Return</b></a></dt>
+  <dd>Confirm selection. Prints the selected item to stdout and exits, returning
+      success.</dd>
+  <dt id="Ctrl-Return"><a class="permalink" href="#Ctrl-Return"><b>Ctrl-Return</b></a></dt>
+  <dd>Confirm selection. Prints the selected item to stdout and continues.</dd>
+  <dt id="Shift"><a class="permalink" href="#Shift"><b>Shift-Return</b></a></dt>
+  <dd>Confirm input. Prints the input text to stdout and exits, returning
+      success.</dd>
+  <dt id="Escape"><a class="permalink" href="#Escape"><b>Escape</b></a></dt>
+  <dd>Exit without selecting an item, returning failure.</dd>
+  <dt id="Ctrl-Left"><a class="permalink" href="#Ctrl-Left"><b>Ctrl-Left</b></a></dt>
+  <dd>Move cursor to the start of the current word</dd>
+  <dt id="Ctrl-Right"><a class="permalink" href="#Ctrl-Right"><b>Ctrl-Right</b></a></dt>
+  <dd>Move cursor to the end of the current word</dd>
+  <dt id="C"><a class="permalink" href="#C"><b>C-a</b></a></dt>
+  <dd>Home</dd>
+  <dt id="C~2"><a class="permalink" href="#C~2"><b>C-b</b></a></dt>
+  <dd>Left</dd>
+  <dt id="C~3"><a class="permalink" href="#C~3"><b>C-c</b></a></dt>
+  <dd>Escape</dd>
+  <dt id="C~4"><a class="permalink" href="#C~4"><b>C-d</b></a></dt>
+  <dd>Delete</dd>
+  <dt id="C~5"><a class="permalink" href="#C~5"><b>C-e</b></a></dt>
+  <dd>End</dd>
+  <dt id="C~6"><a class="permalink" href="#C~6"><b>C-f</b></a></dt>
+  <dd>Right</dd>
+  <dt id="C~7"><a class="permalink" href="#C~7"><b>C-g</b></a></dt>
+  <dd>Escape</dd>
+  <dt id="C~8"><a class="permalink" href="#C~8"><b>C-h</b></a></dt>
+  <dd>Backspace</dd>
+  <dt id="C~9"><a class="permalink" href="#C~9"><b>C-i</b></a></dt>
+  <dd>Tab</dd>
+  <dt id="C~10"><a class="permalink" href="#C~10"><b>C-j</b></a></dt>
+  <dd>Return</dd>
+  <dt id="C~11"><a class="permalink" href="#C~11"><b>C-J</b></a></dt>
+  <dd>Shift-Return</dd>
+  <dt id="C~12"><a class="permalink" href="#C~12"><b>C-k</b></a></dt>
+  <dd>Delete line right</dd>
+  <dt id="C~13"><a class="permalink" href="#C~13"><b>C-m</b></a></dt>
+  <dd>Return</dd>
+  <dt id="C~14"><a class="permalink" href="#C~14"><b>C-M</b></a></dt>
+  <dd>Shift-Return</dd>
+  <dt id="C~15"><a class="permalink" href="#C~15"><b>C-n</b></a></dt>
+  <dd>Down</dd>
+  <dt id="C~16"><a class="permalink" href="#C~16"><b>C-p</b></a></dt>
+  <dd>Up</dd>
+  <dt id="C~17"><a class="permalink" href="#C~17"><b>C-u</b></a></dt>
+  <dd>Delete line left</dd>
+  <dt id="C~18"><a class="permalink" href="#C~18"><b>C-w</b></a></dt>
+  <dd>Delete word left</dd>
+  <dt id="C~19"><a class="permalink" href="#C~19"><b>C-y</b></a></dt>
+  <dd>Paste from primary X selection</dd>
+  <dt id="C~20"><a class="permalink" href="#C~20"><b>C-Y</b></a></dt>
+  <dd>Paste from X clipboard</dd>
+  <dt id="M"><a class="permalink" href="#M"><b>M-b</b></a></dt>
+  <dd>Move cursor to the start of the current word</dd>
+  <dt id="M~2"><a class="permalink" href="#M~2"><b>M-f</b></a></dt>
+  <dd>Move cursor to the end of the current word</dd>
+  <dt id="M~3"><a class="permalink" href="#M~3"><b>M-g</b></a></dt>
+  <dd>Home</dd>
+  <dt id="M~4"><a class="permalink" href="#M~4"><b>M-G</b></a></dt>
+  <dd>End</dd>
+  <dt id="M~5"><a class="permalink" href="#M~5"><b>M-h</b></a></dt>
+  <dd>Up</dd>
+  <dt id="M~6"><a class="permalink" href="#M~6"><b>M-j</b></a></dt>
+  <dd>Page down</dd>
+  <dt id="M~7"><a class="permalink" href="#M~7"><b>M-k</b></a></dt>
+  <dd>Page up</dd>
+  <dt id="M~8"><a class="permalink" href="#M~8"><b>M-l</b></a></dt>
+  <dd>Down</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><i>dwm</i>(1), <i>stest</i>(1)</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">dmenu</td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+</body>
+</html>

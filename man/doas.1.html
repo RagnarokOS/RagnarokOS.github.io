@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   $OpenBSD: doas.1,v 1.25 2021/01/16 09:18:41 martijn Exp $
+  
+  Copyright (c) 2015 Ted Unangst <tedu@openbsd.org>
+  
+  Permission to use, copy, modify, and distribute this software for any
+  purpose with or without fee is hereby granted, provided that the above
+  copyright notice and this permission notice appear in all copies.
+  
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>DOAS(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">DOAS(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">DOAS(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">doas</code> &#x2014; <span class="Nd">execute
+    commands as another user</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">doas</code></td>
+    <td>[<code class="Fl">-Lns</code>] [<code class="Fl">-C</code>
+      <var class="Ar">config</var>] [<code class="Fl">-u</code>
+      <var class="Ar">user</var>] <var class="Ar">command</var>
+      [<var class="Ar">args</var>]</td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">The <code class="Nm">doas</code> utility executes the given
+    command as another user. The <var class="Ar">command</var> argument is
+    mandatory unless <code class="Fl">-C</code>, <code class="Fl">-L</code>, or
+    <code class="Fl">-s</code> is specified.</p>
+<p class="Pp">The user will be required to authenticate by entering their
+    password, unless configured otherwise.</p>
+<p class="Pp">By default, a new environment is created. The variables
+    <code class="Ev">HOME</code>, <code class="Ev">LOGNAME</code>,
+    <code class="Ev">PATH</code>, <code class="Ev">SHELL</code>, and
+    <code class="Ev">USER</code> and the <a class="Xr">umask(2)</a> are set to
+    values appropriate for the target user. <code class="Ev">DOAS_USER</code> is
+    set to the name of the user executing <code class="Nm">doas</code>. The
+    variables <code class="Ev">DISPLAY</code> and <code class="Ev">TERM</code>
+    are inherited from the current environment. This behavior may be modified by
+    the config file. The working directory is not changed.</p>
+<p class="Pp">The options are as follows:</p>
+<dl class="Bl-tag">
+  <dt id="C"><a class="permalink" href="#C"><code class="Fl">-C</code></a>
+    <var class="Ar">config</var></dt>
+  <dd>Parse and check the configuration file <var class="Ar">config</var>, then
+      exit. If <var class="Ar">command</var> is supplied,
+      <code class="Nm">doas</code> will also perform command matching. In the
+      latter case either &#x2018;permit&#x2019;, &#x2018;permit nopass&#x2019;
+      or &#x2018;deny&#x2019; will be printed on standard output, depending on
+      command matching results. No command is executed.</dd>
+  <dt id="L"><a class="permalink" href="#L"><code class="Fl">-L</code></a></dt>
+  <dd>Clear any persisted authentications from previous invocations, then
+      immediately exit. No command is executed.</dd>
+  <dt id="n"><a class="permalink" href="#n"><code class="Fl">-n</code></a></dt>
+  <dd>Non interactive mode, fail if the matching rule doesn't have the
+      <code class="Ic">nopass</code> option.</dd>
+  <dt id="s"><a class="permalink" href="#s"><code class="Fl">-s</code></a></dt>
+  <dd>Execute the shell from <code class="Ev">SHELL</code> or
+      <span class="Pa">/etc/passwd</span>.</dd>
+  <dt id="u"><a class="permalink" href="#u"><code class="Fl">-u</code></a>
+    <var class="Ar">user</var></dt>
+  <dd>Execute the command as <var class="Ar">user</var>. The default is
+    root.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+<p class="Pp">The <code class="Nm">doas</code> utility exits&#x00A0;0 on
+    success, and&#x00A0;&gt;0 if an error occurs. It may fail for one of the
+    following reasons:</p>
+<p class="Pp"></p>
+<ul class="Bl-bullet Bl-compact">
+  <li>The config file <span class="Pa">/etc/doas.conf</span> could not be
+      parsed.</li>
+  <li>The user attempted to run a command which is not permitted.</li>
+  <li>The password was incorrect.</li>
+  <li>The specified command was not found or is not executable.</li>
+</ul>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr">su(1)</a>, <a class="Xr">doas.conf(5)</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+<p class="Pp">The <code class="Nm">doas</code> command first appeared in
+    <span class="Ux">OpenBSD 5.8</span>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+<p class="Pp"><span class="An">Ted Unangst</span>
+    &lt;<a class="Mt" href="mailto:tedu@openbsd.org">tedu@openbsd.org</a>&gt;</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">January 16, 2021</td>
+    <td class="foot-os">Ragnarok</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+  	$OpenBSD$
+  
+   Copyright (c) 2004,2005 Marius Aamodt Eriksen <marius@monkey.org>
+  
+   Permission to use, copy, modify, and distribute this software for any
+   purpose with or without fee is hereby granted, provided that the above
+   copyright notice and this permission notice appear in all copies.
+  
+   THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+   WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+   MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+   ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>CWMRC(5)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">CWMRC(5)</td>
+    <td class="head-vol">File Formats Manual</td>
+    <td class="head-rtitle">CWMRC(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">cwmrc</code> &#x2014; <span class="Nd">calm
+    window manager configuration file</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">This manual page describes the <a class="Xr">cwm(1)</a>
+    configuration file.</p>
+<p class="Pp">The current line can be extended over multiple lines using a
+    backslash (&#x2018;\&#x2019;). Comments can be put anywhere in the file
+    using a hash mark (&#x2018;#&#x2019;), and extend to the end of the current
+    line. Care should be taken when commenting out multi-line text: the comment
+    is effective until the end of the entire block.</p>
+<p class="Pp">Arguments containing whitespace should be surrounded by double
+    quotes (&quot;).</p>
+<p class="Pp">The following options are accepted:</p>
+<dl class="Bl-tag">
+  <dt id="autogroup"><a class="permalink" href="#autogroup"><code class="Ic">autogroup</code></a>
+    <var class="Ar">group</var>
+    [<var class="Ar">windowname</var>,]<var class="Ar">windowclass</var></dt>
+  <dd>Automatically add new windows to <var class="Ar">group</var> if their
+      class property matches <var class="Ar">windowclass</var>, or if their name
+      and class properties match <var class="Ar">windowname</var> and
+      <var class="Ar">windowclass</var>, respectively. The more specific last
+      match wins. <var class="Ar">group</var> is a number between 0 and 9. If
+      <var class="Ar">group</var> is 0, matching windows will not be added to
+      any group; this may be used to override &#x201C;sticky group mode&#x201D;.
+    <p class="Pp">The name and class values, respectively, for existing windows
+        are both set in the WM_CLASS property and may be obtained using
+        <a class="Xr">xprop(1)</a>.</p>
+  </dd>
+  <dt id="bind-key"><a class="permalink" href="#bind-key"><code class="Ic">bind-key</code></a>
+    <var class="Ar">key function</var></dt>
+  <dd>Bind or rebind key <var class="Ar">key</var> to
+      <var class="Ar">function</var>. The modifier keys come first, followed by
+      a &#x2018;-&#x2019;, then a keysym name, taken from
+      <span class="Pa">/usr/X11R6/include/X11/keysymdef.h</span>.
+    <p class="Pp">The following modifiers are recognised:</p>
+    <p class="Pp"></p>
+    <div class="Bd-indent">
+    <dl class="Bl-tag Bl-compact">
+      <dt id="C"><a class="permalink" href="#C"><code class="Ic">C</code></a></dt>
+      <dd>Control key.</dd>
+      <dt id="M"><a class="permalink" href="#M"><code class="Ic">M</code></a></dt>
+      <dd>Meta key.</dd>
+      <dt id="S"><a class="permalink" href="#S"><code class="Ic">S</code></a></dt>
+      <dd>Shift key.</dd>
+      <dt id="4"><a class="permalink" href="#4"><code class="Ic">4</code></a></dt>
+      <dd>Mod4 (windows) key.</dd>
+      <dt id="5"><a class="permalink" href="#5"><code class="Ic">5</code></a></dt>
+      <dd>Mod5 (AltGr) key.</dd>
+    </dl>
+    </div>
+    <p class="Pp">The <var class="Ar">function</var> may either be one from the
+        <a class="Sx" href="#BIND_FUNCTION_LIST">BIND FUNCTION LIST</a> (see
+        below) or the command line that is to be executed.</p>
+  </dd>
+  <dt id="bind-mouse"><a class="permalink" href="#bind-mouse"><code class="Ic">bind-mouse</code></a>
+    <var class="Ar">button function</var></dt>
+  <dd>Bind or rebind button <var class="Ar">button</var> to
+      <var class="Ar">function</var>. The modifier keys come first, followed by
+      a &#x2018;-&#x2019;, then the button number.
+    <p class="Pp">The same modifiers are recognised as for
+        <var class="Ar">key</var> in <code class="Nm">bind-key</code>.</p>
+    <p class="Pp">The following buttons are recognised:</p>
+    <p class="Pp"></p>
+    <div class="Bd-indent">
+    <dl class="Bl-tag Bl-compact">
+      <dt id="1"><a class="permalink" href="#1"><code class="Ic">1</code></a></dt>
+      <dd>Left mouse button.</dd>
+      <dt id="2"><a class="permalink" href="#2"><code class="Ic">2</code></a></dt>
+      <dd>Middle mouse button.</dd>
+      <dt id="3"><a class="permalink" href="#3"><code class="Ic">3</code></a></dt>
+      <dd>Right mouse button.</dd>
+      <dt id="4~2"><a class="permalink" href="#4~2"><code class="Ic">4</code></a></dt>
+      <dd>Scroll up mouse button.</dd>
+      <dt id="5~2"><a class="permalink" href="#5~2"><code class="Ic">5</code></a></dt>
+      <dd>Scroll down mouse button.</dd>
+    </dl>
+    </div>
+    <p class="Pp">The <var class="Ar">function</var> may be taken from the
+        <a class="Sx" href="#BIND_FUNCTION_LIST">BIND FUNCTION LIST</a> (see
+        below) or the command line that is to be executed.</p>
+  </dd>
+  <dt id="borderwidth"><a class="permalink" href="#borderwidth"><code class="Ic">borderwidth</code></a>
+    <var class="Ar">pixels</var></dt>
+  <dd>Set the window border width to <var class="Ar">pixels</var>.</dd>
+  <dt id="color"><a class="permalink" href="#color"><code class="Ic">color
+    activeborder</code></a> <var class="Ar">color</var></dt>
+  <dd>Set the color of the active border.</dd>
+  <dt id="color~2"><a class="permalink" href="#color~2"><code class="Ic">color
+    font</code></a> <var class="Ar">color</var></dt>
+  <dd>Set menu font color.</dd>
+  <dt id="color~3"><a class="permalink" href="#color~3"><code class="Ic">color
+    selfont</code></a> <var class="Ar">color</var></dt>
+  <dd>Set font color for selected menu item.</dd>
+  <dt id="color~4"><a class="permalink" href="#color~4"><code class="Ic">color
+    groupborder</code></a> <var class="Ar">color</var></dt>
+  <dd>Set the color of the border while grouping a window.</dd>
+  <dt id="color~5"><a class="permalink" href="#color~5"><code class="Ic">color
+    inactiveborder</code></a> <var class="Ar">color</var></dt>
+  <dd>Set the color of the inactive border.</dd>
+  <dt id="color~6"><a class="permalink" href="#color~6"><code class="Ic">color
+    menubg</code></a> <var class="Ar">color</var></dt>
+  <dd>Set menu background color.</dd>
+  <dt id="color~7"><a class="permalink" href="#color~7"><code class="Ic">color
+    menufg</code></a> <var class="Ar">color</var></dt>
+  <dd>Set menu foreground color.</dd>
+  <dt id="color~8"><a class="permalink" href="#color~8"><code class="Ic">color
+    urgencyborder</code></a> <var class="Ar">color</var></dt>
+  <dd>Set the color of the border of a window indicating urgency.</dd>
+  <dt id="color~9"><a class="permalink" href="#color~9"><code class="Ic">color
+    ungroupborder</code></a> <var class="Ar">color</var></dt>
+  <dd>Set the color of the border while ungrouping a window.</dd>
+  <dt id="command"><a class="permalink" href="#command"><code class="Ic">command</code></a>
+    <var class="Ar">name path</var></dt>
+  <dd>Every <var class="Ar">name</var> entry is shown in the application menu.
+      When selected, the defined <var class="Ar">path</var> is executed with
+      <a class="Xr">execvp(3)</a>.
+    <p class="Pp">The <var class="Ar">name</var> entries
+        <code class="Nm">term</code> and <code class="Nm">lock</code> have a
+        special meaning. They point to the terminal and screen locking programs
+        specified by key bindings. The defaults are <a class="Xr">xterm(1)</a>
+        and <a class="Xr">xlock(1)</a>, respectively.</p>
+  </dd>
+  <dt id="fontname"><a class="permalink" href="#fontname"><code class="Ic">fontname</code></a>
+    <var class="Ar">font</var></dt>
+  <dd>Change the default <var class="Ar">font</var> for
+      <a class="Xr">Xft(3)</a>.</dd>
+  <dt id="gap"><a class="permalink" href="#gap"><code class="Ic">gap</code></a>
+    <var class="Ar">top bottom left right</var></dt>
+  <dd>Define a &#x201C;gap&#x201D; in pixels at the edge of the screen, so that
+      when a window is maximized it will not overlap this area. This
+      &#x201C;gap&#x201D; can be used for applications such as
+      <a class="Xr">xclock(1)</a>, where the user may wish to remain
+    visible.</dd>
+  <dt id="htile"><a class="permalink" href="#htile"><code class="Ic">htile</code></a>
+    <var class="Ar">percent</var></dt>
+  <dd>Set the percentage of screen the master window should occupy after calling
+      <code class="Ic">window-htile</code>. If set to 0, the horizontal size of
+      the master window will remain unchanged. The default is 50.</dd>
+  <dt id="ignore"><a class="permalink" href="#ignore"><code class="Ic">ignore</code></a>
+    <var class="Ar">windowname</var></dt>
+  <dd>Ignore, and do not warp to, windows with the name
+      <var class="Ar">windowname</var> when drawing borders and cycling through
+      windows.</dd>
+  <dt id="moveamount"><a class="permalink" href="#moveamount"><code class="Ic">moveamount</code></a>
+    <var class="Ar">pixels</var></dt>
+  <dd>Set a default size for the keyboard movement bindings, in pixels. The
+      default is 1.</dd>
+  <dt id="snapdist"><a class="permalink" href="#snapdist"><code class="Ic">snapdist</code></a>
+    <var class="Ar">pixels</var></dt>
+  <dd>Minimum distance to snap-to adjacent edge, in pixels. The default is
+    0.</dd>
+  <dt id="sticky"><a class="permalink" href="#sticky"><code class="Ic">sticky</code></a>
+    <code class="Ic">yes</code>|<code class="Ic">no</code></dt>
+  <dd>Toggle sticky group mode. The default behavior for new windows is to not
+      assign any group. By enabling sticky group mode, <a class="Xr">cwm(1)</a>
+      will assign new windows to the currently selected group.</dd>
+  <dt id="unbind-key"><a class="permalink" href="#unbind-key"><code class="Ic">unbind-key</code></a>
+    <var class="Ar">key</var></dt>
+  <dd>Unbind function bound to <var class="Ar">key</var>. A special
+      <var class="Ar">key</var> keyword &#x201C;all&#x201D; can be used to
+      unbind all keys.</dd>
+  <dt id="unbind-mouse"><a class="permalink" href="#unbind-mouse"><code class="Ic">unbind-mouse</code></a>
+    <var class="Ar">button</var></dt>
+  <dd>Unbind function bound to <var class="Ar">button</var>. A special
+      <var class="Ar">button</var> keyword &#x201C;all&#x201D; can be used to
+      unbind all buttons.</dd>
+  <dt id="vtile"><a class="permalink" href="#vtile"><code class="Ic">vtile</code></a>
+    <var class="Ar">percent</var></dt>
+  <dd>Set the percentage of screen the master window should occupy after calling
+      <code class="Ic">window-vtile</code>. If set to 0, the vertical size of
+      the master window will remain unchanged. The default is 50.</dd>
+  <dt id="wm"><a class="permalink" href="#wm"><code class="Ic">wm</code></a>
+    <var class="Ar">name path</var></dt>
+  <dd>Every <var class="Ar">name</var> entry is shown in the wm menu. When
+      selected, the window manager is replaced by
+    <var class="Ar">path</var>.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BIND_FUNCTION_LIST"><a class="permalink" href="#BIND_FUNCTION_LIST">BIND
+  FUNCTION LIST</a></h1>
+<dl class="Bl-tag Bl-compact">
+  <dt>restart</dt>
+  <dd>Restart the running <a class="Xr">cwm(1)</a>.</dd>
+  <dt>quit</dt>
+  <dd>Quit <a class="Xr">cwm(1)</a>.</dd>
+  <dt>terminal</dt>
+  <dd>Spawn a new terminal.</dd>
+  <dt>lock</dt>
+  <dd>Lock the screen.</dd>
+  <dt>menu-window</dt>
+  <dd>Launch window search menu.</dd>
+  <dt>menu-window-hidden</dt>
+  <dd>Launch hidden window search menu.</dd>
+  <dt>menu-cmd</dt>
+  <dd>Launch application search menu.</dd>
+  <dt>menu-group</dt>
+  <dd>Launch group search menu.</dd>
+  <dt>menu-exec</dt>
+  <dd>Launch &#x201C;exec program&#x201D; menu.</dd>
+  <dt>menu-exec-wm</dt>
+  <dd>Launch &#x201C;exec WindowManager&#x201D; menu.</dd>
+  <dt>menu-ssh</dt>
+  <dd>Launch &#x201C;ssh&#x201D; menu.</dd>
+  <dt>group-toggle-[n]</dt>
+  <dd>Toggle visibility of group n, where n is 1-9.</dd>
+  <dt>group-only-[n]</dt>
+  <dd>Show only group n, where n is 1-9, hiding other groups.</dd>
+  <dt>group-last</dt>
+  <dd>Show only the previously active group.</dd>
+  <dt>group-close-[n]</dt>
+  <dd>Close all windows in group n, where n is 1-9.</dd>
+  <dt>group-toggle-all</dt>
+  <dd>Toggle visibility of all groups.</dd>
+  <dt>window-group</dt>
+  <dd>Toggle group membership of current window.</dd>
+  <dt>window-movetogroup-[n]</dt>
+  <dd>Hide current window from display and move to group n, where n is 1-9.</dd>
+  <dt>group-cycle</dt>
+  <dd>Forward cycle through groups.</dd>
+  <dt>group-rcycle</dt>
+  <dd>Reverse cycle through groups.</dd>
+  <dt>window-cycle</dt>
+  <dd>Forward cycle through windows.</dd>
+  <dt>window-rcycle</dt>
+  <dd>Reverse cycle through windows.</dd>
+  <dt>window-cycle-ingroup</dt>
+  <dd>Forward cycle through windows in current group.</dd>
+  <dt>window-rcycle-ingroup</dt>
+  <dd>Reverse cycle through windows in current group.</dd>
+  <dt>window-cycle-inclass</dt>
+  <dd>Forward cycle through windows of the current window class.</dd>
+  <dt>window-rcycle-inclass</dt>
+  <dd>Reverse cycle through windows of the current window class.</dd>
+  <dt>window-close</dt>
+  <dd>Close current window.</dd>
+  <dt>window-hide</dt>
+  <dd>Hide current window.</dd>
+  <dt>window-lower</dt>
+  <dd>Lower current window.</dd>
+  <dt>window-raise</dt>
+  <dd>Raise current window.</dd>
+  <dt>window-menu-label</dt>
+  <dd>Label current window.</dd>
+  <dt>window-freeze</dt>
+  <dd>Freeze current window geometry.</dd>
+  <dt>window-stick</dt>
+  <dd>Stick current window to all groups (same as assigning to nogroup).</dd>
+  <dt>window-fullscreen</dt>
+  <dd>Full-screen current window (gap + border removed).</dd>
+  <dt>window-maximize</dt>
+  <dd>Maximize current window (gap + border honored).</dd>
+  <dt>window-vmaximize</dt>
+  <dd>Vertically maximize current window (gap + border honored).</dd>
+  <dt>window-hmaximize</dt>
+  <dd>Horizontally maximize current window (gap + border honored).</dd>
+  <dt>window-htile</dt>
+  <dd>Current window is placed at the top of the screen, maximized horizontally
+      and resized to <var class="Ar">htile</var> (default half) of the vertical
+      screen space. Other windows in its group share remaining screen
+    space.</dd>
+  <dt>window-vtile</dt>
+  <dd>Current window is placed on the left of the screen, maximized vertically
+      and resized to <var class="Ar">vtile</var> (default half) of the
+      horizontal screen space. Other windows in its group share remaining screen
+      space.</dd>
+  <dt>window-move</dt>
+  <dd>Move current window.</dd>
+  <dt>window-resize</dt>
+  <dd>Resize current window.</dd>
+  <dt>window-move-up</dt>
+  <dd>Move window <var class="Ar">moveamount</var> pixels up.</dd>
+  <dt>window-move-down</dt>
+  <dd>Move window <var class="Ar">moveamount</var> pixels down.</dd>
+  <dt>window-move-right</dt>
+  <dd>Move window <var class="Ar">moveamount</var> pixels right.</dd>
+  <dt>window-move-left</dt>
+  <dd>Move window <var class="Ar">moveamount</var> pixels left.</dd>
+  <dt>window-move-up-big</dt>
+  <dd>Move window 10 times <var class="Ar">moveamount</var> pixels up.</dd>
+  <dt>window-move-down-big</dt>
+  <dd>Move window 10 times <var class="Ar">moveamount</var> pixels down.</dd>
+  <dt>window-move-right-big</dt>
+  <dd>Move window 10 times <var class="Ar">moveamount</var> pixels right.</dd>
+  <dt>window-move-left-big</dt>
+  <dd>Move window 10 times <var class="Ar">moveamount</var> pixels left.</dd>
+  <dt>window-resize-up</dt>
+  <dd>Resize window <var class="Ar">moveamount</var> pixels up.</dd>
+  <dt>window-resize-down</dt>
+  <dd>Resize window <var class="Ar">moveamount</var> pixels down.</dd>
+  <dt>window-resize-right</dt>
+  <dd>Resize window <var class="Ar">moveamount</var> pixels right.</dd>
+  <dt>window-resize-left</dt>
+  <dd>Resize window <var class="Ar">moveamount</var> pixels left.</dd>
+  <dt>window-resize-up-big</dt>
+  <dd>Resize window 10 times <var class="Ar">moveamount</var> pixels up.</dd>
+  <dt>window-resize-down-big</dt>
+  <dd>Resize window 10 times <var class="Ar">moveamount</var> pixels down.</dd>
+  <dt>window-resize-right-big</dt>
+  <dd>Resize window 10 times <var class="Ar">moveamount</var> pixels right.</dd>
+  <dt>window-resize-left-big</dt>
+  <dd>Resize window 10 times <var class="Ar">moveamount</var> pixels left.</dd>
+  <dt>window-snap-up</dt>
+  <dd>Snap window to top edge.</dd>
+  <dt>window-snap-down</dt>
+  <dd>Snap window to bottom edge.</dd>
+  <dt>window-snap-right</dt>
+  <dd>Snap window to right edge.</dd>
+  <dt>window-snap-left</dt>
+  <dd>Snap window to left edge.</dd>
+  <dt>window-snap-up-right</dt>
+  <dd>Snap window to top-right corner.</dd>
+  <dt>window-snap-up-left</dt>
+  <dd>Snap window to top-left corner.</dd>
+  <dt>window-snap-down-right</dt>
+  <dd>Snap window to bottom-right corner.</dd>
+  <dt>window-snap-down-left</dt>
+  <dd>Snap window to bottom-left corner.</dd>
+  <dt>pointer-move-up</dt>
+  <dd>Move pointer <var class="Ar">moveamount</var> pixels up.</dd>
+  <dt>pointer-move-down</dt>
+  <dd>Move pointer <var class="Ar">moveamount</var> pixels down.</dd>
+  <dt>pointer-move-right</dt>
+  <dd>Move pointer <var class="Ar">moveamount</var> pixels right.</dd>
+  <dt>pointer-move-left</dt>
+  <dd>Move pointer <var class="Ar">moveamount</var> pixels left.</dd>
+  <dt>pointer-move-up-big</dt>
+  <dd>Move pointer 10 times <var class="Ar">moveamount</var> pixels up.</dd>
+  <dt>pointer-move-down-big</dt>
+  <dd>Move pointer 10 times <var class="Ar">moveamount</var> pixels down.</dd>
+  <dt>pointer-move-right-big</dt>
+  <dd>Move pointer 10 times <var class="Ar">moveamount</var> pixels right.</dd>
+  <dt>pointer-move-left-big</dt>
+  <dd>Move pointer 10 times <var class="Ar">moveamount</var> pixels left.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag Bl-compact">
+  <dt><span class="Pa">~/.cwmrc</span></dt>
+  <dd>Default <a class="Xr">cwm(1)</a> configuration file.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<div class="Bd Li">
+<pre># Set default Xft(3) font
+fontname &quot;sans-serif:pixelsize=14:bold&quot;
+
+# Turn on sticky-group mode
+sticky yes
+
+# Any entry here is shown in the application menu
+command firefox		firefox
+command xmms		xmms
+command top		&quot;xterm -e top&quot;
+
+# Autogroup definitions
+autogroup 3 &quot;aterm,XTerm&quot;
+autogroup 3 &quot;xterm,XTerm&quot;
+
+# Ignore programs by that name by not drawing borders around them.
+ignore XMMS
+ignore xwi
+ignore xapm
+ignore xclock
+
+# Key bindings
+bind-key CM-r		window-menu-label
+bind-key CS-Return	&quot;xterm -e top&quot;
+bind-key C4-equal	window-vmaximize
+bind-key C4S-equal	window-hmaximize
+bind-key M-1		group-only-1
+bind-key M-2		group-only-2
+bind-key M-3		group-only-3
+bind-key MS-1		window-movetogroup-1
+bind-key MS-2		window-movetogroup-2
+bind-key MS-3		window-movetogroup-3
+unbind-key 4-o
+unbind-key CM-equal
+unbind-key CMS-equal
+
+# Mouse bindings
+bind-mouse M-2		window-lower
+bind-mouse M-3		window-resize</pre>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr">cwm(1)</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+<p class="Pp">The <code class="Nm">cwmrc</code> file format first appeared in
+    <span class="Ux">OpenBSD 4.4</span>.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">January 7, 2025</td>
+    <td class="foot-os">Ragnarok</td>
+  </tr>
+</table>
+</body>
+</html>
