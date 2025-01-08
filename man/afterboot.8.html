@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>AFTERBOOT(8)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">AFTERBOOT(8)</td>
+    <td class="head-vol">System Manager's Manual</td>
+    <td class="head-rtitle">AFTERBOOT(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">afterboot</code> &#x2014; <span class="Nd">things
+    to check after first boot</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">This document attempts to list items for the system administrator
+    to check and set up after installation and first boot of the system. A basic
+    knowledge of <span class="Ux">UNIX</span> systems is assumed.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="Starting_out"><a class="permalink" href="#Starting_out">Starting
+  out</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="Updates"><a class="permalink" href="#Updates">Updates</a></h2>
+<p class="Pp">By the time you have installed the system, it is possible that
+    important security updates or critical bug fixes were released, it is
+    therefore recommended to check and upgrade if necessary by using the
+    <a class="Xr">apt(8)</a> or <a class="Xr">apt-get(8)</a> commands.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Doas"><a class="permalink" href="#Doas">Doas</a></h2>
+<p class="Pp">Ragnarok comes with doas, an alternative to sudo. In order to
+    work, doas needs to be properly configured in /etc/doas.conf. For example,
+    to allow members of the wheel group to run commands with doas, simply run
+    the</p>
+<p class="Pp"><code class="Cm">echo 'permit :wheel' &gt;
+  /etc/doas.conf</code></p>
+<p class="Pp">command. To allow only a single user, replace ':wheel' with your
+    user name.</p>
+<p class="Pp">For more configuration options, refer to the official
+    <a class="Xr">doas(1)</a> documentation.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Firewall"><a class="permalink" href="#Firewall">Firewall</a></h2>
+<p class="Pp">The default firewall in Ragnarok is nftables. The default
+    configuration blocks all incoming connections, except for those established
+    by the user, and allows outgoing traffic.</p>
+<p class="Pp">It is good practice to inspect /etc/nftables.conf and further lock
+    it down if need be. For example, disabling ICMP and IPv6, as long as the
+    user understands (and can live with) the potential drawbacks in doing
+  so.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Networking"><a class="permalink" href="#Networking">Networking</a></h2>
+<p class="Pp">Ragnarok uses the <a class="Xr">ifup(1)</a> and
+    <a class="Xr">ifdown(1)</a> commands to connect to network interfaces
+    configured in <span class="Pa">/etc/network/interfaces.</span>
+    <a class="Xr">wpasupplicant(1)</a> is used in the background to handle
+    connecting to protected WPA* wifi networks.</p>
+<p class="Pp">Wired connections should be configured automatically at install
+    time. Wireless interfaces should be configured in
+    <span class="Pa">/etc/network/interfaces.d/interface-name</span></p>
+<p class="Pp">The interface name can be found with the</p>
+<p class="Pp"><code class="Cm">find /sys/class/net</code></p>
+<p class="Pp">command. The wireless interface should begin with 'wlp'. A simple
+    config file for a wireless interface (hereby named wlp1s0) would look as
+    such:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent">allow-hotplug wlp1s0</div>
+<div class="Bd Bd-indent">iface wlp1s0 inet dhcp</div>
+<div class="Bd Bd-indent">wpa-ssid MYSSID</div>
+<div class="Bd Bd-indent">wpa-psk MYWIFIPASSWORD</div>
+<p class="Pp">This will suffice for a single interface which will be started at
+    boot time.</p>
+<p class="Pp">For security reasons, it is highly recommended to run the</p>
+<p class="Pp"><code class="Cm">chmod 0600
+    /etc/network/interfaces.d/interface-name</code></p>
+<p class="Pp">command to prevent non-root users from reading the file.</p>
+<p class="Pp">For more information on configuring and connecting to networks,
+    refer to the <a class="Xr">interfaces(5)</a>, <a class="Xr">ifup(1)</a> and
+    <a class="Xr">ifdown(1)</a> manual pages.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="System_Time"><a class="permalink" href="#System_Time">System
+  Time</a></h2>
+<p class="Pp">In some cases, the <span class="Pa">hwclock.sh</span> script does
+    the job setting the system clock at boot. However, if system time goes out
+    of sync, a proper NTP daemon should be installed. Ragnarok does not come
+    with one by default, at least not in the 01 version, but NTPsec, Chrony or
+    OpenNTPD are highly recommended and available in the repositories.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="System_Mail"><a class="permalink" href="#System_Mail">System
+  Mail</a></h2>
+<p class="Pp">Ragnarok ships with <a class="Xr">bsd-mailx(1)</a> and
+    <a class="Xr">dma(8)</a> for its default mailing system. It is advised to
+    get familiar with it as it is used by the system to communicate with
+  users.</p>
+<p class="Pp">To read mail sent to root without loging into its account, it is
+    useful to create/edit <span class="Pa">/etc/aliases</span> and alias root's
+    mail to the default user created at install time:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent">root:	username</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="bsd-mailx"><a class="permalink" href="#bsd-mailx">bsd-mailx</a></h2>
+<p class="Pp">The traditional simple command-line-mode mail user agent (from the
+    OpenBSD project) which provides the <code class="Cm">/usr/bin/mail</code>
+    command. It does not include any of the features provided by more advanced
+    mail user agents. See the <a class="Xr">bsd-mailx(1)</a> manual page for
+    further information.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="dma"><a class="permalink" href="#dma">dma</a></h2>
+<p class="Pp">The Dragonfly Mail Agent is a simple Mail Transport Agent from the
+    DragonflyBSD project. It was chosen for Ragnarok's default MTA due to its
+    simplicity and the fact that it does not listen on any port, ever. It
+    accepts mails from local Mail User Agents (MUA) and delivers them either to
+    local mailboxes or remote SMTP servers. Remote delivery includes support for
+    features such as TLS/SSL and SMTP authentication.</p>
+<p class="Pp">dma is not intended as a replacement for full-featured MTAs. If
+    such an MTA is needed, it is recommended to install something more
+    appropriate, such as OpenSMTPD, which is the only other MTA fully supported
+    by the Ragnarok project.</p>
+<p class="Pp">For more information on dma see the <a class="Xr">dma(8)</a>,
+    <a class="Xr">mailq(8)</a>, <a class="Xr">newaliases(8)</a>, and
+    <a class="Xr">sendmail(8)</a> manual pages.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Cron"><a class="permalink" href="#Cron">Cron</a></h2>
+<p class="Pp">The <span class="Pa">/etc/cron.*</span> directories contain
+    various cron jobs for system maintenance. On systems that will not be always
+    powered on, you can either install the <a class="Xr">anacron(8)</a> package
+    or handle them manually. For example, you could change the
+    <span class="Pa">/etc/crontab</span> file to run the cron jobs at a time
+    when you know the system will be powered on. However, it is better to use
+    the <code class="Cm">crontab -e</code> command to enable the individual jobs
+    that are needed, such as
+    <span class="Pa">/etc/cron.daily/update-manpages</span>.</p>
+<p class="Pp">For more details, see the <a class="Xr">cron(8)</a>,
+    <a class="Xr">crontab(1)</a>, and <a class="Xr">crontab(5)</a> manuals.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr">apt(8)</a>, <a class="Xr">apt-get(8)</a>,
+    <a class="Xr">doas(1)</a>, <a class="Xr">nft(8)</a>,
+    <a class="Xr">nftables(8)</a>,</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 09 2024</td>
+    <td class="foot-os">Ragnarok</td>
+  </tr>
+</table>
+</body>
+</html>
