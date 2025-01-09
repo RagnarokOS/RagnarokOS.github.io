@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   -*- coding: UTF-8 -*-
+   Copyright (C) 1998-2003 Miquel van Smoorenburg.
+  
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+  
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>KILLALL5(8)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">KILLALL5(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">KILLALL5(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">killall5 - send a signal to all processes</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>killall5</b> <b>-signalnumber</b> [<b>-o</b>
+    <i>omitpid</i>[,<i>omitpid</i>...]] [<b>-o</b>
+    <i>omitpid</i>[,<i>omitpid</i>...]...]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><b>killall5</b> is the SystemV <b>killall</b> command. It sends a
+    signal to all processes except kernel threads and the processes in its own
+    session, so it won't kill the shell that is running the script it was called
+    from. Its primary (only) use is in the <b>rc</b> scripts found in the
+    <i>/etc/init.d</i> directory.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="o"><a class="permalink" href="#o"><b>-o</b> <i>omitpid</i></a></dt>
+  <dd>Tells <b>killall5</b> to omit processes with that process id.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp"><b>killall5</b> can also be invoked as <b>pidof</b>(8), which is
+    simply a (symbolic) link to the <b>killall5</b> program.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+<p class="Pp">The program return zero if it killed processes. It returns 2 if no
+    process were killed, and 1 if it was unable to find any processes
+    (<i>/proc/</i> is missing).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><b>halt</b>(8), <b>reboot</b>(8), <b>pidof</b>(8)</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+<p class="Pp"><a class="Mt" href="mailto:miquels@cistron.nl">Miquel van
+    Smoorenburg</a></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">04 Nov 2003</td>
+    <td class="foot-os">sysvinit </td>
+  </tr>
+</table>
+</body>
+</html>

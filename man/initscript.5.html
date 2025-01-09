@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   -*- coding: UTF-8 -*-
+   Copyright (C) 1998-2003 Miquel van Smoorenburg.
+  
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+  
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>INITSCRIPT(5)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">INITSCRIPT(5)</td>
+    <td class="head-vol">File Formats</td>
+    <td class="head-rtitle">INITSCRIPT(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">initscript - script that executes inittab commands</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp">/bin/sh /etc/initscript id runlevels action process</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">When the shell script <i>/etc/initscript</i> is present,
+    <b>init</b> will use it to execute the commands from <i>inittab</i>. This
+    script can be used to set things like <i>ulimit</i> and <i>umask</i> default
+    values for every process.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<p class="Pp">This is a sample initscript, which might be installed on your
+    system as <i>/etc/initscript.sample</i>.</p>
+<div class="Bd-indent">
+<p class="Pp"></p>
+<pre>
+#
+# initscript   Executed by init(8) for every program it
+#              wants to spawn like this:
+#
+#              /bin/sh /etc/initscript &lt;id&gt; &lt;level&gt; &lt;action&gt; &lt;process&gt;
+#
+<br/>
+  # Set umask to safe level, and enable core dumps.
+<br/>
+  umask 022
+<br/>
+  ulimit -c 2097151
+<br/>
+  PATH=/bin:/sbin:/usr/bin:/usr/sbin
+<br/>
+  export PATH
+<br/>
+  # Increase the hard file descriptor limit for all processes
+<br/>
+  # to 8192.  The soft limit is still 1024, but any unprivileged
+<br/>
+  # process can increase its soft limit up to the hard limit
+<br/>
+  # with &quot;ulimit -Sn xxx&quot; (needs a 2.2.13 or later Linux kernel).
+<br/>
+  ulimit -Hn 8192
+<br/>
+  # Execute the program.
+<br/>
+  eval exec &quot;$4&quot;
+
+</pre>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">This script is not meant as startup script for daemons or
+    services. It has nothing to do with a <i>rc.local</i> style script. It's
+    just a handler for things executed from <b>/etc/inittab</b>. Experimenting
+    with this can make your system un(re)bootable.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<p class="Pp">/etc/inittab, /etc/initscript.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+<p class="Pp"><a class="Mt" href="mailto:miquels@cistron.nl">Miquel van
+    Smoorenburg</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><b>inittab</b>(5), <b>init</b>(8)</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">July 10, 2003</td>
+    <td class="foot-os">sysvinit </td>
+  </tr>
+</table>
+</body>
+</html>

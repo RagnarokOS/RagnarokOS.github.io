@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   -*- coding: UTF-8 -*-
+   Copyright (C) 1998-2001 Miquel van Smoorenburg.
+  
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+  
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  
+  {{{}}}
+  {{{  Title
+ -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>INITTAB(5)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">INITTAB(5)</td>
+    <td class="head-vol">File Formats</td>
+    <td class="head-rtitle">INITTAB(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">inittab - format of the inittab file used by the sysv-compatible
+    init process</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">The <b>inittab</b> file describes which processes are started at
+    bootup and during normal operation (e.g. /etc/init.d/boot, /etc/init.d/rc,
+    gettys...). <b>init</b>(8) distinguishes multiple <i>runlevels</i>, each of
+    which can have its own set of processes that are started. Valid runlevels
+    are <b>0</b>-<b>6</b> plus <b>A</b>, <b>B</b>, and <b>C</b> for
+    <b>ondemand</b> entries. An entry in the <b>inittab</b> file has the
+    following format:</p>
+<div class="Bd-indent">
+<p class="Pp"><i>id</i>:<i>runlevels</i>:<i>action</i>:<i>process</i></p>
+<p class="Pp"></p>
+</div>
+Lines beginning with `#' are ignored.
+<dl class="Bl-tag">
+  <dt id="id"><a class="permalink" href="#id"><i>id</i></a></dt>
+  <dd>is a unique sequence of 1-4 characters which identifies an entry in
+      <b>inittab</b> (for versions of sysvinit compiled with the <i>old</i>
+      libc5 (&lt; 5.2.18) or a.out libraries the limit is 2 characters).
+    <p class="Pp">Note: traditionally, for getty and other login processes, the
+        value of the <i>id</i> field is kept the same as the suffix of the
+        corresponding tty, e.g. <b>1</b> for <b>tty1</b>. Some ancient login
+        accounting programs might expect this, though I can't think of any.</p>
+  </dd>
+  <dt id="runlevels"><a class="permalink" href="#runlevels"><i>runlevels</i></a></dt>
+  <dd>lists the runlevels for which the specified action should be taken.</dd>
+  <dt id="action"><a class="permalink" href="#action"><i>action</i></a></dt>
+  <dd>describes which action should be taken.</dd>
+  <dt id="process"><a class="permalink" href="#process"><i>process</i></a></dt>
+  <dd>specifies the process to be executed. If the process field starts with a
+      `+' character, <b>init</b> will not do utmp and wtmp accounting for that
+      process. This is needed for gettys that insist on doing their own
+      utmp/wtmp housekeeping. This is also a historic bug. The length of this
+      field is limited to 127 characters.
+    <p class="Pp">Please note that including certain characters in the process
+        field will result in <b>init</b> attempting to launch a shell to
+        interpret the command contained in the process field. The characters
+        which will trigger a shell are: <b>~`!$^&amp;*()=|}[];</b></p>
+    <p class="Pp">On systems which do not have a shell to be launched or which
+        do not wish to use a shell to interpret the process field, the process
+        field can be prefixed with the @ symbol. The @ will be ignored and
+        everything followed will be treated as a command to be launched,
+        literally, by the <b>init</b> service.</p>
+    <p class="Pp">In cases where both a + and @ sign are to be used (to turn off
+        logging and shell interpretation), place the + sign before the @ symbol.
+        Both flags will be handled and then everything following the @ will be
+        handled by <b>init</b></p>
+    <p class="Pp"></p>
+  </dd>
+</dl>
+<p class="Pp">The <i>runlevels</i> field may contain multiple characters for
+    different runlevels. For example, <b>123</b> specifies that the process
+    should be started in runlevels 1, 2, and 3. The <i>runlevels</i> for
+    <b>ondemand</b> entries may contain an <b>A</b>, <b>B</b>, or <b>C</b>. The
+    <i>runlevels</i> field of <b>sysinit</b>, <b>boot</b>, and <b>bootwait</b>
+    entries are ignored.</p>
+<p class="Pp">When the system runlevel is changed, any running processes that
+    are not specified for the new runlevel are killed, first with SIGTERM, then
+    with SIGKILL.</p>
+<p class="Pp">Valid actions for the <i>action</i> field are:</p>
+<dl class="Bl-tag">
+  <dt id="respawn"><a class="permalink" href="#respawn"><b>respawn</b></a></dt>
+  <dd>The process will be restarted whenever it terminates (e.g. getty).</dd>
+  <dt id="wait"><a class="permalink" href="#wait"><b>wait</b></a></dt>
+  <dd>The process will be started once when the specified runlevel is entered
+      and <b>init</b> will wait for its termination.</dd>
+  <dt id="once"><a class="permalink" href="#once"><b>once</b></a></dt>
+  <dd>The process will be executed once when the specified runlevel is
+    entered.</dd>
+  <dt id="boot"><a class="permalink" href="#boot"><b>boot</b></a></dt>
+  <dd>The process will be executed during system boot. The <i>runlevels</i>
+      field is ignored.</dd>
+  <dt id="bootwait"><a class="permalink" href="#bootwait"><b>bootwait</b></a></dt>
+  <dd>The process will be executed during system boot, while <b>init</b> waits
+      for its termination (e.g. /etc/rc). The <i>runlevels</i> field is
+    ignored.</dd>
+  <dt id="off"><a class="permalink" href="#off"><b>off</b></a></dt>
+  <dd>This does nothing.</dd>
+  <dt id="ondemand"><a class="permalink" href="#ondemand"><b>ondemand</b></a></dt>
+  <dd>A process marked with an <b>ondemand</b> runlevel will be executed
+      whenever the specified <b>ondemand</b> runlevel is called. However, no
+      runlevel change will occur (<b>ondemand</b> runlevels are `a', `b', and
+      `c').</dd>
+  <dt id="initdefault"><a class="permalink" href="#initdefault"><b>initdefault</b></a></dt>
+  <dd>An <b>initdefault</b> entry specifies the runlevel which should be entered
+      after system boot. If none exists, <b>init</b> will ask for a runlevel on
+      the console. The <i>process</i> field is ignored.</dd>
+  <dt id="sysinit"><a class="permalink" href="#sysinit"><b>sysinit</b></a></dt>
+  <dd>The process will be executed during system boot. It will be executed
+      before any <b>boot</b> or <b> bootwait</b> entries. The <i>runlevels</i>
+      field is ignored.</dd>
+  <dt id="powerwait"><a class="permalink" href="#powerwait"><b>powerwait</b></a></dt>
+  <dd>The process will be executed when the power goes down. <b>init</b> is
+      usually informed about this by a process talking to a UPS connected to the
+      computer. <b>init</b> will wait for the process to finish before
+      continuing.</dd>
+  <dt id="powerfail"><a class="permalink" href="#powerfail"><b>powerfail</b></a></dt>
+  <dd>As for <b>powerwait</b>, except that <b>init</b> does not wait for the
+      process's completion.</dd>
+  <dt id="powerokwait"><a class="permalink" href="#powerokwait"><b>powerokwait</b></a></dt>
+  <dd>This process will be executed as soon as <b>init</b> is informed that the
+      power has been restored.</dd>
+  <dt id="powerfailnow"><a class="permalink" href="#powerfailnow"><b>powerfailnow</b></a></dt>
+  <dd>This process will be executed when <b>init</b> is told that the battery of
+      the external UPS is almost empty and the power is failing (provided that
+      the external UPS and the monitoring process are able to detect this
+      condition).</dd>
+  <dt id="ctrlaltdel"><a class="permalink" href="#ctrlaltdel"><b>ctrlaltdel</b></a></dt>
+  <dd>The process will be executed when <b>init</b> receives the <b>SIGINT</b>
+      signal. This means that someone on the system console has pressed the
+      <b>CTRL-ALT-DEL</b> key combination. Typically one wants to execute some
+      sort of <b>shutdown</b> either to get into single-user level or to reboot
+      the machine.</dd>
+  <dt id="kbrequest"><a class="permalink" href="#kbrequest"><b>kbrequest</b></a></dt>
+  <dd>The process will be executed when <b>init</b> receives a signal from the
+      keyboard handler that a special key combination was pressed on the console
+      keyboard.
+    <p class="Pp">The documentation for this function is not complete yet; more
+        documentation can be found in the kbd-x.xx packages (most recent was
+        kbd-0.94 at the time of this writing). Basically you want to map some
+        keyboard combination to the &quot;KeyboardSignal&quot; action. For
+        example, to map Alt-Uparrow for this purpose use the following in your
+        keymaps file:</p>
+  </dd>
+</dl>
+<div class="Bd-indent">
+<p class="Pp">alt keycode 103 = KeyboardSignal</p>
+<p class="Pp"></p>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<p class="Pp">This is an example of a inittab which resembles the old Linux
+    inittab:</p>
+<div class="Bd-indent">
+<p class="Pp"></p>
+<pre># inittab for linux
+id:1:initdefault:
+rc::bootwait:/etc/rc
+1:1:respawn:/etc/getty 9600 tty1
+2:1:respawn:/etc/getty 9600 tty2
+3:1:respawn:/etc/getty 9600 tty3
+4:1:respawn:/etc/getty 9600 tty4</pre>
+<p class="Pp"></p>
+</div>
+This inittab file executes <i>/etc/rc</i> during boot and starts gettys on
+  tty1-tty4.
+<p class="Pp">A more elaborate <b>inittab</b> with different runlevels (see the
+    comments inside):</p>
+<div class="Bd-indent">
+<p class="Pp"></p>
+<pre># Level to run in
+id:2:initdefault:
+# Boot-time system configuration/initialization script.
+si::sysinit:/etc/init.d/rcS
+# What to do in single-user mode.
+~:S:wait:/sbin/sulogin
+# /etc/init.d executes the S and K scripts upon change
+# of runlevel.
+#
+# Runlevel 0 is halt.
+# Runlevel 1 is single-user.
+# Runlevels 2-5 are multi-user.
+# Runlevel 6 is reboot.
+l0:0:wait:/etc/init.d/rc 0
+l1:1:wait:/etc/init.d/rc 1
+l2:2:wait:/etc/init.d/rc 2
+l3:3:wait:/etc/init.d/rc 3
+l4:4:wait:/etc/init.d/rc 4
+l5:5:wait:/etc/init.d/rc 5
+l6:6:wait:/etc/init.d/rc 6
+# What to do at the &quot;3 finger salute&quot;.
+ca::ctrlaltdel:/sbin/shutdown -t1 -h now
+# Runlevel 2,3: getty on virtual consoles
+# Runlevel   3: getty on terminal (ttyS0) and modem (ttyS1)
+1:23:respawn:/sbin/getty tty1 VC linux
+2:23:respawn:/sbin/getty tty2 VC linux
+3:23:respawn:/sbin/getty tty3 VC linux
+4:23:respawn:/sbin/getty tty4 VC linux
+S0:3:respawn:/sbin/getty -L 9600 ttyS0 vt320
+S1:3:respawn:/sbin/mgetty -x0 -D ttyS1
+</pre>
+<p class="Pp"></p>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<p class="Pp">/etc/inittab</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+<p class="Pp"><b>init</b> was written by
+    <a class="Mt" href="mailto:miquels@cistron.nl">Miquel van Smoorenburg</a>.
+    This manual page was written by
+    <a class="Mt" href="mailto:lederer@francium.informatik.uni-bonn.de">Sebastian
+    Lederer</a> and modified by
+    <a class="Mt" href="mailto:u31b3hs@pool.informatik.rwth-aachen.de">Michael
+    Haardt</a>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><b>init</b>(8), <b>telinit</b>(8)</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">December 4, 2001</td>
+    <td class="foot-os">sysvinit </td>
+  </tr>
+</table>
+</body>
+</html>

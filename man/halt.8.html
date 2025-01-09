@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   -*- coding: UTF-8 -*-
+   Copyright (C) 1998-2001 Miquel van Smoorenburg.
+  
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+  
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  
+  {{{}}}
+  {{{  Title
+ -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>HALT(8)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">HALT(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">HALT(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">halt, reboot, poweroff - stop the system</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>/sbin/halt</b> [<b>-n</b>] [<b>-w</b>] [<b>-d</b>] [<b>-f</b>]
+    [<b>-i</b>] [<b>-p</b>] [<b>-h</b>]
+  <br/>
+  <b>/sbin/reboot</b> [<b>-n</b>] [<b>-w</b>] [<b>-d</b>] [<b>-f</b>]
+    [<b>-i</b>]
+  <br/>
+  <b>/sbin/poweroff</b> [<b>-n</b>] [<b>-w</b>] [<b>-d</b>] [<b>-f</b>]
+    [<b>-i</b>] [<b>-h</b>]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><b>halt</b> notes that the system is being brought down in the
+    file <i>/var/log/wtmp</i>, and then either tells the kernel to halt, reboot
+    or power-off the system.</p>
+<p class="Pp">If <b>halt</b> or <b>reboot</b> is called when the system is
+    <i>not</i> in runlevel <b>0</b> or <b>6</b>, in other words when it's
+    running normally, <b>shutdown</b> will be invoked instead (with the
+    <b>-h</b> or <b>-r</b> flag). For more info see the <b>shutdown</b>(8)
+    manpage.</p>
+<p class="Pp">The rest of this manpage describes the behavior in runlevels 0 and
+    6, that is when the systems shutdown scripts are being run.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="n"><a class="permalink" href="#n"><b>-n</b></a></dt>
+  <dd>Don't sync before reboot or halt. Note that the kernel and storage drivers
+      may still sync. This implies <b>-d</b>.</dd>
+  <dt id="w"><a class="permalink" href="#w"><b>-w</b></a></dt>
+  <dd>Don't actually reboot or halt but only write the wtmp record (in the
+      <i>/var/log/wtmp</i> file).</dd>
+  <dt id="d"><a class="permalink" href="#d"><b>-d</b></a></dt>
+  <dd>Don't write the wtmp record.</dd>
+  <dt id="f"><a class="permalink" href="#f"><b>-f</b></a></dt>
+  <dd>Force halt or reboot, don't call <b>shutdown</b>(8).</dd>
+  <dt id="i"><a class="permalink" href="#i"><b>-i</b></a></dt>
+  <dd>Shut down all network interfaces just before <b>halt</b> or <b>reboot</b>.
+      Warning: This may not work on interfaces which do not have an IP address
+      and should ideally be handled by a network manager service.</dd>
+  <dt id="h"><a class="permalink" href="#h"><b>-h</b></a></dt>
+  <dd>Put all hard drives on the system in stand-by mode just before halt or
+      power-off.</dd>
+  <dt id="p"><a class="permalink" href="#p"><b>-p</b></a></dt>
+  <dd>When halting the system, switch off the power. This is the default when
+      <b>halt</b> is called as <b>poweroff</b>.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DIAGNOSTICS"><a class="permalink" href="#DIAGNOSTICS">DIAGNOSTICS</a></h1>
+<p class="Pp">If you're not the superuser, you will get the message `must be
+    superuser'.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">Under older <b>sysvinit</b> releases, <b>reboot</b> and
+    <b>halt</b> should never be called directly. From release 2.74 on
+    <b>halt</b> and <b>reboot</b> invoke <b>shutdown</b>(8) if the system is not
+    in runlevel 0 or 6. This means that if <b>halt</b> or <b>reboot</b> cannot
+    find out the current runlevel (for example, when <i>/var/run/utmp</i> hasn't
+    been initialized correctly and <i>/var/run/runlevel</i> does not exist)
+    <b>shutdown</b> will be called, which might not be what you want. Use the
+    <b>-f</b> flag if you want to do a hard <b>halt</b> or <b>reboot</b>.</p>
+<p class="Pp">The <b>-h</b> flag puts all hard disks in standby mode just before
+    halt or power-off. Right now this is only implemented for IDE drives. A side
+    effect of putting the drive in stand-by mode is that the write cache on the
+    disk is flushed. This is important for IDE drives, since the kernel doesn't
+    flush the write cache itself before power-off.</p>
+<p class="Pp">The <b>halt</b> program uses <i>/proc/ide/hd*</i> to find all IDE
+    disk devices, which means that <i>/proc</i> needs to be mounted when
+    <b>halt</b> or <b>poweroff</b> is called or the <b>-h</b> switch will do
+    nothing.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+<p class="Pp"><a class="Mt" href="mailto:miquels@cistron.nl">Miquel van
+    Smoorenburg</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><b>shutdown</b>(8), <b>init</b>(8)</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 6, 2001</td>
+    <td class="foot-os">sysvinit </td>
+  </tr>
+</table>
+</body>
+</html>

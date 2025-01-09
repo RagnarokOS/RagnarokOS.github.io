@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+  	$OpenBSD: ed.1,v 1.76 2021/03/08 02:47:26 jsg Exp $
+  
+   Copyright (c) 1993 Andrew Moore, Talke Studio.
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+  
+   THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+   ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+   ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+   FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+   DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+   OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+   HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+   LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+   OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+   SUCH DAMAGE.
+   -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>ED(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ED(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">ED(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">ed</code> &#x2014; <span class="Nd">text
+    editor</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">ed</code></td>
+    <td>[<code class="Fl">-</code>] [<code class="Fl">-s</code>]
+      [<code class="Fl">-p</code> <var class="Ar">string</var>]
+      [<var class="Ar">file</var>]</td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><code class="Nm">ed</code> is a line-oriented text editor. It is
+    used to create, display, modify, and otherwise manipulate text files. If
+    invoked with a <var class="Ar">file</var> argument, then a copy of
+    <var class="Ar">file</var> is read into the editor's buffer. Changes are
+    made to this copy and not directly to <var class="Ar">file</var> itself.
+    Upon quitting <code class="Nm">ed</code>, any changes not explicitly saved
+    with a <code class="Ic">w</code> command are lost.</p>
+<p class="Pp" id="command">Editing is done in two distinct modes:
+    <a class="permalink" href="#command"><i class="Em">command</i></a> and
+    <a class="permalink" href="#input"><i class="Em" id="input">input</i></a>.
+    When first invoked, <code class="Nm">ed</code> is in command mode. In this
+    mode, commands are read from the standard input and executed to manipulate
+    the contents of the editor buffer.</p>
+<p class="Pp">A typical command might look like:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">,s/old/new/g</code></div>
+<p class="Pp">which replaces all occurrences of the string &quot;old&quot; with
+    &quot;new&quot;.</p>
+<p class="Pp">When an input command, such as <code class="Ic">a</code> (append),
+    <code class="Ic">i</code> (insert), or <code class="Ic">c</code> (change) is
+    given, <code class="Nm">ed</code> enters input mode. This is the primary
+    means of adding text to a file. In this mode, no commands are available;
+    instead, the standard input is written directly to the editor buffer. Lines
+    consist of text up to and including a newline character. Input mode is
+    terminated by entering a single period
+    (&#x2018;<code class="Li">.</code>&#x2019;) on a line.</p>
+<p class="Pp">All <code class="Nm">ed</code> commands operate on whole lines or
+    ranges of lines; e.g., the <code class="Ic">d</code> command deletes lines;
+    the <code class="Ic">m</code> command moves lines, and so on. It is possible
+    to modify only a portion of a line by means of replacement, as in the
+    example above. However, even here, the <code class="Ic">s</code> command is
+    applied to whole lines at a time.</p>
+<p class="Pp">In general, <code class="Nm">ed</code> commands consist of zero or
+    more line addresses, followed by a single character command and possibly
+    additional parameters; i.e., commands have the structure:</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent">[<var class="Ar">address</var>[,<var class="Ar">address</var>]]<var class="Ar">command</var>[<var class="Ar">parameters</var>]</div>
+<p class="Pp">The address(es) indicate the line or range of lines to be affected
+    by the command. If fewer addresses are given than the command accepts, then
+    default addresses are supplied.</p>
+<p class="Pp">Many <code class="Nm">ed</code> commands and line addresses
+    support basic regular expressions (BREs). See <a class="Xr">re_format(7)</a>
+    for more information on regular expressions.</p>
+<p class="Pp">The options are as follows:</p>
+<dl class="Bl-tag">
+  <dt><code class="Fl">-</code></dt>
+  <dd>Same as the <code class="Fl">-s</code> option (deprecated).</dd>
+  <dt id="p"><a class="permalink" href="#p"><code class="Fl">-p</code></a>
+    <var class="Ar">string</var></dt>
+  <dd>Specifies a command prompt. This may be toggled on and off with the
+      <code class="Ic">P</code> command.</dd>
+  <dt id="s"><a class="permalink" href="#s"><code class="Fl">-s</code></a></dt>
+  <dd>Suppress diagnostics. This should be used if <code class="Nm">ed</code>
+      standard input is from a script.</dd>
+  <dt><var class="Ar">file</var></dt>
+  <dd>Specifies the name of a file to read. If <var class="Ar">file</var> is
+      prefixed with a bang (&#x2018;<code class="Li">!</code>&#x2019;), then it
+      is interpreted as a shell command. In this case, what is read is the
+      standard output of <var class="Ar">file</var> executed via
+      <a class="Xr">sh(1)</a>. To read a file whose name begins with a bang,
+      prefix the name with a backslash
+      (&#x2018;<code class="Li">\</code>&#x2019;). The default filename is set
+      to <var class="Ar">file</var> only if it is not prefixed with a bang.</dd>
+</dl>
+<section class="Ss">
+<h2 class="Ss" id="LINE_ADDRESSING"><a class="permalink" href="#LINE_ADDRESSING">LINE
+  ADDRESSING</a></h2>
+<p class="Pp">An address represents the number of a line in the buffer.
+    <code class="Nm">ed</code> maintains a
+    <a class="permalink" href="#current"><i class="Em" id="current">current
+    address</i></a> which is typically supplied to commands as the default
+    address when none is specified. When a file is first read, the current
+    address is set to the last line of the file. In general, the current address
+    is set to the last line affected by a command.</p>
+<p class="Pp">A line address is constructed from one of the bases in the list
+    below, optionally followed by a numeric offset. The offset may include any
+    combination of digits, operators (e.g.,
+    &#x2018;<code class="Li">+</code>&#x2019;,
+    &#x2018;<code class="Li">-</code>&#x2019;, and
+    &#x2018;<code class="Li">^</code>&#x2019;), and whitespace. Addresses are
+    read from left to right, and their values are computed relative to the
+    current address.</p>
+<p class="Pp">One exception to the rule that addresses represent line numbers is
+    the address <span class="Ad">0</span> (zero). This means &#x201C;before the
+    first line&#x201D;, and is legal wherever it makes sense.</p>
+<p class="Pp">An address range is two addresses separated either by a comma or
+    semi-colon. The value of the first address in a range cannot exceed the
+    value of the second. If only one address is given in a range, then the
+    second address is set to the given address. If an
+    <var class="Ar">n</var>-tuple of addresses is given where
+    <var class="Ar">n</var> &gt; 2, then the corresponding range is determined
+    by the last two addresses in the <var class="Ar">n</var>-tuple. If only one
+    address is expected, then the last address is used.</p>
+<p class="Pp">Each address in a comma-delimited range is interpreted relative to
+    the current address. In a semi-colon-delimited range, the first address is
+    used to set the current address, and the second address is interpreted
+    relative to the first.</p>
+<p class="Pp">The following address symbols are recognized:</p>
+<dl class="Bl-tag">
+  <dt>.</dt>
+  <dd>The current line (address) in the buffer.</dd>
+  <dt>$</dt>
+  <dd>The last line in the buffer.</dd>
+  <dt><var class="Ar">n</var></dt>
+  <dd>The <var class="Ar">n</var>th line in the buffer, where
+      <var class="Ar">n</var> is a number in the range
+      <span class="Ad">[0,$]</span>.</dd>
+  <dt>- or ^</dt>
+  <dd>The previous line. This is equivalent to <span class="Ad">-1</span> and
+      may be repeated with cumulative effect.</dd>
+  <dt>-<var class="Ar">n</var> <span class="No">or&#x00A0;</span>
+    ^<var class="Ar">n</var></dt>
+  <dd>The <var class="Ar">n</var>th previous line, where <var class="Ar">n</var>
+      is a non-negative number.</dd>
+  <dt>+</dt>
+  <dd>The next line. This is equivalent to <span class="Ad">+1</span> and may be
+      repeated with cumulative effect.</dd>
+  <dt>+<var class="Ar">n</var></dt>
+  <dd>The <var class="Ar">n</var>th next line, where <var class="Ar">n</var> is
+      a non-negative number.</dd>
+  <dt>, or %</dt>
+  <dd>The first through last lines in the buffer. This is equivalent to the
+      address range <span class="Ad">1,$</span>.</dd>
+  <dt>;</dt>
+  <dd>The current through last lines in the buffer. This is equivalent to the
+      address range <span class="Ad">.,$</span>.</dd>
+  <dt>/<var class="Ar">re</var>/</dt>
+  <dd>The next line containing the regular expression <var class="Ar">re</var>.
+      The search wraps to the beginning of the buffer and continues down to the
+      current line, if necessary. The second slash can be omitted if it ends a
+      line. &quot;//&quot; repeats the last search.</dd>
+  <dt>?<var class="Ar">re</var>?</dt>
+  <dd>The previous line containing the regular expression
+      <var class="Ar">re</var>. The search wraps to the end of the buffer and
+      continues up to the current line, if necessary. The second question mark
+      can be omitted if it ends a line. &quot;??&quot; repeats the last
+    search.</dd>
+  <dt>'<var class="Ar">lc</var></dt>
+  <dd>The line previously marked by a <code class="Ic">k</code> (mark) command,
+      where <var class="Ar">lc</var> is a lower case letter.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="COMMANDS"><a class="permalink" href="#COMMANDS">COMMANDS</a></h2>
+<p class="Pp">All <code class="Nm">ed</code> commands are single characters,
+    though some require additional parameters. If a command's parameters extend
+    over several lines, then each line except for the last must be terminated
+    with a backslash (&#x2018;<code class="Li">\</code>&#x2019;).</p>
+<p class="Pp">In general, at most one command is allowed per line. However, most
+    commands accept a print suffix, which is any of <code class="Ic">p</code>
+    (print), <code class="Ic">l</code> (list), or <code class="Ic">n</code>
+    (enumerate), to print the last line affected by the command.</p>
+<p class="Pp"><code class="Nm">ed</code> recognizes the following commands. The
+    commands are shown together with the default address or address range
+    supplied if none is specified (in parentheses), and other possible arguments
+    on the right.</p>
+<dl class="Bl-tag">
+  <dt>(.)<code class="Ic">a</code></dt>
+  <dd>Appends text to the buffer after the addressed line. Text is entered in
+      input mode. The current address is set to last line entered.</dd>
+  <dt>(.,.)<code class="Ic">c</code></dt>
+  <dd>Changes lines in the buffer. The addressed lines are deleted from the
+      buffer, and text is appended in their place. Text is entered in input
+      mode. The current address is set to last line entered.</dd>
+  <dt>(.,.)<code class="Ic">d</code></dt>
+  <dd>Deletes the addressed lines from the buffer. If there is a line after the
+      deleted range, then the current address is set to this line. Otherwise the
+      current address is set to the line before the deleted range.</dd>
+  <dt id="e"><a class="permalink" href="#e"><code class="Ic">e</code></a>
+    <var class="Ar">file</var></dt>
+  <dd>Edits <var class="Ar">file</var>, and sets the default filename. If
+      <var class="Ar">file</var> is not specified, then the default filename is
+      used. Any lines in the buffer are deleted before the new file is read. The
+      current address is set to the last line read.</dd>
+  <dt id="e~2"><a class="permalink" href="#e~2"><code class="Ic">e</code></a>
+    <span class="No">!</span><var class="Ar">command</var></dt>
+  <dd>Edits the standard output of
+      <span class="No">!</span><var class="Ar">command</var>, (see
+      <code class="Ic">!</code><var class="Ar">command</var> below). The default
+      filename is unchanged. Any lines in the buffer are deleted before the
+      output of <var class="Ar">command</var> is read. The current address is
+      set to the last line read.</dd>
+  <dt id="E"><a class="permalink" href="#E"><code class="Ic">E</code></a>
+    <var class="Ar">file</var></dt>
+  <dd>Edits <var class="Ar">file</var> unconditionally. This is similar to the
+      <code class="Ic">e</code> command, except that unwritten changes are
+      discarded without warning. The current address is set to the last line
+      read.</dd>
+  <dt id="f"><a class="permalink" href="#f"><code class="Ic">f</code></a>
+    <var class="Ar">file</var></dt>
+  <dd>Sets the default filename to <var class="Ar">file</var>. If
+      <var class="Ar">file</var> is not specified, then the default unescaped
+      filename is printed.</dd>
+  <dt>(1,$)<code class="Ic">g</code><span class="No">/</span><var class="Ar">re</var><span class="No">/</span><var class="Ar">command-list</var></dt>
+  <dd> Mark each addressed line matching the regular expression
+      <var class="Ar">re</var> for modification. The current address is set to
+      each marked line in turn, and then the <var class="Ar">command-list</var>
+      is executed each time. The command-list can change the current line
+      number, and it is not changed back after the command-list ended. When a
+      marked line is changed, it is unmarked and the command-list won't be
+      executed for it any more. If no lines were matched, the current line
+      number remains unchanged.
+    <p class="Pp">Each command in <var class="Ar">command-list</var> must be on
+        a separate line, and every line except for the last must be terminated
+        by a backslash (&#x2018;\&#x2019;). Any commands are allowed, except for
+        <code class="Ic">g</code>, <code class="Ic">G</code>,
+        <code class="Ic">v</code>, and <code class="Ic">V</code>. An empty
+        <var class="Ar">command-list</var> is equivalent to a
+        <code class="Ic">p</code> command &#x2014; unlike for the
+        <code class="Cm">G</code> command, where an empty command-list does
+        nothing, and unlike an empty command, which is equivalent to the command
+        <code class="Cm">+p</code>. If the <var class="Ar">command-list</var> is
+        empty, the trailing slash can be omitted.</p>
+  </dd>
+  <dt>(1,$)<code class="Ic">G</code><span class="No">/</span><var class="Ar">re</var><span class="No">/</span></dt>
+  <dd> Interactively edits the addressed lines matching a regular expression
+      <var class="Ar">re</var>. The trailing slash after
+      <var class="Ar">re</var> can be omitted. For each matching line, the line
+      is printed, the current address is set, and the user is prompted to enter
+      a <var class="Ar">command-list</var>. At the end of the
+      <code class="Ic">G</code> command, the current address is set to the last
+      line affected by (the last) command-list. If no lines were matched, the
+      current line number remains unchanged.
+    <p class="Pp">The format of <var class="Ar">command-list</var> is the same
+        as that of the <code class="Ic">g</code> command, but an empty command
+        list does nothing. A single &#x2018;&amp;&#x2019; repeats the last
+        non-empty command list.</p>
+  </dd>
+  <dt id="H"><a class="permalink" href="#H"><code class="Ic">H</code></a></dt>
+  <dd>Toggles the printing of error explanations. By default, explanations are
+      not printed. It is recommended that <code class="Nm">ed</code> scripts
+      begin with this command to aid in debugging.</dd>
+  <dt id="h"><a class="permalink" href="#h"><code class="Ic">h</code></a></dt>
+  <dd>Prints an explanation of the last error.</dd>
+  <dt>(.)<code class="Ic">i</code></dt>
+  <dd>Inserts text in the buffer before the current line. Text is entered in
+      input mode. The current address is set to the last line entered.</dd>
+  <dt>(.,+)<code class="Ic">j</code></dt>
+  <dd>Joins the addressed lines. The addressed lines are deleted from the buffer
+      and replaced by a single line containing their joined text. The current
+      address is set to the resultant line.</dd>
+  <dt>(.)<code class="Ic">k</code><var class="Ar">lc</var></dt>
+  <dd>Marks a line with a lower case letter <var class="Ar">lc</var>. The line
+      can then be addressed as <code class="Ic">'</code><var class="Ar">lc</var>
+      (i.e., a single quote followed by <var class="Ar">lc</var>) in subsequent
+      commands. The mark is not cleared until the line is deleted or otherwise
+      modified.</dd>
+  <dt>(.,.)<code class="Ic">l</code></dt>
+  <dd>Prints the addressed lines unambiguously. The current address is set to
+      the last line printed.</dd>
+  <dt>(.,.)<code class="Ic">m</code>(.)</dt>
+  <dd>Moves lines in the buffer. The addressed lines are moved to after the
+      right-hand destination address, which may be the address
+      <span class="Ad">0</span> (zero). The current address is set to the last
+      line moved.</dd>
+  <dt>(.,.)<code class="Ic">n</code></dt>
+  <dd>Prints the addressed lines along with their line numbers. The current
+      address is set to the last line printed.</dd>
+  <dt>(.,.)<code class="Ic">p</code></dt>
+  <dd>Prints the addressed lines. The current address is set to the last line
+      printed.</dd>
+  <dt id="P"><a class="permalink" href="#P"><code class="Ic">P</code></a></dt>
+  <dd>Toggles the command prompt on and off. Unless a prompt was specified with
+      the command-line option <code class="Fl">-p</code>
+      <var class="Ar">string</var>, the command prompt is by default turned
+    off.</dd>
+  <dt id="q"><a class="permalink" href="#q"><code class="Ic">q</code></a></dt>
+  <dd>Quits <code class="Nm">ed</code>.</dd>
+  <dt id="Q"><a class="permalink" href="#Q"><code class="Ic">Q</code></a></dt>
+  <dd>Quits <code class="Nm">ed</code> unconditionally. This is similar to the
+      <code class="Ic">q</code> command, except that unwritten changes are
+      discarded without warning.</dd>
+  <dt>($)<code class="Ic">r</code> <var class="Ar">file</var></dt>
+  <dd>Reads <var class="Ar">file</var> to after the addressed line. If
+      <var class="Ar">file</var> is not specified, then the default filename is
+      used. If there was no default filename prior to the command, then the
+      default filename is set to <var class="Ar">file</var>. Otherwise, the
+      default filename is unchanged. The current address is set to the last line
+      read.</dd>
+  <dt>($)<code class="Ic">r</code>
+    <span class="No">!</span><var class="Ar">command</var></dt>
+  <dd>Reads to after the addressed line the standard output of
+      <span class="No">!</span><var class="Ar">command</var>, (see
+      <code class="Ic">!</code><var class="Ar">command</var> below). The default
+      filename is unchanged. The current address is set to the last line
+    read.</dd>
+  <dt>(.,.)<code class="Ic">s</code><span class="No">/</span><var class="Ar">re</var><span class="No">/</span><var class="Ar">replacement</var><span class="No">/&#x00A0;</span>(.,.)<code class="Ic">s</code><span class="No">/</span><var class="Ar">re</var><span class="No">/</span><var class="Ar">replacement</var><span class="No">/</span><code class="Ic">g&#x00A0;</code><span class="No">(.,.)</span><code class="Ic">s</code><span class="No">/</span><var class="Ar">re</var><span class="No">/</span><var class="Ar">replacement</var><span class="No">/</span><var class="Ar">n</var></dt>
+  <dd> Replaces text in the addressed lines matching a regular expression
+      <var class="Ar">re</var> with <var class="Ar">replacement</var>. By
+      default, only the first match in each line is replaced. If the
+      <code class="Ic">g</code> (global) suffix is given, then every match is
+      replaced. The <var class="Ar">n</var> suffix, where
+      <var class="Ar">n</var> is a positive number, causes only the
+      <var class="Ar">n</var>th match to be replaced. It is an error if no
+      substitutions are performed on any of the addressed lines. The current
+      address is set the last line affected.
+    <p class="Pp"><var class="Ar">re</var> and <var class="Ar">replacement</var>
+        may be delimited by any character other than space and newline (see the
+        <code class="Ic">s</code> command below). If one or two of the last
+        delimiters is omitted, then the last line affected is printed as though
+        the print suffix <code class="Ic">p</code> were specified.</p>
+    <p class="Pp">An unescaped &#x2018;<code class="Li">&amp;</code>&#x2019; in
+        <var class="Ar">replacement</var> is replaced by the currently matched
+        text. The character sequence \<var class="Ar">m</var>, where
+        <var class="Ar">m</var> is a number in the range [1,9], is replaced by
+        the <var class="Ar">m</var>th backreference expression of the matched
+        text. If <var class="Ar">replacement</var> consists of a single
+        &#x2018;<code class="Li">%</code>&#x2019;, then
+        <var class="Ar">replacement</var> from the last substitution is used.
+        Newlines may be embedded in <var class="Ar">replacement</var> if they
+        are escaped with a backslash
+        (&#x2018;<code class="Li">\</code>&#x2019;).</p>
+  </dd>
+  <dt>(.,.)<code class="Ic">s</code></dt>
+  <dd>Repeats the last substitution. This form of the <code class="Ic">s</code>
+      command accepts a count suffix <var class="Ar">n</var>, or any combination
+      of the characters <code class="Ic">r</code>, <code class="Ic">g</code>,
+      and <code class="Ic">p</code>. If a count suffix <var class="Ar">n</var>
+      is given, then only the <var class="Ar">n</var>th match is replaced. The
+      <code class="Ic">r</code> suffix causes the regular expression of the last
+      search to be used instead of that of the last substitution. The
+      <code class="Ic">g</code> suffix toggles the global suffix of the last
+      substitution. The <code class="Ic">p</code> suffix toggles the print
+      suffix of the last substitution. The current address is set to the last
+      line affected.</dd>
+  <dt>(.,.)<code class="Ic">t</code>(.)</dt>
+  <dd>Copies (i.e., transfers) the addressed lines to after the right-hand
+      destination address, which may be the address <span class="Ad">0</span>
+      (zero). The current address is set to the last line copied.</dd>
+  <dt id="u"><a class="permalink" href="#u"><code class="Ic">u</code></a></dt>
+  <dd>Undoes the last command and restores the current address to what it was
+      before the command. The global commands <code class="Ic">g</code>,
+      <code class="Ic">G</code>, <code class="Ic">v</code>, and
+      <code class="Ic">V</code> are treated as a single command by undo.
+      <code class="Ic">u</code> is its own inverse.</dd>
+  <dt>(1,$)<code class="Ic">v</code><span class="No">/</span><var class="Ar">re</var>/<var class="Ar">command-list</var></dt>
+  <dd> The same as the <code class="Ic">g</code> command, except that it applies
+      <var class="Ar">command-list</var> to each of the addressed lines not
+      matching the regular expression <var class="Ar">re</var>.</dd>
+  <dt>(1,$)<code class="Ic">V</code><span class="No">/</span><var class="Ar">re</var><span class="No">/</span></dt>
+  <dd> The same as the <code class="Ic">G</code> command, except that it
+      interactively edits the addressed lines not matching the regular
+      expression <var class="Ar">re</var>.</dd>
+  <dt>(1,$)<code class="Ic">w</code> <var class="Ar">file</var></dt>
+  <dd>Writes the addressed lines to <var class="Ar">file</var>. Any previous
+      contents of <var class="Ar">file</var> are lost without warning. If there
+      is no default filename, then the default filename is set to
+      <var class="Ar">file</var>, otherwise it is unchanged. If no filename is
+      specified, then the default filename is used. The current address is
+      unchanged.</dd>
+  <dt>(1,$)<code class="Ic">wq</code> <var class="Ar">file</var></dt>
+  <dd>Writes the addressed lines to <var class="Ar">file</var>, and then
+      executes a <code class="Ic">q</code> command.</dd>
+  <dt>(1,$)<code class="Ic">w</code>
+    <span class="No">!</span><var class="Ar">command</var></dt>
+  <dd>Writes the addressed lines to the standard input of
+      <span class="No">!</span><var class="Ar">command</var>, (see
+      <code class="Ic">!</code><var class="Ar">command</var> below). The default
+      filename and current address are unchanged.</dd>
+  <dt>(1,$)<code class="Ic">W</code> <var class="Ar">file</var></dt>
+  <dd>Appends the addressed lines to the end of <var class="Ar">file</var>. This
+      is similar to the <code class="Ic">w</code> command, except that the
+      previous contents of file are not clobbered. The current address is
+      unchanged.</dd>
+  <dt>(+)<code class="Ic">z</code><var class="Ar">n</var></dt>
+  <dd>Scrolls <var class="Ar">n</var> lines at a time starting at addressed
+      line. If <var class="Ar">n</var> is not specified, then the current window
+      size is used. The current address is set to the last line printed.</dd>
+  <dt>($)<code class="Ic">=</code></dt>
+  <dd>Prints the line number of the addressed line.</dd>
+  <dt>(+)</dt>
+  <dd>An address without a command prints the addressed line and sets the
+      current address to that line. If the address is also omitted, it defaults
+      to the next line (+).</dd>
+  <dt id="!"><a class="permalink" href="#!"><code class="Ic">!</code></a><var class="Ar">command</var></dt>
+  <dd>Executes <var class="Ar">command</var> via <a class="Xr">sh(1)</a>. If the
+      first character of <var class="Ar">command</var> is &#x2018;!&#x2019;,
+      then it is replaced by text of the previous
+      <code class="Ic">!</code><var class="Ar">command</var>.
+      <code class="Nm">ed</code> does not process <var class="Ar">command</var>
+      for &#x2018;\&#x2019; (backslash) escapes. However, an unescaped
+      &#x2018;%&#x2019; is replaced by the default filename. When the shell
+      returns from execution, a &#x2018;!&#x2019; is printed to the standard
+      output. The current line is unchanged.</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ASYNCHRONOUS_EVENTS"><a class="permalink" href="#ASYNCHRONOUS_EVENTS">ASYNCHRONOUS
+  EVENTS</a></h1>
+<dl class="Bl-tag">
+  <dt id="SIGHUP"><a class="permalink" href="#SIGHUP"><code class="Dv">SIGHUP</code></a></dt>
+  <dd>If the current buffer has changed since it was last written,
+      <code class="Nm">ed</code> attempts to write the buffer to the file
+      <span class="Pa">ed.hup</span>. Nothing is written to the currently
+      remembered file, and <code class="Nm">ed</code> exits.</dd>
+  <dt id="SIGINT"><a class="permalink" href="#SIGINT"><code class="Dv">SIGINT</code></a></dt>
+  <dd>When an interrupt occurs, <code class="Nm">ed</code> prints
+      &#x2018;?\n&#x2019; and returns to command mode. If interrupted during
+      text input, the text already input is written to the current buffer, as if
+      text input had been normally terminated.</dd>
+  <dt id="SIGQUIT"><a class="permalink" href="#SIGQUIT"><code class="Dv">SIGQUIT</code></a></dt>
+  <dd>This signal is ignored.</dd>
+  <dt id="SIGWINCH"><a class="permalink" href="#SIGWINCH"><code class="Dv">SIGWINCH</code></a></dt>
+  <dd>The screen is resized.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag Bl-compact">
+  <dt><span class="Pa">/tmp/ed.*</span></dt>
+  <dd>buffer file</dd>
+  <dt><span class="Pa">ed.hup</span></dt>
+  <dd>where <code class="Nm">ed</code> attempts to write the buffer if the
+      terminal hangs up</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+<p class="Pp">The <code class="Nm">ed</code> utility exits&#x00A0;0 on success,
+    and&#x00A0;&gt;0 if an error occurs.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DIAGNOSTICS"><a class="permalink" href="#DIAGNOSTICS">DIAGNOSTICS</a></h1>
+<p class="Pp">When an error occurs, <code class="Nm">ed</code> prints a
+    &#x2018;?&#x2019; and either returns to command mode or exits if its input
+    is from a script. An explanation of the last error can be printed with the
+    <code class="Ic">h</code> (help) command.</p>
+<p class="Pp">Since the <code class="Ic">g</code> (global) command masks any
+    errors from failed searches and substitutions, it can be used to perform
+    conditional operations in scripts; e.g.,</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">g/old/s//new/</code></div>
+<p class="Pp">replaces any occurrences of &quot;old&quot; with
+  &quot;new&quot;.</p>
+<p class="Pp">If the <code class="Ic">u</code> (undo) command occurs in a global
+    command list, then the command list is executed only once.</p>
+<p class="Pp">If diagnostics are not disabled, attempting to quit
+    <code class="Nm">ed</code> or edit another file before writing a modified
+    buffer results in an error. If the command is entered a second time, it
+    succeeds, but any changes to the buffer are lost.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a class="Xr">sed(1)</a>, <a class="Xr">sh(1)</a>,
+    <a class="Xr">vi(1)</a>, <a class="Xr">re_format(7)</a></p>
+<p class="Pp"><cite class="Rs"><span class="RsA">B. W. Kernighan</span>,
+    <span class="RsT">A Tutorial Introduction to the UNIX Text
+    Editor</span>.</cite></p>
+<p class="Pp"><cite class="Rs"><span class="RsA">B. W. Kernighan</span>,
+    <span class="RsT">Advanced Editing on UNIX</span>.</cite></p>
+<p class="Pp"><cite class="Rs"><span class="RsA">B. W. Kernighan</span> and
+    <span class="RsA">P. J. Plauger</span>, <i class="RsB">Software Tools in
+    Pascal</i>, <span class="RsD">1981</span>,
+    <span class="RsO">Addison-Wesley</span>.</cite></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="STANDARDS"><a class="permalink" href="#STANDARDS">STANDARDS</a></h1>
+<p class="Pp">The <code class="Nm">ed</code> utility is compliant with the
+    <span class="St">IEEE Std 1003.1-2008 (&#x201C;POSIX.1&#x201D;)</span>
+    specification.</p>
+<p class="Pp">The commands <code class="Cm">s</code> (to repeat the last
+    substitution), <code class="Cm">W</code>, <code class="Cm">wq</code>, and
+    <code class="Cm">z</code> as well as the address specifier &#x2018;%&#x2019;
+    are extensions to that specification.</p>
+<p class="Pp">The <span class="St">IEEE Std 1003.1-2008
+    (&#x201C;POSIX.1&#x201D;)</span> specification says the &#x2018;^&#x2019;
+    address specifier is neither required nor prohibited; additionally, it says
+    behaviour for the <code class="Fl">-</code> option is
+    &#x201C;unspecified&#x201D;.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+<p class="Pp">An <code class="Nm">ed</code> command appeared in
+    <span class="Ux">Version&#x00A0;1 AT&amp;T UNIX</span>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CAVEATS"><a class="permalink" href="#CAVEATS">CAVEATS</a></h1>
+<p class="Pp"><code class="Nm">ed</code> processes <var class="Ar">file</var>
+    arguments for backslash escapes, i.e., in a filename, any characters
+    preceded by a backslash (&#x2018;<code class="Li">\</code>&#x2019;) are
+    interpreted literally.</p>
+<p class="Pp">If a text (non-binary) file is not terminated by a newline
+    character, then <code class="Nm">ed</code> appends one on reading/writing
+    it. In the case of a binary file, <code class="Nm">ed</code> does not append
+    a newline on reading/writing.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">March 8, 2021</td>
+    <td class="foot-os">Ragnarok</td>
+  </tr>
+</table>
+</body>
+</html>

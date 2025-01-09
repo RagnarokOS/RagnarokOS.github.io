@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   -*- coding: UTF-8 -*-
+   Copyright (C) 1998-2004 Miquel van Smoorenburg.
+  
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+  
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  
+  {{{}}}
+  {{{  Title
+ -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>INIT(8)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">INIT(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">INIT(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">init, telinit - process control initialization</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>/sbin/init</b> [<b> -a </b>] [<b> -s </b>] [<b> -b </b>] [
+    <b>-z</b> <i>xxx</i> ] [<b> 0123456Ss </b>]
+  <br/>
+  <b>/sbin/init</b> [<b> --version </b>]
+  <br/>
+  <b>/sbin/telinit</b> [ <b>-t</b> <i>SECONDS</i> ] [<b> 0123456sSQqabcUu </b>]
+  <br/>
+  <b>/sbin/telinit</b> [ <b>-e</b> <i>VAR</i>[<b>=</b><i>VAL</i>] ]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="Init"><a class="permalink" href="#Init">Init</a></h2>
+<p class="Pp"><b>init</b> is the parent of all processes. Its primary role is to
+    create processes from a script stored in the file <i>/etc/inittab</i> (see
+    <b>inittab</b>(5)). This file usually has entries which cause <b>init</b> to
+    spawn <b>getty</b>s on each line that users can log in. It also controls
+    autonomous processes required by any particular system.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RUNLEVELS"><a class="permalink" href="#RUNLEVELS">RUNLEVELS</a></h1>
+<p class="Pp">A <i>runlevel</i> is a software configuration of the system which
+    allows only a selected group of processes to exist. The processes spawned by
+    <b>init</b> for each of these runlevels are defined in the
+    <i>/etc/inittab</i> file. <b>init</b> can be in one of eight runlevels:
+    <b>0&#x2013;6</b> and <b>S</b> (a.k.a. <b>s</b>). The runlevel is changed by
+    having a privileged user run <b>telinit</b>, which sends appropriate signals
+    to <b>init</b>, telling it which runlevel to change to.</p>
+<p class="Pp">Runlevels <b>S</b>, <b>0</b>, <b>1</b>, and <b>6</b> are reserved.
+    Runlevel S is used to initialize the system on boot. When starting runlevel
+    S (on boot) or runlevel 1 (switching from a multi-user runlevel) the system
+    is entering ``single-user mode'', after which the current runlevel is S.
+    Runlevel 0 is used to halt the system; runlevel 6 is used to reboot the
+    system.</p>
+<p class="Pp">After booting through S the system automatically enters one of the
+    multi-user runlevels 2 through 5, unless there was some problem that needs
+    to be fixed by the administrator in single-user mode. Normally after
+    entering single-user mode the administrator performs maintenance and then
+    reboots the system.</p>
+<p class="Pp">For more information, see the manpages for <b>shutdown</b>(8) and
+    <b>inittab</b>(5).</p>
+<p class="Pp">Runlevels 7-9 are also valid, though not really documented. This
+    is because &quot;traditional&quot; Unix variants don't use them.</p>
+<p class="Pp">Runlevels <i>S</i> and <i>s</i> are the same. Internally they are
+    aliases for the same runlevel.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BOOTING"><a class="permalink" href="#BOOTING">BOOTING</a></h1>
+<p class="Pp">After <b>init</b> is invoked as the last step of the kernel boot
+    sequence, it looks for the file <i>/etc/inittab</i> to see if there is an
+    entry of the type <b>initdefault</b> (see <b>inittab</b>(5)). The
+    <b>initdefault</b> entry determines the initial runlevel of the system. If
+    there is no such entry (or no <i>/etc/inittab</i> at all), a runlevel must
+    be entered at the system console.</p>
+<p class="Pp">Runlevel <b>S</b> or <b>s</b> initialize the system and do not
+    require an <i>/etc/inittab</i> file.</p>
+<p class="Pp">In single user mode, <b>/sbin/sulogin</b> is invoked on
+    <i>/dev/console</i>.</p>
+<p class="Pp">When entering single user mode, <b>init</b> initializes the
+    consoles <b>stty</b> settings to sane values. Clocal mode is set. Hardware
+    speed and handshaking are not changed.</p>
+<p class="Pp">When entering a multi-user mode for the first time, <b>init</b>
+    performs the <b>boot</b> and <b>bootwait</b> entries to allow file systems
+    to be mounted before users can log in. Then all entries matching the
+    runlevel are processed.</p>
+<p class="Pp">When starting a new process, <b>init</b> first checks whether the
+    file <i>/etc/initscript</i> exists. If it does, it uses this script to start
+    the process.</p>
+<p class="Pp">Each time a child terminates, <b>init</b> records the fact and the
+    reason it died in <i>/var/run/utmp</i> and <i>/var/log/wtmp</i>, provided
+    that these files exist.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CHANGING_RUNLEVELS"><a class="permalink" href="#CHANGING_RUNLEVELS">CHANGING
+  RUNLEVELS</a></h1>
+<p class="Pp">After it has spawned all of the processes specified, <b>init</b>
+    waits for one of its descendant processes to die, a powerfail signal, or
+    until it is signaled by <b>telinit</b> to change the system's runlevel. When
+    one of the above three conditions occurs, it re-examines the
+    <i>/etc/inittab</i> file. New entries can be added to this file at any time.
+    However, <b>init</b> still waits for one of the above three conditions to
+    occur. To provide for an instantaneous response, the <b>telinit Q</b> or
+    <b>q</b> command can wake up <b>init</b> to re-examine (reload) the
+    <i>/etc/inittab</i> file.</p>
+<p class="Pp">If <b>init</b> is not in single user mode and receives a powerfail
+    signal (SIGPWR), it reads the file <i>/etc/powerstatus</i>. It then starts a
+    command based on the contents of this file:</p>
+<dl class="Bl-tag">
+  <dt id="F(AIL)"><a class="permalink" href="#F(AIL)">F(AIL)</a></dt>
+  <dd>Power is failing, UPS is providing the power. Execute the <b>powerwait</b>
+      and <b>powerfail</b> entries.</dd>
+  <dt id="O(K)"><a class="permalink" href="#O(K)">O(K)</a></dt>
+  <dd>The power has been restored, execute the <b>powerokwait</b> entries.</dd>
+  <dt id="L(OW)"><a class="permalink" href="#L(OW)">L(OW)</a></dt>
+  <dd>The power is failing and the UPS has a low battery. Execute the
+      <b>powerfailnow</b> entries.</dd>
+</dl>
+<p class="Pp">If <i>/etc/powerstatus</i> doesn't exist or contains anything else
+    then the letters <b>F</b>, <b>O</b> or <b>L</b>, <b>init</b> will behave as
+    if it has read the letter <b>F</b>.</p>
+<p class="Pp">Usage of <b>SIGPWR</b> and <i>/etc/powerstatus</i> is discouraged.
+    Someone wanting to interact with <b>init</b> should use the
+    <i>/run/initctl</i> control channel - see the <b>initctl</b>(5) manual page
+    for more documentation about this.</p>
+<p class="Pp">When <b>init</b> is requested to change the runlevel, it sends the
+    warning signal <b>SIGTERM</b> to all processes that are undefined in the new
+    runlevel. It then waits 3 seconds before forcibly terminating these
+    processes via the <b>SIGKILL</b> signal. Note that <b>init</b> assumes that
+    all these processes (and their descendants) remain in the same process group
+    which <b>init</b> originally created for them. If any process changes its
+    process group affiliation it will not receive these signals. Such processes
+    need to be terminated separately.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="TELINIT"><a class="permalink" href="#TELINIT">TELINIT</a></h1>
+<p class="Pp"><b>/sbin/telinit</b> is linked to <b>/sbin/init</b>. It takes a
+    one-character argument and signals <b>init</b> to perform the appropriate
+    action. The following arguments serve as directives to <b>telinit</b>:</p>
+<dl class="Bl-tag">
+  <dt><b>0</b>, <b>1</b>, <b>2</b>, <b>3</b>, <b>4</b>, <b>5</b> or
+    <b>6</b></dt>
+  <dd>tell <b>init</b> to switch to the specified run level.</dd>
+  <dt id="a"><a class="permalink" href="#a"><b>a</b>, <b>b</b>,
+    <b>c</b></a></dt>
+  <dd>tell <b>init</b> to process only those <b>/etc/inittab</b> file entries
+      having runlevel <b>a</b>, <b>b</b> or <b>c</b>.</dd>
+  <dt id="Q"><a class="permalink" href="#Q"><b>Q</b> or <b>q</b></a></dt>
+  <dd>tell <b>init</b> to re-examine the <i>/etc/inittab</i> file.</dd>
+  <dt id="S"><a class="permalink" href="#S"><b>S</b> or <b>s</b></a></dt>
+  <dd>tell <b>init</b> to switch to single user mode.</dd>
+  <dt id="U"><a class="permalink" href="#U"><b>U</b> or <b>u</b></a></dt>
+  <dd>tell <b>init</b> to re-execute itself (preserving the state). No
+      re-examining of <i>/etc/inittab</i> file happens. Runlevel should be one
+      of <b>Ss0123456</b> otherwise request would be silently ignored.</dd>
+</dl>
+<p class="Pp"><b>telinit</b> can tell <b>init</b> how long it should wait
+    between sending processes the <b>SIGTERM</b> and <b>SIGKILL</b> signals. The
+    default is 3 seconds, but this can be changed with the <b>-t</b> option.</p>
+<p class="Pp"><b>telinit -e</b> tells <b>init</b> to change the environment for
+    processes it spawns. The argument of <b>-e</b> is either of the form
+    <i>VAR</i>=<i>VAL</i> which sets variable <i>VAR</i> to value <i>VAL</i>, or
+    of the form <i>VAR</i> (without an equality sign) which unsets variable
+    <i>VAR</i>.</p>
+<p class="Pp"><b>telinit</b> can be invoked only by users with appropriate
+    privileges.</p>
+<p class="Pp">The <b>init</b> binary checks if it is <b>init</b> or
+    <b>telinit</b> by looking at its <i>process id</i>; the real <b>init</b>'s
+    process id is always <b>1</b>. From this it follows that instead of calling
+    <b>telinit</b> one can also just use <b>init</b> instead as a shortcut.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+<p class="Pp"><b>Init</b> sets the following environment variables for all its
+    children:</p>
+<dl class="Bl-tag">
+  <dt id="PATH"><a class="permalink" href="#PATH"><b>PATH</b></a></dt>
+  <dd><i>/bin:/usr/bin:/sbin:/usr/sbin</i></dd>
+  <dt id="INIT_VERSION"><a class="permalink" href="#INIT_VERSION"><b>INIT_VERSION</b></a></dt>
+  <dd>As the name says. Useful to determine if a script runs directly from
+      <b>init</b>.</dd>
+  <dt id="RUNLEVEL"><a class="permalink" href="#RUNLEVEL"><b>RUNLEVEL</b></a></dt>
+  <dd>The current system runlevel.</dd>
+  <dt id="PREVLEVEL"><a class="permalink" href="#PREVLEVEL"><b>PREVLEVEL</b></a></dt>
+  <dd>The previous runlevel (useful after a runlevel switch).</dd>
+  <dt id="CONSOLE"><a class="permalink" href="#CONSOLE"><b>CONSOLE</b></a></dt>
+  <dd>The system console. This is really inherited from the kernel; however if
+      it is not set <b>init</b> will set it to <i>/dev/console</i> by
+    default.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BOOTFLAGS"><a class="permalink" href="#BOOTFLAGS">BOOTFLAGS</a></h1>
+<p class="Pp">It is possible to pass a number of flags to <b>init</b> from the
+    boot monitor (eg. LILO or GRUB). <b>init</b> accepts the following
+  flags:</p>
+<dl class="Bl-tag">
+  <dt id="s,"><a class="permalink" href="#s,"><b>-s, S, single</b></a></dt>
+  <dd>Single user mode boot. In this mode <i>/etc/inittab</i> is examined and
+      the bootup rc scripts are usually run before the single user mode shell is
+      started.</dd>
+  <dt><b>1-5</b></dt>
+  <dd>Runlevel to boot into.</dd>
+  <dt id="b,"><a class="permalink" href="#b,"><b>-b, emergency</b></a></dt>
+  <dd>Boot directly into a single user shell without running any other startup
+      scripts.</dd>
+  <dt id="a,"><a class="permalink" href="#a,"><b>-a, auto</b></a></dt>
+  <dd>The LILO boot loader adds the word &quot;auto&quot; to the command line if
+      it booted the kernel with the default command line (without user
+      intervention). If this is found <b>init</b> sets the &quot;AUTOBOOT&quot;
+      environment variable to &quot;yes&quot;. Note that you cannot use this for
+      any security measures - of course the user could specify &quot;auto&quot;
+      or <b>-a</b> on the command line manually.</dd>
+  <dt id="z"><a class="permalink" href="#z"><b>-z </b><i>xxx</i></a></dt>
+  <dd>The argument to <b>-z</b> is ignored. You can use this to expand the
+      command line a bit, so that it takes some more space on the stack.
+      <b>init</b> can then manipulate the command line so that <b>ps</b>(1)
+      shows the current runlevel.</dd>
+  <dt id="version"><a class="permalink" href="#version"><b>--version</b></a></dt>
+  <dd>This argument, when used on its own, displays the current version of
+      <b>init</b> to the console/stdout. It is a quick way to determine which
+      <b>init</b> software and version is being used. After the version
+      information is displayed, <b>init</b> immediately exits with a return code
+      of zero.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="INTERFACE"><a class="permalink" href="#INTERFACE">INTERFACE</a></h1>
+<p class="Pp"><b>init</b> listens on a <i>fifo</i> in /dev, <i>/run/initctl</i>,
+    for messages. <b>Telinit</b> uses this to communicate with <b>init</b>. The
+    interface is not very well documented or finished. Those interested should
+    study the <i>initreq.h</i> file in the <i>src/</i> subdirectory of the
+    <b>init</b> source code tar archive.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SIGNALS"><a class="permalink" href="#SIGNALS">SIGNALS</a></h1>
+<p class="Pp">Init reacts to several signals:</p>
+<dl class="Bl-tag">
+  <dt id="SIGHUP"><a class="permalink" href="#SIGHUP"><b>SIGHUP</b></a></dt>
+  <dd>Has the same effect as <b>telinit q</b>.</dd>
+  <dt id="SIGUSR1"><a class="permalink" href="#SIGUSR1"><b>SIGUSR1</b></a></dt>
+  <dd>On receipt of this signals, <b>init</b> closes and re-opens its control
+      fifo, <b>/run/initctl</b>. Useful for bootscripts when <i>/dev</i> is
+      remounted.</dd>
+  <dt id="SIGUSR2"><a class="permalink" href="#SIGUSR2"><b>SIGUSR2</b></a></dt>
+  <dd>When <b>init</b> receives <b>SIGUSR2</b>, <b>init</b> closes and leaves
+      the control fifo, <b>/run/initctl</b>, closed. This may be used to make
+      sure <b>init</b> is not holding open any files. However, it also prevents
+      <b>init</b> from switching runlevels. Which means commands like shutdown
+      no longer work. The fifo can be re-opened by sending <b>init</b> the
+      <b>SIGUSR1</b> signal.</dd>
+  <dt id="SIGINT"><a class="permalink" href="#SIGINT"><b>SIGINT</b></a></dt>
+  <dd>Normally the kernel sends this signal to <b>init</b> when CTRL-ALT-DEL is
+      pressed. It activates the <i>ctrlaltdel</i> action.</dd>
+  <dt id="SIGWINCH"><a class="permalink" href="#SIGWINCH"><b>SIGWINCH</b></a></dt>
+  <dd>The kernel sends this signal when the <i>KeyboardSignal</i> key is hit. It
+      activates the <i>kbrequest</i> action.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<p class="Pp"><b>init</b> is compatible with the System V init. It works closely
+    together with the scripts in the directories <i>/etc/init.d</i> and
+    <i>/etc/rc{runlevel}.d</i>. If your system uses this convention, there
+    should be a <i>README</i> file in the directory <i>/etc/init.d</i>
+    explaining how these scripts work.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<pre>/etc/inittab
+/etc/initscript
+/dev/console
+/var/run/utmp
+/var/log/wtmp
+/run/initctl</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="WARNINGS"><a class="permalink" href="#WARNINGS">WARNINGS</a></h1>
+<p class="Pp"><b>init</b> assumes that processes and descendants of processes
+    remain in the same process group which was originally created for them. If
+    the processes change their group, <b>init</b> can't kill them and you may
+    end up with two processes reading from one terminal line.</p>
+<p class="Pp">On a Debian system, entering runlevel 1 causes all processes to be
+    killed except for kernel threads and the script that does the killing and
+    other processes in its session. As a consequence of this, it isn't safe to
+    return from runlevel 1 to a multi-user runlevel: daemons that were started
+    in runlevel S and are needed for normal operation are no longer running. The
+    system should be rebooted.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DIAGNOSTICS"><a class="permalink" href="#DIAGNOSTICS">DIAGNOSTICS</a></h1>
+<p class="Pp">If <b>init</b> finds that it is continuously respawning an entry
+    more than 10 times in 2 minutes, it will assume that there is an error in
+    the command string, generate an error message on the system console, and
+    refuse to respawn this entry until either 5 minutes has elapsed or it
+    receives a signal. This prevents it from eating up system resources when
+    someone makes a typographical error in the <i>/etc/inittab</i> file or the
+    program for the entry is removed.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+<p class="Pp"><a class="Mt" href="mailto:miquels@cistron.nl">Miquel van
+    Smoorenburg</a>, initial manual page by
+    <a class="Mt" href="mailto:u31b3hs@pool.informatik.rwth-aachen.de">Michael
+    Haardt</a>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><b>getty</b>(1), <b>login</b>(1), <b>sh</b>(1),
+    <b>runlevel</b>(8), <b>shutdown</b>(8), <b>kill</b>(1), <b>initctl</b>(5),
+    <b>inittab</b>(5), <b>initscript</b>(5), <b>utmp</b>(5)</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">29 Jul 2004</td>
+    <td class="foot-os">sysvinit </td>
+  </tr>
+</table>
+</body>
+</html>

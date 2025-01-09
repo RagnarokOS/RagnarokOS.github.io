@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   -*- coding: UTF-8 -*-
+   A man page for fstab-decode(8).
+  
+   Copyright (C) 2006 Red Hat, Inc. All rights reserved.
+  
+   This copyrighted material is made available to anyone wishing to use,
+   modify, copy, or redistribute it subject to the terms and conditions of the
+   GNU General Public License v.2.
+  
+   This program is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+   more details.
+  
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+  
+   Author: Miloslav Trmac <mitr@redhat.com>
+ -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>FSTAB-DECODE(8)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">FSTAB-DECODE(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">FSTAB-DECODE(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<p class="Pp"></p>
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">fstab-decode - run a command with fstab-encoded arguments</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>fstab-decode</b> <i>COMMAND</i> [<i>ARGUMENT</i> ...]</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><b>fstab-decode</b> decodes escapes (such as newline characters
+    and other whitespace) in the specified <i>ARGUMENT</i>s and uses them to run
+    <i>COMMAND</i>. The argument escaping uses the same rules as path escaping
+    in <i>/etc/fstab</i>, <i>/etc/mtab</i> and <i>/proc/mtab</i>.</p>
+<p class="Pp">In essence <b>fstab-decode</b> can be used anytime we want to pass
+    multiple parameters to a command as a list of command line arguments. It
+    turns output like this:</p>
+<p class="Pp"></p>
+<pre>/root
+/mnt/remote-disk
+/home
+Into one long list of parameters, &quot;/root /mnt/remote-disk /home&quot;. This
+can be useful when trying to work with multiple filesystems at once. For
+instance, we can use it to unmount multiple NFS shares. This program also
+removes whitespace and other characters which might cause programs such
+as <b>mount</b>(8) or <b>umount</b>(8) to fail.
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+<p class="Pp"><b>fstab-decode</b> exits with status 127 if <i>COMMAND</i> can't
+    be run. Otherwise it exits with the status returned by <i>COMMAND</i>.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<p class="Pp">The following example reads <i>fstab</i>, finds all instances of
+    VFAT filesystems and prints their mount points (argument 2 in the
+    <i>fstab</i> file). <b>fstab-decode</b> then runs the specified program,
+    <b>umount</b>(8), and passes it the list of VFAT mountpoints. This unmounts
+    all VFAT partitions.</p>
+<p class="Pp"></p>
+<pre><b>fstab-decode umount $(awk '$3 == &quot;vfat&quot; { print $2 }' /etc/fstab)</b></pre>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><b>fstab</b>(5)</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">May 2006</td>
+    <td class="foot-os">sysvinit </td>
+  </tr>
+</table>
+</body>
+</html>

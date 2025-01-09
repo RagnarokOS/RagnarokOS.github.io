@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<!-- This is an automatically generated file.  Do not edit.
+   -*- coding: UTF-8 -*-
+   Copyright (C) 1998-2003 Miquel van Smoorenburg.
+  
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+  
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  
+  {{{}}}
+  {{{  Title
+ -->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
+  <title>SHUTDOWN(8)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SHUTDOWN(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">SHUTDOWN(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">shutdown - bring the system down</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>/sbin/shutdown</b> [<b>-akrhPHfFncqQ</b>] [<b>-t</b>
+    <i>sec</i>] <i>time</i> [<i>warning message</i>]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><b>shutdown</b> brings the system down in a secure way. All
+    logged-in users are notified that the system is going down, and
+    <b>login</b>(1) is blocked. It is possible to shut the system down
+    immediately or after a specified delay. All processes are first notified
+    that the system is going down by the signal <b>SIGTERM</b>. This gives
+    programs like <b>vi</b>(1) the time to save the file being edited, mail and
+    news processing programs a chance to exit cleanly, etc. <b>shutdown</b> does
+    its job by signalling the <b>init</b> process, asking it to change the
+    runlevel. Runlevel <b>0</b> is used to halt the system, runlevel <b>6</b> is
+    used to reboot the system, and runlevel <b>1</b> is used to put to system
+    into a state where administrative tasks can be performed; this is the
+    default if neither the <b>-h</b> or <b>-r</b> flag is given to
+    <b>shutdown</b>. To see which actions are taken on halt or reboot see the
+    appropriate entries for these runlevels in the file <i>/etc/inittab</i>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="a"><a class="permalink" href="#a"><b>-a</b></a></dt>
+  <dd>Use <i>/etc/shutdown.allow</i>.</dd>
+  <dt id="k"><a class="permalink" href="#k"><b>-k</b></a></dt>
+  <dd>Don't really shutdown; only send the warning messages to everybody.</dd>
+  <dt id="r"><a class="permalink" href="#r"><b>-r</b></a></dt>
+  <dd>Reboot after shutdown.</dd>
+  <dt id="h"><a class="permalink" href="#h"><b>-h</b></a></dt>
+  <dd>Halt or power off after shutdown. Usually used with the <b>-P</b> or
+      <b>-H</b> flags, depending on whether we want to poweroff or simply stop
+      the operating system.</dd>
+  <dt id="P"><a class="permalink" href="#P"><b>-P</b></a></dt>
+  <dd>Modifier to the <b>-h</b> flag. Halt action is to turn off the power. Must
+      be used with the <b>-h</b> flag.</dd>
+  <dt id="H"><a class="permalink" href="#H"><b>-H</b></a></dt>
+  <dd>Modifier to the <b>-h</b> flag. Halt action is to halt or drop into boot
+      monitor on systems that support it. Must be used with the <b>-h</b> flag.
+      Halting is often used to run through the shutdown process and leave output
+      on the screen for debugging purposes. Or when the user wants the OS to
+      stop, but leave the power on. To power off at the end of the shutdown
+      sequence use the <b>-P</b> modifier instead.</dd>
+  <dt id="f"><a class="permalink" href="#f"><b>-f</b></a></dt>
+  <dd>Skip <b>fsck</b>(8) on reboot.</dd>
+  <dt id="F"><a class="permalink" href="#F"><b>-F</b></a></dt>
+  <dd>Force <b>fsck</b>(8) on reboot.</dd>
+  <dt id="n"><a class="permalink" href="#n"><b>-n</b></a></dt>
+  <dd>[DEPRECATED] Don't call <b>init</b>(8) to do the shutdown but do it
+      ourself. The use of this option is discouraged, and its results are not
+      always what you'd expect.</dd>
+  <dt id="c"><a class="permalink" href="#c"><b>-c</b></a></dt>
+  <dd>Cancel a waiting shutdown. (<b>shutdown now</b> is no longer waiting.)
+      With this option it is of course not possible to give the time argument,
+      but you can enter explanatory message arguments on the command line that
+      will be sent to all users.</dd>
+  <dt id="q"><a class="permalink" href="#q"><b>-q</b></a></dt>
+  <dd>Reduce the number of warnings <b>shutdown</b> displays. Usually
+      <b>shutdown</b> displays warnings every 15 minutes and then every minute
+      in the last 10 minutes of the countdown until <i>time</i> is reached. When
+      <b>-q</b> is specified <b>shutdown</b> only warns at 60 minute intervals,
+      at the 10 minute mark, at the 5 minute mark, and when the shutdown process
+      actually happens.</dd>
+  <dt id="Q"><a class="permalink" href="#Q"><b>-Q</b></a></dt>
+  <dd>Silence warnings prior to shutting down. Usually <b>shutdown</b> displays
+      warnings every 15 minutes and then every minute in the last 10 minutes of
+      the countdown until <i>time</i> is reached. When <b>-Q</b> is specified
+      <b>shutdown</b> only warns when the shutdown process actually happens. All
+      other warning intervals are suppressed.</dd>
+  <dt id="t"><a class="permalink" href="#t"><b>-t</b> <i>sec</i></a></dt>
+  <dd>Tell <b>init</b>(8) to wait <i>sec</i> seconds between sending all
+      processes the warning (<b>SIGTERM</b>) and the kill signal
+      (<b>SIGKILL</b>), before changing to another runlevel. The default time,
+      if no value is specified, between these two signals is three seconds.
+      Warning: when <b>shutdown</b> calls <b>init</b>(8) to perform the shutdown
+      (the default behavior), <b>init</b>(8) checks to see if all processes have
+      terminated and will stop waiting early once its children have all
+      terminated. When <b>shutdown</b> is called with the <b>-n</b> flag, it
+      waits the full time specified (or three seconds) even if all other
+      processes have terminated.</dd>
+  <dt id="time"><a class="permalink" href="#time"><i>time</i></a></dt>
+  <dd>When to shutdown. If a <i>time</i> is given then the <b>shutdown</b>
+      command will not exit but instead count down until reboot.</dd>
+  <dt id="warning"><a class="permalink" href="#warning"><i>warning
+    message</i></a></dt>
+  <dd>Message to send to all users.</dd>
+</dl>
+<p class="Pp">The <i>time</i> argument can have different formats. First, it can
+    be an absolute time in the format <i>hh:mm</i>, in which <i>hh</i> is the
+    hour (1 or 2 digits) and <i>mm</i> is the minute of the hour (in two
+    digits). Second, it can be in the format <b>+</b><i>m</i>, in which <i>m</i>
+    is the number of minutes to wait. Third, it can be in the format
+    <b>+</b><i>hh:mm</i>, in which <i>hh:mm</i> is the number of hours and
+    minutes to wait. The word <b>now</b> is an alias for <b>+0</b>.</p>
+<p class="Pp">If <b>shutdown</b> is called with a delay, it will create the
+    advisory file <i>/run/nologin</i> which causes programs such as
+    <b>login</b>(1) to not allow new user logins. This file is created five
+    minutes before the shutdown sequence starts. <b>shutdown</b> removes this
+    file if it is stopped before it can signal init (i.e. it is cancelled or
+    something goes wrong). It also removes it before calling <b>init</b>(8) to
+    change the runlevel.</p>
+<p class="Pp">The <b>-f</b> flag means `reboot fast'. This only creates an
+    advisory file <i>/fastboot</i> which can be tested by the system when it
+    comes up again. The boot rc file can test if this file is present, and
+    decide not to run <b>fsck</b>(8) since the system has been shut down in the
+    proper way. After that, the boot process should remove <i>/fastboot</i>.</p>
+<p class="Pp">The <b>-F</b> flag means `force fsck'. This only creates an
+    advisory file <i>/forcefsck</i> which can be tested by the system when it
+    comes up again. The boot rc file can test if this file is present, and
+    decide to run <b>fsck</b>(8) with a special `force' flag so that even
+    properly unmounted file systems get checked. After that, the boot process
+    should remove <i>/forcefsck</i>.</p>
+<p class="Pp">The <b>-n</b> flag causes <b>shutdown</b> not to call
+    <b>init</b>(8), but to kill all running processes itself. <b>shutdown</b>
+    will then turn off quota, accounting, and swapping and unmount all file
+    systems.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ACCESS_CONTROL"><a class="permalink" href="#ACCESS_CONTROL">ACCESS
+  CONTROL</a></h1>
+<p class="Pp"><b>shutdown</b> can be called from <b>init</b>(8) when the magic
+    keys <b>CTRL-ALT-DEL</b> are pressed, by creating an appropriate entry in
+    <i>/etc/inittab</i>. This means that everyone who has physical access to the
+    console keyboard can shut the system down. To prevent this, <b>shutdown</b>
+    can check to see if an authorized user is logged in on one of the virtual
+    consoles. If <b>shutdown</b> is called with the <b>-a</b> argument (add this
+    to the invocation of shutdown in <i>/etc/inittab</i>), it checks to see if
+    the file <i>/etc/shutdown.allow</i> is present. It then compares the login
+    names in that file with the list of people that are logged in on a virtual
+    console (from <i>/var/run/utmp</i>). Only if one of those authorized users
+    <b>or root</b> is logged in, it will proceed. Otherwise it will write the
+    message</p>
+<p class="Pp"></p>
+<pre><b>shutdown: no authorized users logged in</b></pre>
+<p class="Pp">to the (physical) system console. The format of
+    <i>/etc/shutdown.allow</i> is one user name per line. Empty lines and
+    comment lines (prefixed by a <b>#</b>) are allowed. Currently there is a
+    limit of 32 users in this file.</p>
+<p class="Pp">Note that if <i>/etc/shutdown.allow</i> is not present, the
+    <b>-a</b> argument is ignored.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HALT_OR_POWEROFF"><a class="permalink" href="#HALT_OR_POWEROFF">HALT
+  OR POWEROFF</a></h1>
+<p class="Pp">The <b>-H</b> option just sets the <b>init</b> environment
+    variable <b>INIT_HALT</b> to <b>HALT</b>, and the <b>-P</b> option just sets
+    that variable to <b>POWEROFF</b>. The script (usually
+    <i>/etc/init.d/halt</i>) that calls the <b>halt</b>(8) program as the last
+    thing in the shutting down sequence should check this environment variable
+    and call the <b>halt</b>(8) program with the right options for these options
+    to actually have any effect.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<pre>/fastboot
+/etc/inittab
+/etc/init.d/halt
+/etc/init.d/reboot
+/etc/shutdown.allow</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<p class="Pp">A lot of users forget to give the <i>time</i> argument and are
+    then puzzled by the error message <b>shutdown</b> produces. The <i>time</i>
+    argument is mandatory; in 90 percent of all cases this argument will be the
+    word <b>now</b>.</p>
+<p class="Pp"><b>init</b>(8) can only capture CTRL-ALT-DEL and start
+    <b>shutdown</b> in console mode. If the system is running the X window
+    System, the X server processes all key strokes. Some X11 environments make
+    it possible to capture CTRL-ALT-DEL, but what exactly is done with that
+    event depends on that environment.</p>
+<p class="Pp"><b>shutdown</b> wasn't designed to be run setuid.
+    <i>/etc/shutdown.allow</i> is not used to find out who is executing
+    shutdown, it ONLY checks who is currently logged in on (one of the)
+    console(s).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+<p class="Pp"><a class="Mt" href="mailto:miquels@cistron.nl">Miquel van
+    Smoorenburg</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><b>fsck</b>(8), <b>init</b>(8), <b>halt</b>(8),
+    <b>poweroff</b>(8), <b>reboot</b>(8)</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 12, 2003</td>
+    <td class="foot-os">sysvinit </td>
+  </tr>
+</table>
+</body>
+</html>
