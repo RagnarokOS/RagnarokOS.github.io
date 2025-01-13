@@ -3,51 +3,42 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="../mandoc.css" type="text/css" media="all"/>
-  <style>
-    table.head, table.foot { width: 100%; }
-    td.head-rtitle, td.foot-os { text-align: right; }
-    td.head-vol { text-align: center; }
-    .Nd, .Bf, .Op { display: inline; }
-    .Pa, .Ad { font-style: italic; }
-    .Ms { font-weight: bold; }
-    .Bl-diag > dt { font-weight: bold; }
-    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
-      font-family: inherit; }
-  </style>
+  <link rel="stylesheet" href="mandoc.css" type="text/css" media="all"/>
   <title>RAGNAROK-LIVE(8)</title>
 </head>
 <body>
-<div class="head" role="doc-pageheader" aria-label="Manual header line">
-    <span class="head-ltitle">RAGNAROK-LIVE(8)</span>
-    <span class="head-vol">System Manager's Manual</span>
-    <span class="head-rtitle">RAGNAROK-LIVE(8)</span>
-</div>
-<main class="manual-text">
+<table class="head">
+  <tr>
+    <td class="head-ltitle">RAGNAROK-LIVE(8)</td>
+    <td class="head-vol">System Manager's Manual</td>
+    <td class="head-rtitle">RAGNAROK-LIVE(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
 <section class="Sh">
-<h2 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h2>
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
 <p class="Pp"><code class="Nm">ragnarok-live</code> &#x2014;
     <span class="Nd">information related to the Ragnarok live system</span></p>
 </section>
 <section class="Sh">
-<h2 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h2>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
 <p class="Pp">This document attempts to give as much information as possible
     about Ragnarok's live environment. The idea is to give a quick rundown of
     the tools available by default so that users can get familiar with the
     system in the most straightforward fashion.</p>
 </section>
 <section class="Sh">
-<h2 class="Sh" id="X_SESSION"><a class="permalink" href="#X_SESSION">X
-  SESSION</a></h2>
+<h1 class="Sh" id="X_SESSION"><a class="permalink" href="#X_SESSION">X
+  SESSION</a></h1>
 <section class="Ss">
-<h3 class="Ss" id="Starting_an_Xsession"><a class="permalink" href="#Starting_an_Xsession">Starting
-  an Xsession</a></h3>
+<h2 class="Ss" id="Starting_an_Xsession"><a class="permalink" href="#Starting_an_Xsession">Starting
+  an Xsession</a></h2>
 <p class="Pp">If not done already, you can start X11 by issuing the
     <a class="Xr">startx(1)</a> command.</p>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Window_Manager"><a class="permalink" href="#Window_Manager">Window
-  Manager</a></h3>
+<h2 class="Ss" id="Window_Manager"><a class="permalink" href="#Window_Manager">Window
+  Manager</a></h2>
 <p class="Pp">Ragnarok includes two window managers: <a class="Xr">Raven(1)</a>,
     a fork of Suckless' dwm, which is the default when logging into X, and
     <a class="Xr">cwm(1)</a>, from the OpenBSD project. Using cwm is as simple
@@ -55,7 +46,7 @@
     &quot;raven&quot; to &quot;cwm&quot; and (re)starting X.</p>
 </section>
 <section class="Ss">
-<h4 class="Ss" id="raven"><a class="permalink" href="#raven">raven</a></h4>
+<h2 class="Ss" id="raven"><a class="permalink" href="#raven">raven</a></h2>
 <p class="Pp">The version of dwm included has been patched to add the
     bottomstack, leftstack and deck layouts. It also includes gaps in all
     layouts (including monocle). Layouts can be set per tag and an option to
@@ -74,7 +65,7 @@
     <span class="Pa">/usr/local/bin/statusbar.sh</span> script.</p>
 </section>
 <section class="Ss">
-<h4 class="Ss" id="cwm"><a class="permalink" href="#cwm">cwm</a></h4>
+<h2 class="Ss" id="cwm"><a class="permalink" href="#cwm">cwm</a></h2>
 <p class="Pp">Calm Window Manager, from the OpenBSD project, is also available
     in the base system. The live environment includes a custom
     <span class="Pa">~/.cwmrc</span> config file, and a status bar is drawn at
@@ -87,8 +78,8 @@
     keyboard shortcut.</p>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Terminal_Emulator"><a class="permalink" href="#Terminal_Emulator">Terminal
-  Emulator</a></h3>
+<h2 class="Ss" id="Terminal_Emulator"><a class="permalink" href="#Terminal_Emulator">Terminal
+  Emulator</a></h2>
 <p class="Pp">The default terminal in Ragnarok is <a class="Xr">rt(1)</a>, a
     lightly patched fork of Suckless' st. Since it is meant to provide a minimal
     terminal for <a class="Xr">tmux(1)</a>, rt does not come with much features,
@@ -99,8 +90,8 @@
     in Xresources.</p>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Keyboard_Shortcuts"><a class="permalink" href="#Keyboard_Shortcuts">Keyboard
-  Shortcuts</a></h3>
+<h2 class="Ss" id="Keyboard_Shortcuts"><a class="permalink" href="#Keyboard_Shortcuts">Keyboard
+  Shortcuts</a></h2>
 <p class="Pp">The <a class="Xr">sxhkd(1)</a> program is provided with a set of
     default keybindings to open programs in
     <span class="Pa">~/.config/sxhkd/sxhkdrc</span>. This means that all
@@ -108,8 +99,8 @@
     used.</p>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Extra_Software"><a class="permalink" href="#Extra_Software">Extra
-  Software</a></h3>
+<h2 class="Ss" id="Extra_Software"><a class="permalink" href="#Extra_Software">Extra
+  Software</a></h2>
 <p class="Pp">The live iso also provides all other programs included in
     Ragnarok's xserv package set: <a class="Xr">xcompmgr(1)</a>,
     <a class="Xr">xclip(1)</a>, <a class="Xr">hsetroot(1)</a>,
@@ -121,12 +112,12 @@
 </section>
 </section>
 <section class="Sh">
-<h2 class="Sh" id="SYSTEM_ADMINISTRATION"><a class="permalink" href="#SYSTEM_ADMINISTRATION">SYSTEM
-  ADMINISTRATION</a></h2>
+<h1 class="Sh" id="SYSTEM_ADMINISTRATION"><a class="permalink" href="#SYSTEM_ADMINISTRATION">SYSTEM
+  ADMINISTRATION</a></h1>
 <p class="Pp">Since this is a live system, there isn't much in the way of system
     administration. However, a few things may be of interest.</p>
 <section class="Ss">
-<h3 class="Ss" id="Networking"><a class="permalink" href="#Networking">Networking</a></h3>
+<h2 class="Ss" id="Networking"><a class="permalink" href="#Networking">Networking</a></h2>
 <p class="Pp">Wired network connections should be properly set at boot time, but
     wireless networks will have to be configured manually. The Ragnarok live iso
     includes a small script to quickly setup an interface file to use with
@@ -144,8 +135,8 @@
   &lt;interface-name&gt;</code></div>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="security_updates"><a class="permalink" href="#security_updates">security
-  updates</a></h3>
+<h2 class="Ss" id="security_updates"><a class="permalink" href="#security_updates">security
+  updates</a></h2>
 <p class="Pp">The live iso is rebuilt whenever the kernel receives a security
     update. However, other programs may have been updated since the iso's
     release and should still be updated even if running a live system
@@ -154,7 +145,7 @@
     internet connection is established.</p>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="Firewall"><a class="permalink" href="#Firewall">Firewall</a></h3>
+<h2 class="Ss" id="Firewall"><a class="permalink" href="#Firewall">Firewall</a></h2>
 <p class="Pp">The base system comes with nftables installed and enabled by
     default, using a sane configuration file which blocks all incoming and
     forwarded connections by default. If one wishes to modify the default
@@ -166,8 +157,8 @@
   restart</code></div>
 </section>
 <section class="Ss">
-<h3 class="Ss" id="System_mail"><a class="permalink" href="#System_mail">System
-  mail</a></h3>
+<h2 class="Ss" id="System_mail"><a class="permalink" href="#System_mail">System
+  mail</a></h2>
 <p class="Pp">You can read system mail by entering the <a class="Xr">mail(1)</a>
     command. Selecting the mail to read is done by typing it's number then
     Return. Quit mail by typing q then Return. You can delete read messages by
@@ -175,8 +166,8 @@
 </section>
 </section>
 <section class="Sh">
-<h2 class="Sh" id="WEB_BROWSING"><a class="permalink" href="#WEB_BROWSING">WEB
-  BROWSING</a></h2>
+<h1 class="Sh" id="WEB_BROWSING"><a class="permalink" href="#WEB_BROWSING">WEB
+  BROWSING</a></h1>
 <p class="Pp">The live system includes Suckless' <a class="Xr">surf(1)</a>
     browser along with a wrapper script called <span class="Pa">bro.sh</span>.
     For details on bro.sh usage, simply enter the following command:</p>
@@ -186,16 +177,19 @@
     Black's unified hosts file. The hosts file can be updated by running the
     'hostsupdate' command as a non-root user.</p>
 <section class="Ss">
-<h3 class="Ss" id="Other_browsers"><a class="permalink" href="#Other_browsers">Other
-  browsers</a></h3>
+<h2 class="Ss" id="Other_browsers"><a class="permalink" href="#Other_browsers">Other
+  browsers</a></h2>
 <p class="Pp">Surf is only recommended as a web page viewer rather than as a
     full fledged web browser. Any browser available in Debian can also be
     installed via <a class="Xr">apt-get(1)</a>.</p>
 </section>
 </section>
-</main>
-<div class="foot" role="doc-pagefooter" aria-label="Manual footer
-  line"><span class="foot-left"></span><span class="foot-date">April 29,
-  2024</span> <span class="foot-os">Ragnarok</span></div>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 29, 2024</td>
+    <td class="foot-os">Ragnarok</td>
+  </tr>
+</table>
 </body>
 </html>
