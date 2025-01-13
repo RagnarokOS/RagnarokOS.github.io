@@ -124,17 +124,24 @@
 			<p>
 			Ragnarok live uses isolinux as the bootloader when booting in bios/legacy mode.
 			A simple 'boot:' prompt is displayed, with a timeout of 15 seconds. After 15 seconds,
-			the default boot mode (live-x11) will automatically launch. If you'd rather not wait,
-			simply press Return.
+			the default boot mode will automatically launch. If you'd rather not wait, simply press
+			Return.
 			</p>
 
-			<p>For systems booting in UEFI mode, grub is the default.
+			<p>For systems booting in UEFI mode, grub is the default.<p>
 
 			<p>
-			Regardless of the bootloader, three boot options are provided: live-x11: full live
-			system setup with xorg and window managers, live-console: boot in a console (e.g.
-			for virtual machines without X11 support), and live-failsafe (a.k.a single user
-			mode).
+			Regardless of the bootloader, four boot options are provided:
+			</p>
+			<p>
+			<ul>
+				<li>live (or, Live system - Ragnarok Kernel): full live system setup with xorg
+				and window managers using the Ragnarok kernel build. This is the default.</li>
+				<li>live-debkernel (or Live system - Debian Kernel): same as above, but with
+				the standard Debian kernel as a fallback.</li>
+				<li>live-console: boot in a console (e.g. for virtual machines without X11 support)</li>
+				<li>live-failsafe: single user mode.</li>
+			</ul>
 			</p>
 
 			<h2>After Boot</h2>
