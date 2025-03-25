@@ -25,34 +25,43 @@
 		<div class="content">
 	<h1>About Ragnarok</h1>
 	<hr>
-	<p>Ragnarok is a Debian-based Linux&reg; distribution whose purpose is to be small, simple, Unix-like and hardened by default.
+	<p>Ragnarok is a Gentoo-based Linux&reg; distribution whose purpose is to be small, simple, Unix-like and hardened by default.
 	One of its core principle is to provide a fully functional base system while remaining as minimal as possible.</p>
 
-	<p>To that end, Ragnarok is built upon a Debian 'minbase' variant and the full system is divided in "sets" (or metapackages)
-	which can be cherry-picked upon system installation. Only the 'base' set is mandatory, while all others (devel, xserv, xprogs,
-	xfonts, virt) are optional.</p>
+	<p>In essence, the Ragnarok project provides a custom Gentoo stage 4 archive, along with extra package sets (eg. X11, Virt)
+	which can be cherry-picked upon system installation. Only "base" is mandatory, while other sets are optional.</p>
 
 	<p><i>Note that the base system does not include extra programs such as web browsers, video players, files
 		managers, etc. It is up to the user to install what is desired.</i></p>
 
+	<p><b>Ragnarok is not associated with the Gentoo project, and using their distribution as a base does not
+		imply that the Gentoo project supports Ragnarok in any way.</b></p>
+
+	<h2>Base and Third Party Packages</h2>
+	<hr>
+	<p>All packages from the base system are provided, and upgradeable, as binaries, while packages not found in the
+	base system may be compiled from source using Ragnarok and Gentoo's ebuild repositories. This puts Ragnarok in between
+	a binary and source based distribution.</p>
+
+	<p>Ragnarok strives to give users the same level of ultimate freedom that a standard Gentoo system would.
+	Those who wish to compile their entire system from source, using custom flags (eg. -march=native) are free
+	to do so. Likewise, binary (<i>pkgname</i>-bin) packages are provided for a lot of software (for example: web
+	browsers), either through Ragnarok's ebuild repository or Gentoo's. Likewise, Gentoo's binhost may be used.</p>
+
+	<p>The Ragnarok project does plan on providing their own binhost in the future.</p>
+	
 	<h2>Development Guidelines</h2>
 	<hr>
 	<p>The project is developed while abiding to the following guidelines:</p>
 
 	<ul>
-		<li>Ragnarok's stable branch follows Debian stable, but new security features may be
-			added about every six months, provided they were thouroughly tested.</li>
-		<li>The build infrastructure should be as straighforward as possible, and easily extendible
+		<li>Build as many packages with LLVM/Clang as possible. This include using extra hardening flags
+		as well as ThinLTO.</li>
+		<li>The build infrastructure should be as straightforward as possible, and easily extendible
 			so that it can be used to create customized installs.</li>
-		<li>Use packages from the Debian repository as is, as much as possible, but rebuild if necessary.</li>
-		<li>If a package needs to be rebuilt, fetch the source from Debian whenever possible,
-			but don't hesitate to fetch from upstream if necessary.</li>
-		<li>Document any changes made to Debian sources, including if/when a patch was reverted.</li>
 		<li>A lack of documentation should be considered a bug.</li>
 		<li>Treat security as a first-class citizen and don't hesitate testing new security features
 		in the development branch (-current).</li>
-		<li>Support for packages which cannot (or will not) be made compatible with the base
-			system should be removed swiftly.</li>
 		<li>All tools developed by the project should be usable either together, or on their own.</li>
 		<li>Decisions are made, and contributions accepted, on the basis of their technical merit alone.</li>
 	</ul>
